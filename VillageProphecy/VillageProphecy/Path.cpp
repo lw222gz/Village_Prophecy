@@ -1,7 +1,7 @@
 #include "Path.h"
 
 //TODO: optimize contrsuctros
-Path::Path(Areas area, Direction dir) : leadsTo(area){
+Path::Path(Areas area, Direction dir) : leadsTo(area), direction(dir){
 	//Loads path texture
 	if (!pathTexture.loadFromFile("Textures/PHRoad.png")){
 		throw "Error loading Path texture.";
@@ -11,7 +11,7 @@ Path::Path(Areas area, Direction dir) : leadsTo(area){
 	pathSprite.setPosition(120, 120);
 }
 
-Path::Path(Areas area, Direction dir, Vector2f position) : leadsTo(area){
+Path::Path(Areas area, Direction dir, Vector2f position) : leadsTo(area), direction(dir){
 	//Loads path texture
 	if (!pathTexture.loadFromFile("Textures/PHRoad.png")){
 		throw "Error loading Path texture.";
@@ -52,4 +52,8 @@ Vector2u Path::getSize(){
 
 Areas Path::getNextArea(){
 	return leadsTo;
+}
+
+Direction Path::getDirection(){
+	return direction;
 }

@@ -31,6 +31,18 @@
     <Filter Include="Header Files\Enums">
       <UniqueIdentifier>{d02d30ad-802d-4478-9a89-4a6911c371b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{b68e0c58-f6f5-45f4-8674-05ff8aa44b86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Player">
+      <UniqueIdentifier>{cb0476d1-cbcf-4800-849e-cd9fe98eca63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{a89fc73b-10d4-44e7-947d-5cf6ea6ef2ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameFields">
+      <UniqueIdentifier>{5b46418e-0682-4d58-8944-34332294b8d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -56,26 +68,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameLoop.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HandleInput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIMaster.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IDrawAble.h">
       <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="Path.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameArea.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameAreas.h">
       <Filter>Header Files\Enums</Filter>
@@ -85,6 +79,24 @@
     </ClInclude>
     <ClInclude Include="MoveDirection.h">
       <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLoop.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIMaster.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Path.h">
+      <Filter>Header Files\GameFields</Filter>
+    </ClInclude>
+    <ClInclude Include="HandleInput.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameArea.h">
+      <Filter>Header Files\GameFields</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

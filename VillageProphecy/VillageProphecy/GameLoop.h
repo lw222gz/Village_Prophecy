@@ -30,6 +30,7 @@ private:
 	GameArea *baseGameArea = NULL;
 	GameArea *survivalGameArea = NULL;
 	GameArea *hostileGameArea = NULL;
-	void EnterNewArea();
+	View view;
+	void EnterNewArea(RenderWindow *window);
 };
 

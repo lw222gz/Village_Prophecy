@@ -16,11 +16,13 @@ public:
 	Sprite getSprite();
 	Areas getNextArea();
 	Vector2u getSize();
+	Direction getDirection();
 
 private:
 	Areas leadsTo;
 	Vector2f entryPoint;
 	Texture pathTexture;
 	Sprite pathSprite;
+	Direction direction;
 };
 

@@ -1,7 +1,7 @@
 #include "GameLoop.h"
 
 GameLoop::GameLoop() {
-	survivalGameArea = new GameArea(Areas::Survival, Vector2u(3000, 970), &player);
+	survivalGameArea = new GameArea(Areas::Survival, Vector2u(3000, 1500), &player);
 	hostileGameArea = new GameArea(Areas::Hostile, Vector2u(4000, 1000), &player);
 	baseGameArea = new GameArea(Areas::Base, Vector2u(1440, 900), &player);
 
@@ -20,8 +20,8 @@ GameLoop::~GameLoop()
 
 void GameLoop::StartLoop(){
 
-	RenderWindow window(VideoMode(1440, 900), "Village Prophecy");
-	View view(FloatRect(Vector2f(0,0), Vector2f(1440, 900)));
+	RenderWindow window = RenderWindow(VideoMode(1440, 900), "Village Prophecy");
+	view = View(Vector2f(720,450), Vector2f(1440, 900));
 	window.setView(view);
 
 	Clock timer;
@@ -36,7 +36,7 @@ void GameLoop::StartLoop(){
 		//Checks for user input
 		newArea = inputHandler.CheckUserInput(&player, &timeElapsed);
 		if (newArea != Areas::None){
-			EnterNewArea();
+			EnterNewArea(&window);
 		}
 		
 
@@ -47,9 +47,6 @@ void GameLoop::StartLoop(){
 			if (event.type == Event::Closed){
 				window.close();
 			}
-
-			
-			
 		}
 
 		//Clear window
@@ -68,12 +65,26 @@ void GameLoop::StartLoop(){
 			s.setPosition(Vector2f(1200, 100));
 
 			window.draw(s);
+
+			s.setPosition(Vector2f(2800, 100));
+			window.draw(s);
 		}
+		//END TEST CODE
 
-		if (player.getPosition().x >= window.getSize().x / 2){
+		//Camera movement, changes the values of the view to follow the player
+		//moves camera X-led
+		if (player.getPosition().x >= window.getSize().x / 2 && 
+			player.getPosition().x + window.getSize().x/2 < currentGameArea->getAreaSize().x){
 
-			view.move(player.getPosition().x - window.getSize().x / 2,
-						player.getPosition().y - window.getSize().y / 2);
+			view.setCenter((window.getSize().x / 2) + (player.getPosition().x - window.getSize().x / 2), view.getCenter().y);
+			window.setView(view);
+		}
+		//moves camera Y-led
+		if (player.getPosition().y >= window.getSize().y / 2 &&
+			player.getPosition().y + window.getSize().y / 2 < currentGameArea->getAreaSize().y){
+
+			view.setCenter(view.getCenter().x, (window.getSize().y / 2) + (player.getPosition().y - window.getSize().y / 2));
+			window.setView(view);
 		}
 		
 
@@ -83,7 +94,7 @@ void GameLoop::StartLoop(){
 	}
 }
 
-void GameLoop::EnterNewArea(){
+void GameLoop::EnterNewArea(RenderWindow *window){
 	switch (newArea)
 	{
 	case Base:
@@ -106,14 +117,29 @@ void GameLoop::EnterNewArea(){
 		break;
 	}
 
-	for (int i = 0; i < currentGameArea->getAreaPaths().size(); ++i){
+	int y;
+	int x = currentGameArea->getAreaSize().x - window->getSize().x / 2;
+	if (x < window->getSize().x / 2){
+		x = window->getSize().x / 2;
+	}
+	for (unsigned int i = 0; i < currentGameArea->getAreaPaths().size(); ++i){
 		//gets the path that leads back to the last area to set the player position.
 		if (currentGameArea->getAreaPaths()[i]->getNextArea() == lastArea){
 			player.setPlayerPosition(currentGameArea->getAreaPaths()[i]->getPosition());
 			lastArea = newArea;
+
+			y = currentGameArea->getAreaPaths()[i]->getPosition().y + currentGameArea->getAreaPaths()[i]->getSize().y / 2;
+
+			if (currentGameArea->getAreaPaths()[i]->getPosition().x == 0){
+				x = window->getSize().x / 2;
+			}
 			break;
 		}
 	}
 	player.setAreaPaths(currentGameArea->getAreaPaths());
 	player.setBorders(currentGameArea->getAreaSize());
+	
+	
+	view.setCenter(x, y);
+	window->setView(view);
 }
