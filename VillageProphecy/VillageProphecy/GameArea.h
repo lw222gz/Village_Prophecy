@@ -7,10 +7,11 @@
 
 using namespace sf;
 using namespace std;
+
 class GameArea
 {
 public:
-	GameArea(Areas area, Vector2u size, Player *player);
+	GameArea(Areas area, Vector2u size);
 	~GameArea();
 	Areas getAreaType();
 	vector<IDrawAble*> getAreaObjects();
@@ -21,11 +22,9 @@ private:
 	vector<IDrawAble*> areaObjects;
 	Vector2u areaSize;
 	Areas areaType;
-	void generateGameArea(Player *player);
+	void generateGameArea();
 	Vector2f entryPoint;
 
 	vector<Path*> areaPaths;
-
-
 };
 

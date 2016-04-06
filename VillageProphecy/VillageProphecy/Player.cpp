@@ -3,7 +3,7 @@
 
 Player::Player()
 {
-	playerSprite.setPosition(Vector2f(120, 120));
+	playerSprite.setPosition(Vector2f(1000, 450));
 
 	if (!playerTexture.loadFromFile("Textures/PHPlayer.png")){
 		throw "Player textures could not load";
@@ -17,18 +17,47 @@ Player::~Player()
 {
 }
 
+//returns the players postion
 Vector2f Player::getPosition(){
 	return playerSprite.getPosition();
 }
 
+//Sets the vector for all the avalibel paths in the current game area.
 void Player::setAreaPaths(vector<Path*> areaPaths){
 	avaliblePaths = areaPaths;
 }
 
+//Forces the player to the given vector position.
 void Player::setPlayerPosition(Vector2f pos){
 	playerSprite.setPosition(pos);
 }
 
+//Sets the borders the player will collide against.
+void Player::setBorders(Vector2u size){
+	borders = size;
+}
+
+//returns the players sprite
+Sprite Player::getSprite(){
+	return playerSprite;
+}
+
+//returns a pointer of the inventoryManager object
+Inventory* Player::InventoryManager(){
+	return &inventoryManager;
+}
+
+/*
+* <DESCRIPTION>: Updates the players position depending on user input
+* Also if the player would enter a path to another area, the area that path leads to is returned.
+*
+* @PARAMS
+*	dir = the direction the player is moving.
+*	t = a pointer to a clock timer to calculate the distance the player should move
+* @RETURNS
+*	Areas enum. If a player entered a new area that area enum value will be returned, otherwise 
+*	Areas::None is returned.
+*/
 Areas Player::playerMove(MoveDirection dir, Time *t){
 
 	float movedDistance = (float)(t->asSeconds() * speed);
@@ -41,6 +70,8 @@ Areas Player::playerMove(MoveDirection dir, Time *t){
 			distanceY = +(movedDistance);	
 			if (playerSprite.getPosition().y - distanceY <= 0){
 				//TODO: add path collision
+
+				// Player is at the edge of the border thus the player move distance is set to 0
 				distanceY = 0;
 			}
 			
@@ -51,6 +82,8 @@ Areas Player::playerMove(MoveDirection dir, Time *t){
 			//add height
 			if (playerSprite.getPosition().y - distanceY >= borders.y - playerTexture.getSize().y){
 				//TODO: add path collision
+
+				// Player is at the edge of the border thus the player move distance is set to 0
 				distanceY = 0;
 			}
 			
@@ -69,6 +102,7 @@ Areas Player::playerMove(MoveDirection dir, Time *t){
 						return avaliblePaths[i]->getNextArea();
 					}
 				}
+				// Player is at the edge of the border thus the player move distance is set to 0
 				distanceX = 0;
 			}
 			
@@ -88,6 +122,7 @@ Areas Player::playerMove(MoveDirection dir, Time *t){
 					}
 				}
 
+				//Player is at the edge of the border thus the player move distance is set to 0
 				distanceX = 0;
 			}
 			break;
@@ -102,13 +137,4 @@ Areas Player::playerMove(MoveDirection dir, Time *t){
 							playerSprite.getPosition().y - distanceY);
 
 	return Areas::None;
-}
-
-void Player::setBorders(Vector2u size){
-	borders = size;
-}
-
-
-Sprite Player::getSprite(){
-	return playerSprite;
 }

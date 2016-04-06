@@ -1,12 +1,9 @@
 #include "GameArea.h"
 
 
-GameArea::GameArea(Areas area, Vector2u size, Player *player) : areaType(area), areaSize(size)
+GameArea::GameArea(Areas area, Vector2u size) : areaType(area), areaSize(size)
 {
-	areaObjects.push_back(player);
-	generateGameArea(player);
-
-
+	generateGameArea();
 }
 
 
@@ -31,7 +28,7 @@ vector<Path*> GameArea::getAreaPaths(){
 }
 
 
-void GameArea::generateGameArea(Player *player){
+void GameArea::generateGameArea(){
 	
 	switch (areaType)
 	{

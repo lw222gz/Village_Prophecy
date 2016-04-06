@@ -1,9 +1,9 @@
 #include "GameLoop.h"
 
 GameLoop::GameLoop() {
-	survivalGameArea = new GameArea(Areas::Survival, Vector2u(3000, 1500), &player);
-	hostileGameArea = new GameArea(Areas::Hostile, Vector2u(4000, 1000), &player);
-	baseGameArea = new GameArea(Areas::Base, Vector2u(1440, 900), &player);
+	survivalGameArea = new GameArea(Areas::Survival, Vector2u(3000, 1500));
+	hostileGameArea = new GameArea(Areas::Hostile, Vector2u(4000, 1000));
+	baseGameArea = new GameArea(Areas::Base, Vector2u(1440, 900));
 
 	//A game will allways start in the baseGameArea
 	currentGameArea = baseGameArea;
@@ -52,7 +52,7 @@ void GameLoop::StartLoop(){
 		//Clear window
 		window.clear(Color::White);
 		
-		gui.DrawGame(currentGameArea->getAreaObjects(), &window);
+		gui.DrawGame(currentGameArea->getAreaObjects(), &window, &view, &player);
 
 		//TEST CODE!
 		if (lastArea == Areas::Survival){

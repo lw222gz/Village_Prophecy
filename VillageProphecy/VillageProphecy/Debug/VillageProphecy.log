@@ -1,28 +1,42 @@
-﻿Build started 2016-04-05 16:50:55.
+﻿Build started 2016-04-06 17:51:31.
      1>Project "C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\VillageProphecy\VillageProphecy.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\Lucas\Desktop\SFML-2.3.2-windows-vc12-32-bit\SFML-2.3.2\include\SFML" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GameArea.cpp GameLoop.cpp HandleInput.cpp Player.cpp Source.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\Lucas\Desktop\SFML-2.3.2-windows-vc12-32-bit\SFML-2.3.2\include\SFML" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GUIMaster.cpp GameArea.cpp GameItem.cpp GameLoop.cpp HandleInput.cpp Inventory.cpp Player.cpp Source.cpp
+         Player.cpp
+         Inventory.cpp
+         GameItem.cpp
+         GUIMaster.cpp
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(24): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(38): warning C4018: '<' : signed/unsigned mismatch
+         Generating Code...
+         Compiling...
+         Source.cpp
+         HandleInput.cpp
          GameLoop.cpp
      1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gameloop.cpp(122): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gameloop.cpp(131): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
      1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gameloop.cpp(143): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         Generating Code...
-         Skipping... (no relevant changes detected)
-         Source.cpp
-         Player.cpp
-         HandleInput.cpp
          GameArea.cpp
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gamearea.cpp(38): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gamearea.cpp(45): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gamearea.cpp(58): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gamearea.cpp(70): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+         Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Lucas\Desktop\SFML-2.3.2-windows-vc12-32-bit\SFML-2.3.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-main-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.lib" /MACHINE:X86 Debug\GameArea.obj
+         Debug\GameItem.obj
          Debug\GameLoop.obj
          Debug\GUIMaster.obj
          Debug\HandleInput.obj
+         Debug\Inventory.obj
          Debug\Path.obj
          Debug\Player.obj
          Debug\Source.obj
-         VillageProphecy.vcxproj -> C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.exe
-     1>Done Building Project "C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\VillageProphecy\VillageProphecy.vcxproj" (Build target(s)).
+     1>GameItem.obj : error LNK2001: unresolved external symbol "public: virtual class sf::Vector2<float> __thiscall GameItem::getPosition(void)" (?getPosition@GameItem@@UAE?AV?$Vector2@M@sf@@XZ)
+     1>GameItem.obj : error LNK2001: unresolved external symbol "private: static class sf::Texture GameItem::emptySlotTexture" (?emptySlotTexture@GameItem@@0VTexture@sf@@A)
+     1>C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.exe : fatal error LNK1120: 2 unresolved externals
+     1>Done Building Project "C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\VillageProphecy\VillageProphecy.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:01.72
+Time Elapsed 00:00:06.71

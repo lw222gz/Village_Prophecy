@@ -82,9 +82,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameArea.cpp" />
+    <ClCompile Include="GameItem.cpp" />
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="GUIMaster.cpp" />
     <ClCompile Include="HandleInput.cpp" />
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Path.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -93,10 +95,13 @@
     <ClInclude Include="Direction.h" />
     <ClInclude Include="GameArea.h" />
     <ClInclude Include="GameAreas.h" />
+    <ClInclude Include="GameItem.h" />
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="GUIMaster.h" />
     <ClInclude Include="HandleInput.h" />
     <ClInclude Include="IDrawAble.h" />
+    <ClInclude Include="Inventory.h" />
+    <ClInclude Include="ItemType.h" />
     <ClInclude Include="MoveDirection.h" />
     <ClInclude Include="Path.h" />
     <ClInclude Include="Player.h" />
