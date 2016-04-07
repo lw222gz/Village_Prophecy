@@ -13,6 +13,8 @@ public:
 private:
 	ItemType itemType;
 	Sprite itemSprite;
+	//TODO: check the problem that occured when the texture is static
+	//It crashed the game
 	Texture emptySlotTexture;
 	void setItemSprite();
 

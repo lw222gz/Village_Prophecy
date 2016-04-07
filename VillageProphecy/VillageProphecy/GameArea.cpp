@@ -11,20 +11,27 @@ GameArea::~GameArea()
 {
 }
 
-vector<IDrawAble*> GameArea::getAreaObjects(){
-	return areaObjects;
+vector<IDrawAble*> GameArea::getAreaVisualObjects(){
+	return areaVisualObjects;
 }
 
 Areas GameArea::getAreaType(){
 	return areaType;
 }
 
+//returns a Vector2u representing the 
 Vector2u GameArea::getAreaSize(){
 	return areaSize;
 }
 
+//returns the path objects in the area
 vector<Path*> GameArea::getAreaPaths(){
 	return areaPaths;
+}
+
+//returnes the game objects in the area
+vector<GameObject*> GameArea::getAreaObjects(){
+	return areaObjects;
 }
 
 
@@ -36,7 +43,7 @@ void GameArea::generateGameArea(){
 				Path *p = new Path(Areas::Survival,
 									Direction::East,
 									Vector2f(areaSize.x, areaSize.y / 2));
-				areaObjects.push_back(p);
+				areaVisualObjects.push_back(p);
 				areaPaths.push_back(p);
 				
 
@@ -44,7 +51,7 @@ void GameArea::generateGameArea(){
 							Direction::West,
 							Vector2f(0, areaSize.y / 2));
 
-				areaObjects.push_back(p);
+				areaVisualObjects.push_back(p);
 				areaPaths.push_back(p);
 				
 				
@@ -57,8 +64,14 @@ void GameArea::generateGameArea(){
 								Direction::West,
 								Vector2f(0, areaSize.y / 2));
 
-			areaObjects.push_back(p);
+			areaVisualObjects.push_back(p);
 			areaPaths.push_back(p);
+
+			//TODO: randomize the object spawn. After gathering some should respawn 
+			//after a certain amount of ingame days.
+			GameObject *go = new GameObject(GameObjectType::Tree, Vector2f(500, 800));
+			areaVisualObjects.push_back(go);
+			areaObjects.push_back(go);
 
 			}
 			break;
@@ -69,7 +82,7 @@ void GameArea::generateGameArea(){
 							Direction::East,
 							Vector2f(areaSize.x, areaSize.y / 2));
 
-			areaObjects.push_back(p);
+			areaVisualObjects.push_back(p);
 			areaPaths.push_back(p);
 
 		

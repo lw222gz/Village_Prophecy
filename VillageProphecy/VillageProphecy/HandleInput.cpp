@@ -11,6 +11,7 @@ HandleInput::~HandleInput()
 
 
 Areas HandleInput::CheckUserInput(Player *player, Time *t){
+
 	area = Areas::None;
 
 	if (Keyboard::isKeyPressed(Keyboard::W)){		

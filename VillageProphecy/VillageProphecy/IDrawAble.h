@@ -3,7 +3,7 @@
 
 using namespace sf;
 
-//Everything in a struct is public
+//TODO: Merge this "interface" with a gameObject interface?
 class IDrawAble{
 public:
 	virtual Sprite getSprite() = 0;

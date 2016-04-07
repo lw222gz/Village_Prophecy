@@ -17,6 +17,7 @@ public:
 	Areas playerMove(MoveDirection dir, Time *t);
 	void setBorders(Vector2u size);
 	Vector2f getPosition();
+	Vector2u getSize();
 	Sprite getSprite();
 	void setPlayerPosition(Vector2f pos);
 	void setAreaPaths(vector<Path*> areaPaths);

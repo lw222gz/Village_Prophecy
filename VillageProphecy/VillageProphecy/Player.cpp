@@ -22,6 +22,11 @@ Vector2f Player::getPosition(){
 	return playerSprite.getPosition();
 }
 
+//returns the size of the users texture.
+Vector2u Player::getSize(){
+	return playerTexture.getSize();
+}
+
 //Sets the vector for all the avalibel paths in the current game area.
 void Player::setAreaPaths(vector<Path*> areaPaths){
 	avaliblePaths = areaPaths;

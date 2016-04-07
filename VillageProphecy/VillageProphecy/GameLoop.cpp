@@ -48,12 +48,18 @@ void GameLoop::StartLoop(){
 				window.close();
 			}
 		}
+		//If player presses ESC then the window should close
+		if (Keyboard::isKeyPressed(Keyboard::Escape)){
+			window.close();
+		}
 
-		//Clear window
-		window.clear(Color::White);
+		for (int i = 0; i < currentGameArea->getAreaObjects().size(); ++i){
+			if(currentGameArea->getAreaObjects()[i]->isTriggerd(&player)){
+				currentGameArea->getAreaObjects()[i]->TriggerdEffect();
+			}
+		}
 		
-		gui.DrawGame(currentGameArea->getAreaObjects(), &window, &view, &player);
-
+		
 		//TEST CODE!
 		if (lastArea == Areas::Survival){
 			Texture test;
@@ -71,6 +77,9 @@ void GameLoop::StartLoop(){
 		}
 		//END TEST CODE
 
+		//Clear window
+		window.clear(Color::White);
+
 		//Camera movement, changes the values of the view to follow the player
 		//moves camera X-led
 		if (player.getPosition().x >= window.getSize().x / 2 && 
@@ -86,8 +95,9 @@ void GameLoop::StartLoop(){
 			view.setCenter(view.getCenter().x, (window.getSize().y / 2) + (player.getPosition().y - window.getSize().y / 2));
 			window.setView(view);
 		}
+		//draw the game
+		gui.DrawGame(currentGameArea->getAreaVisualObjects(), &window, &view, &player);
 		
-
 		// end the current frame
 		window.display();
 		
