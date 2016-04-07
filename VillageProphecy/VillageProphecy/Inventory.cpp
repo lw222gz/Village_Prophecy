@@ -5,6 +5,9 @@ Inventory::Inventory()
 	//set amount of inventory spots
 	inventoryItems.reserve(6);
 	//TODO: Create empty inventory spots.
+	for (int i = 0; i < 6; i++){
+		inventoryItems.push_back(new GameItem(ItemType::Empty));
+	}
 }
 
 

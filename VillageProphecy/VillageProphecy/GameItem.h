@@ -7,13 +7,13 @@ class GameItem : public IDrawAble
 public:
 	GameItem(ItemType itemType);
 	~GameItem();	
-	Vector2f getPosition();
 	Sprite getSprite();
+	void setSlotPosition(Vector2f);
 
 private:
 	ItemType itemType;
 	Sprite itemSprite;
-	static Texture emptySlotTexture;
+	Texture emptySlotTexture;
 	void setItemSprite();
 
 };

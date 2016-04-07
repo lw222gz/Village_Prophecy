@@ -14,6 +14,11 @@ GameItem::~GameItem()
 {
 }
 
+//sets the visual position of an item slot.
+void GameItem::setSlotPosition(Vector2f pos){
+	itemSprite.setPosition(pos);
+}
+
 Sprite GameItem::getSprite(){
 	return itemSprite;
 }
