@@ -13,7 +13,9 @@ public:
 	~HandleInput();
 	Areas CheckUserInput(Player *player, Time *t);
 
+	bool checkQuickMenuInput();
+
 private:
-	Areas area = Areas::None;
+	Areas area = Areas::No_Area;
 };
 

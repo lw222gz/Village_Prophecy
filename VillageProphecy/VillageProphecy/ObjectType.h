@@ -4,6 +4,7 @@
 */
 enum GameObjectType
 {
-	Tree,
-	Enemy
+	Tree = 300,
+	Enemy,
+	None
 };

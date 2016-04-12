@@ -1,10 +1,13 @@
 #include "GameItem.h"
 
 
-GameItem::GameItem(ItemType gameItemType) : itemType(gameItemType)
+GameItem::GameItem(GameObjectType objectType) : itemType(objectType)
 {
 	if (!emptySlotTexture.loadFromFile("Textures/PHInventorySpot.png")){
-		throw "InventorySpot texture did not load correctly.";
+		throw "TEXTURE LOAD ERROR: InventorySpot texture did not load correctly.";
+	}
+	if (!woodSlotTexture.loadFromFile("Textures/PHWoodSlotTexture.png")){
+		throw "TEXTURE LOAD ERROR: Wood slot texture did not load correctly.";
 	}
 	setItemSprite();
 }
@@ -23,16 +26,43 @@ Sprite GameItem::getSprite(){
 	return itemSprite;
 }
 
+//Returns the item type.
+GameObjectType GameItem::getType(){
+	return itemType;
+}
+
+int GameItem::getStackAmount(){
+	if (stackAble){
+		return stackAmount;
+	}
+	else {
+		return 0;
+	}
+}
+
+bool GameItem::isStackAble(){
+	return stackAble;
+}
+
+void GameItem::addToStack(){
+	stackAmount += 1;
+}
+
 //sets the item sprite depending on the item type
 void GameItem::setItemSprite(){
 	switch (itemType){
-		case ItemType::Empty:
+		case GameObjectType::None:
 			itemSprite.setTexture(emptySlotTexture);
+			stackAble = false;
+			break;
+
+		case GameObjectType::Tree:
+			itemSprite.setTexture(woodSlotTexture);
+			stackAble = true;
 			break;
 
 		default:
-			//default texture is empty slot in case of buggs or texture not finished/ implemented
-			itemSprite.setTexture(emptySlotTexture);
+			throw "GAME ITEM ERROR: Game item type is not a vaild inventory type.";
 			break;
 	}
 }

@@ -103,11 +103,11 @@
     <ClInclude Include="HandleInput.h" />
     <ClInclude Include="IDrawAble.h" />
     <ClInclude Include="Inventory.h" />
-    <ClInclude Include="ItemType.h" />
     <ClInclude Include="MoveDirection.h" />
     <ClInclude Include="ObjectType.h" />
     <ClInclude Include="Path.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="TriggerType.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

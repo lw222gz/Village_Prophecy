@@ -2,6 +2,7 @@
 #include "ObjectType.h"
 #include "IDrawAble.h"
 #include "Player.h"
+#include "TriggerType.h"
 #include <SFML/Graphics.hpp>
 
 
@@ -14,9 +15,11 @@ public:
 	~GameObject();
 	Sprite getSprite();
 	bool isTriggerd(Player *p);
-	void TriggerdEffect();
+	TriggerType getTriggerType();
+	GameObjectType getObjectType();
 
 private:
+	TriggerType triggerType = TriggerType::No_Action;
 	float triggerRange = 50;
 	GameObjectType type;
 	Sprite objectSprite;

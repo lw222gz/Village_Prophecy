@@ -12,7 +12,7 @@ HandleInput::~HandleInput()
 
 Areas HandleInput::CheckUserInput(Player *player, Time *t){
 
-	area = Areas::None;
+	area = Areas::No_Area;
 
 	if (Keyboard::isKeyPressed(Keyboard::W)){		
 		area = player->playerMove(MoveDirection::Up, t);
@@ -31,4 +31,12 @@ Areas HandleInput::CheckUserInput(Player *player, Time *t){
 	}
 
 	return area;
+}
+
+
+bool HandleInput::checkQuickMenuInput(){
+	if (Keyboard::isKeyPressed(Keyboard::R)){
+		return true;
+	}
+	return false;
 }

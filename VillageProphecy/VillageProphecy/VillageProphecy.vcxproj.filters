@@ -116,9 +116,6 @@
     <ClInclude Include="Inventory.h">
       <Filter>Header Files\Player</Filter>
     </ClInclude>
-    <ClInclude Include="ItemType.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="GameItem.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
@@ -126,6 +123,9 @@
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="ObjectType.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="TriggerType.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
   </ItemGroup>

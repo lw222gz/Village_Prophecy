@@ -141,5 +141,5 @@ Areas Player::playerMove(MoveDirection dir, Time *t){
 	playerSprite.setPosition(playerSprite.getPosition().x - distanceX, 
 							playerSprite.getPosition().y - distanceY);
 
-	return Areas::None;
+	return Areas::No_Area;
 }

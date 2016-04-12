@@ -4,10 +4,10 @@
 */
 enum Areas
 {
-	Base,
+	Base = 100,
 	Survival,
 	Hostile,
 	Dungeon,
 	Final,
-	None
+	No_Area
 };

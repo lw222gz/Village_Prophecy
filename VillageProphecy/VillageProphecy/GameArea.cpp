@@ -34,6 +34,13 @@ vector<GameObject*> GameArea::getAreaObjects(){
 	return areaObjects;
 }
 
+//remove formula found at : http://stackoverflow.com/questions/3385229/c-erase-vector-element-by-value-rather-than-by-position
+void GameArea::removeAreaObject(GameObject *obj){
+	areaObjects.erase(remove(areaObjects.begin(), areaObjects.end(), obj), areaObjects.end());
+	areaVisualObjects.erase(remove(areaVisualObjects.begin(), areaVisualObjects.end(), obj), areaVisualObjects.end());
+	delete obj;
+}
+
 
 void GameArea::generateGameArea(){
 	
@@ -70,6 +77,10 @@ void GameArea::generateGameArea(){
 			//TODO: randomize the object spawn. After gathering some should respawn 
 			//after a certain amount of ingame days.
 			GameObject *go = new GameObject(GameObjectType::Tree, Vector2f(500, 800));
+			areaVisualObjects.push_back(go);
+			areaObjects.push_back(go);
+
+			go = new GameObject(GameObjectType::Tree, Vector2f(500, 200));
 			areaVisualObjects.push_back(go);
 			areaObjects.push_back(go);
 

@@ -19,6 +19,7 @@ public:
 	vector<GameObject*> getAreaObjects();
 	vector<Path*> getAreaPaths();
 	Vector2u getAreaSize();
+	void removeAreaObject(GameObject *obj);
 
 
 private:

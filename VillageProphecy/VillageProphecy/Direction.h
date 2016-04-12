@@ -4,7 +4,7 @@
 */
 enum Direction
 {
-	East,
+	East = 0,
 	West,
 	North,
 	South

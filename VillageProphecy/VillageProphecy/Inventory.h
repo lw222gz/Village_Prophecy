@@ -1,6 +1,6 @@
 #pragma once
 #include "GameItem.h"
-
+#include "ObjectType.h"
 #include <vector>
 
 using namespace std;
