@@ -11,6 +11,7 @@ GameArea::~GameArea()
 {
 }
 
+
 vector<IDrawAble*> GameArea::getAreaVisualObjects(){
 	return areaVisualObjects;
 }
@@ -60,6 +61,10 @@ void GameArea::generateGameArea(){
 
 				areaVisualObjects.push_back(p);
 				areaPaths.push_back(p);
+
+				GameObject *go = new GameObject(GameObjectType::Fireplace, Vector2f(660, 390));
+				areaVisualObjects.push_back(go);
+				areaObjects.push_back(go);
 				
 				
 		

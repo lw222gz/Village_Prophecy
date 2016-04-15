@@ -1,8 +1,8 @@
 #pragma once
 #include "Player.h"
-#include "MoveDirection.h"
-#include "GameAreas.h"
-#include <SFML/Graphics.hpp>
+//#include "MoveDirection.h"
+//#include "GameAreas.h"
+//#include <SFML/Graphics.hpp>
 
 using namespace sf;
 

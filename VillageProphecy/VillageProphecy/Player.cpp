@@ -3,13 +3,16 @@
 
 Player::Player()
 {
+	//default position
 	playerSprite.setPosition(Vector2f(1000, 450));
 
 	if (!playerTexture.loadFromFile("Textures/PHPlayer.png")){
 		throw "Player textures could not load";
 	}
 	playerSprite.setTexture(playerTexture);
-	//playerSprite.setPosition(position);
+
+	//defines inventory
+	inventory = new Inventory();
 }
 
 
@@ -49,7 +52,7 @@ Sprite Player::getSprite(){
 
 //returns a pointer of the inventoryManager object
 Inventory* Player::InventoryManager(){
-	return &inventoryManager;
+	return inventory;
 }
 
 /*

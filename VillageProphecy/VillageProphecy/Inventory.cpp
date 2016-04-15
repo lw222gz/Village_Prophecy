@@ -53,3 +53,12 @@ void Inventory::addItem(GameItem *item){
 vector<GameItem*> Inventory::getInventoryItems(){
 	return inventoryItems;
 }
+
+
+//removes pointer and frees up memory 
+void Inventory::removeInventoryItem(int index){
+	delete inventoryItems[index];
+
+	//makes the inventory spot empty
+	inventoryItems[index] = new GameItem(GameObjectType::None);
+}

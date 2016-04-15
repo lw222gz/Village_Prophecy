@@ -1,10 +1,10 @@
 #pragma once
-#include "Path.h"
-#include "GameAreas.h"
-#include "Direction.h"
-#include "Player.h"
+//#include "Path.h"
+//#include "GameAreas.h"
+//#include "Direction.h"
+//#include "Player.h"
 #include "GameObject.h"
-#include <SFML/Graphics.hpp>
+//#include <SFML/Graphics.hpp>
 
 using namespace sf;
 using namespace std;

@@ -13,6 +13,7 @@ public:
 	int getStackAmount();
 	bool isStackAble();
 	void addToStack();
+	void reduceStackAmount(int amount);
 
 private:
 	bool stackAble = false;

@@ -1,5 +1,7 @@
 #include "GameLoop.h"
 
+//comment skeleton
+
 /*
 * <DESCRIPTION>
 * @PARAMS

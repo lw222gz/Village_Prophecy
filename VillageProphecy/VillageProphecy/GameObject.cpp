@@ -22,6 +22,12 @@ Sprite GameObject::getSprite(){
 	return objectSprite;
 }
 
+//If the objects triggertype is build then a material list will be returned.
+MaterialList* GameObject::MaterialListManager(){
+	//TODO: what if this gets called wrong and materialList is null?
+	return materialList;
+}
+
 bool GameObject::isTriggerd(Player *p){
 	if (p->getPosition().x + p->getSize().x >= objectSprite.getPosition().x - triggerRange &&
 		p->getPosition().x <= objectSprite.getPosition().x + objectTexture.getSize().x + triggerRange &&
@@ -40,15 +46,30 @@ TriggerType GameObject::getTriggerType(){
 	return triggerType;
 }
 
-//Sets the texture of the game object aswell as it's trigger type. 
+
+
+//Sets all values for a game object with help of the GameObjectType parameter that was 
+//sent to the constructor
 void GameObject::setObjectSprite(){
+
 	switch (type){
+
 		case GameObjectType::Tree:
-			//TODO: set texture
 			if (!objectTexture.loadFromFile("Textures/PHWoodObject.png")){
 				throw "Game object Wood textures did not load correctly.";
 			}
 			triggerType = TriggerType::Harvest;
+			break;
+
+		case GameObjectType::Fireplace:
+			if (!objectTexture.loadFromFile("Textures/PHFirePlace.png")){
+				throw "TEXTURE LOAD ERROR: Fire place texture did not load correctly";
+			}
+			triggerType = TriggerType::Build;
+			materialList = new MaterialList(type);
+			objectSprite.setColor(Color(255,255,255,128));
+				
+
 			break;
 
 		default:
@@ -64,4 +85,12 @@ void GameObject::setObjectSprite(){
 
 
 	objectSprite.setTexture(objectTexture);
+}
+
+
+//Only for object with trigger Build
+void GameObject::completeConstruction(){
+	delete materialList;
+	objectSprite.setColor(Color(255, 255, 255, 255));
+	triggerType = TriggerType::No_Action;
 }

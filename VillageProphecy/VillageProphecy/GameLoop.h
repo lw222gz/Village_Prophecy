@@ -1,13 +1,12 @@
 #pragma once
 #include "Player.h"
-#include "IDrawAble.h"
+//Inventory
 #include "HandleInput.h"
 #include "GUIMaster.h"
 #include "GameArea.h"
-#include "GameAreas.h"
-#include "GameObject.h"
-#include "TriggerType.h"
-#include <SFML/Graphics.hpp>
+//#include "GameObject.h"
+//#include "TriggerType.h"
+//#include <SFML/Graphics.hpp>
 
 using namespace sf;
 using namespace std;

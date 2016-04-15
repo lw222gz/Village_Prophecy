@@ -2,7 +2,7 @@
 #include "IDrawAble.h"
 #include "GameAreas.h"
 #include "Direction.h"
-#include <SFML/Graphics.hpp>
+//#include <SFML/Graphics.hpp>
 
 using namespace sf;
 

@@ -17,6 +17,7 @@ GameItem::~GameItem()
 {
 }
 
+
 //sets the visual position of an item slot.
 void GameItem::setSlotPosition(Vector2f pos){
 	itemSprite.setPosition(pos);
@@ -46,6 +47,14 @@ bool GameItem::isStackAble(){
 
 void GameItem::addToStack(){
 	stackAmount += 1;
+}
+
+//Removes amount form the stack of items
+void GameItem::reduceStackAmount(int amount){
+	if (amount > stackAmount){
+		throw "Amount to remove from stack is too high";
+	}
+	stackAmount -= amount;
 }
 
 //sets the item sprite depending on the item type

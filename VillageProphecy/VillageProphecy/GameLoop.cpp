@@ -186,6 +186,11 @@ void GameLoop::ExecuteObjectTrigger(){
 			break;
 
 		case TriggerType::Build: 
+			triggerdObject->MaterialListManager()->addItemsToConstruction(player.InventoryManager());
+
+			if (triggerdObject->MaterialListManager()->getMaterialList().size() <= 0){
+				triggerdObject->completeConstruction();
+			}
 			//TODO: build trigger for construction
 			break;
 

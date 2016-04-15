@@ -74,7 +74,7 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, V
 	}
 
 	//If triggerdObj isent null a quick menu should be displayed.
-	if (triggerdObj != NULL){
+	if (triggerdObj != NULL && triggerdObj->getTriggerType() != TriggerType::No_Action){
 		//sets the position for the quick menu
 		quickMenuSprite.setPosition(player->getPosition().x + (player->getSize().x / 2) - quickMenuTexture.getSize().x / 2,
 									player->getPosition().y - quickMenuTexture.getSize().y - 20);
@@ -90,6 +90,24 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, V
 		displayText.setPosition(player->getPosition().x - 20,
 								player->getPosition().y - quickMenuTexture.getSize().y + 20);
 		window->draw(displayText);
+
+		//If the object is constructable then the list of required items to construct is drawn.
+		if (triggerdObj->getTriggerType() == TriggerType::Build){
+			//Draw out required items for the construction
+			displayText.setString("Requires:");
+			displayText.setPosition(player->getPosition().x - 20,
+				player->getPosition().y - quickMenuTexture.getSize().y + 40);
+			window->draw(displayText);
+			
+			for (int i = 0; i < triggerdObj->MaterialListManager()->getMaterialList().size(); ++i){
+				//Draw required items
+				displayText.setString(to_string(triggerdObj->MaterialListManager()->getMaterialList()[i]->getAmountRequired()) + " " +
+										getStringRepresentation(triggerdObj->MaterialListManager()->getMaterialList()[i]->getMaterialType()));
+				displayText.setPosition(player->getPosition().x - 20,
+										player->getPosition().y - quickMenuTexture.getSize().y + 60 + i*20);
+				window->draw(displayText);
+			}
+		}
 	}
 
 	//lastly draw the player sprite to make sure that the player is allways visible.
@@ -109,6 +127,12 @@ string GUIMaster::getStringRepresentation(T enumValue){
 
 	case GameObjectType::Tree:
 		return "Wood";
+
+	case TriggerType::Build:
+		return "Construct";
+
+	case GameObjectType::Fireplace:
+		return "Fireplace";
 
 	default:
 		return "No string rep";

@@ -88,6 +88,8 @@
     <ClCompile Include="GUIMaster.cpp" />
     <ClCompile Include="HandleInput.cpp" />
     <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MaterialList.cpp" />
     <ClCompile Include="Path.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -103,6 +105,8 @@
     <ClInclude Include="HandleInput.h" />
     <ClInclude Include="IDrawAble.h" />
     <ClInclude Include="Inventory.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="MaterialList.h" />
     <ClInclude Include="MoveDirection.h" />
     <ClInclude Include="ObjectType.h" />
     <ClInclude Include="Path.h" />

@@ -5,6 +5,7 @@
 enum GameObjectType
 {
 	Tree = 300,
+	Fireplace,
 	Enemy,
 	None
 };
