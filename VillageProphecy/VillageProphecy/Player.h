@@ -26,6 +26,7 @@ public:
 	void setPlayerPosition(Vector2f pos);
 	void setAreaPaths(vector<Path*> areaPaths);
 	Inventory* InventoryManager();
+	void Sleep();
 
 private:
 	//pixel speed of player per second

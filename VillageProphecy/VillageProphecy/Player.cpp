@@ -55,6 +55,11 @@ Inventory* Player::InventoryManager(){
 	return inventory;
 }
 
+
+void Player::Sleep(){
+	//TODO: effects that can occur during sleep
+}
+
 /*
 * <DESCRIPTION>: Updates the players position depending on user input
 * Also if the player would enter a path to another area, the area that path leads to is returned.

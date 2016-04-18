@@ -15,25 +15,29 @@ using namespace std;
 class GameLoop
 {
 public:
-	GameLoop();
+	GameLoop(View *view, GUIMaster *gui);
 	~GameLoop();
-	void StartLoop();
+	void RunGame(RenderWindow *window);
+	bool GameOver();
 
 private:
+	bool isGameOver = false;
 	Time timeElapsed;
-	HandleInput inputHandler;
+	HandleInput handleInput;
 	Player player;
+	Clock timer;
 	vector<IDrawAble*> gameObjects;
-	GUIMaster gui;
+	GUIMaster *gui = NULL;
+	View *view = NULL;
 	Areas newArea = Areas::No_Area;
 	Areas lastArea = Areas::No_Area;
 	GameArea *currentGameArea = NULL;
 	GameArea *baseGameArea = NULL;
 	GameArea *survivalGameArea = NULL;
 	GameArea *hostileGameArea = NULL;
-	View view;
-	void EnterNewArea(RenderWindow *window);
+	void EnterNewArea(RenderWindow *window, View *view);
 	GameObject *triggerdObject = NULL;
-	void ExecuteObjectTrigger();
+	void ExecuteObjectTrigger(RenderWindow *window);
+	int amountOfDaysLeft = 50;
 };
 

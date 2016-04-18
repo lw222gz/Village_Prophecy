@@ -69,6 +69,14 @@ void GameObject::setObjectSprite(){
 			materialList = new MaterialList(type);
 			objectSprite.setColor(Color(255,255,255,128));
 				
+			break;
+
+
+		case GameObjectType::Bed:
+			if (!objectTexture.loadFromFile("Textures/PHBed.png")){
+				throw "TEXTURE LOAD ERROR: Bed texture did not load correctly.";
+			}
+			triggerType = TriggerType::Interactable;
 
 			break;
 

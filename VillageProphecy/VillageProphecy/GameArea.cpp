@@ -65,6 +65,10 @@ void GameArea::generateGameArea(){
 				GameObject *go = new GameObject(GameObjectType::Fireplace, Vector2f(660, 390));
 				areaVisualObjects.push_back(go);
 				areaObjects.push_back(go);
+
+				go = new GameObject(GameObjectType::Bed, Vector2f(660, 280));
+				areaObjects.push_back(go);
+				areaVisualObjects.push_back(go);
 				
 				
 		

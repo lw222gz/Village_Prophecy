@@ -1,4 +1,4 @@
-#include "GameLoop.h"
+#include "Game.h"
 
 //comment skeleton
 
@@ -10,8 +10,8 @@
 *
 */
 int main(){
-	GameLoop game;
-	game.StartLoop();
+	Game game;
+	game.StartGame();
 
 	return 0;
 }

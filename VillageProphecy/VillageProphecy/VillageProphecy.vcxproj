@@ -81,6 +81,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameArea.cpp" />
     <ClCompile Include="GameItem.cpp" />
     <ClCompile Include="GameLoop.cpp" />
@@ -96,11 +97,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Direction.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GameArea.h" />
     <ClInclude Include="GameAreas.h" />
     <ClInclude Include="GameItem.h" />
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameState.h" />
     <ClInclude Include="GUIMaster.h" />
     <ClInclude Include="HandleInput.h" />
     <ClInclude Include="IDrawAble.h" />

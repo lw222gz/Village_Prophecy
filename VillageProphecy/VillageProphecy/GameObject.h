@@ -28,7 +28,7 @@ public:
 
 private:
 	TriggerType triggerType = TriggerType::No_Action;
-	float triggerRange = 50;
+	const float triggerRange = 20;
 	GameObjectType type;
 	Sprite objectSprite;
 	//TODO: -optimization- have a static texture loaded for each possible texture

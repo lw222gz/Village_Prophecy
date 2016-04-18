@@ -1,6 +1,7 @@
 #include "GameLoop.h"
 
-GameLoop::GameLoop() {
+GameLoop::GameLoop(View *gameView, GUIMaster *guiMaster) : view(gameView), gui(guiMaster){
+
 	survivalGameArea = new GameArea(Areas::Survival, Vector2u(3000, 1500));
 	hostileGameArea = new GameArea(Areas::Hostile, Vector2u(4000, 1000));
 	baseGameArea = new GameArea(Areas::Base, Vector2u(1440, 900));
@@ -17,108 +18,85 @@ GameLoop::~GameLoop()
 {
 }
 
-
-void GameLoop::StartLoop(){
-
-	RenderWindow window = RenderWindow(VideoMode(1440, 900), "Village Prophecy");
-	view = View(Vector2f(720,450), Vector2f(1440, 900));
-	window.setView(view);
-
-	Clock timer;
-
-	while (window.isOpen())
-	{
-		//gets timer time
-		timeElapsed = timer.getElapsedTime();
-		//resets timer instantly after to reuse getElapsedTime to get the time for the loop iteration
-		timer.restart();
-		
-		//Checks for user input
-		newArea = inputHandler.CheckUserInput(&player, &timeElapsed);
-		if (newArea != Areas::No_Area){
-			EnterNewArea(&window);
-		}
-		
-		//If quick menu is active the game must listen for it's keyevent
-		if (triggerdObject != NULL){
-			//if the key for the quick menu is pressed the object gets triggerd.
-			if (inputHandler.checkQuickMenuInput()){
-				ExecuteObjectTrigger();
-			}
-		}
-
-		Event event;
-		while (window.pollEvent(event))
-		{		
-			// "close requested" event: we close the window
-			if (event.type == Event::Closed){
-				window.close();
-			}
-		}
-		//If player presses ESC then the window should close
-		if (Keyboard::isKeyPressed(Keyboard::Escape)){
-			window.close();
-		}
-
-		triggerdObject = NULL;
-		//Checks collisions with each interactable gameobject
-		for (int i = 0; i < currentGameArea->getAreaObjects().size(); ++i){
-			//if a player is near an interactable game object a quick menu will be displayed
-			if(currentGameArea->getAreaObjects()[i]->isTriggerd(&player)){
-				triggerdObject = currentGameArea->getAreaObjects()[i];
-				//gui.setQuickMenu(currentGameArea->getAreaObjects()[i]);
-				break;
-			}
-		}
-		
-		//Clear window
-		window.clear(Color::White);
-
-		//TEST CODE!
-		if (lastArea == Areas::Survival){
-			Texture test;
-			if (!test.loadFromFile("Textures/PHTest.png")){
-				throw "Test img did not load correctly.";
-			}
-			Sprite s;
-			s.setTexture(test);
-			s.setPosition(Vector2f(1200, 100));
-
-			window.draw(s);
-
-			s.setPosition(Vector2f(2800, 100));
-			window.draw(s);
-		}
-		//END TEST CODE
-
-		
-
-		//Camera movement, changes the values of the view to follow the player
-		//moves camera X-led
-		if (player.getPosition().x >= window.getSize().x / 2 && 
-			player.getPosition().x + window.getSize().x/2 <= currentGameArea->getAreaSize().x){
-
-			view.setCenter((window.getSize().x / 2) + (player.getPosition().x - window.getSize().x / 2), view.getCenter().y);
-			window.setView(view);
-		}
-		//moves camera Y-led
-		if (player.getPosition().y + player.getSize().y >= window.getSize().y / 2 &&
-			player.getPosition().y + window.getSize().y / 2 - 200 + player.getSize().y <= currentGameArea->getAreaSize().y){
-
-			view.setCenter(view.getCenter().x, player.getPosition().y + player.getSize().y); 
-			window.setView(view);
-		}
-
-		//draw the game
-		gui.DrawGame(currentGameArea->getAreaVisualObjects(), &window, &view, &player, triggerdObject);
-		
-		// end the current frame
-		window.display();
-		
-	}
+//returns boolean representing if game is over.
+bool GameLoop::GameOver(){
+	return isGameOver;
 }
 
-void GameLoop::EnterNewArea(RenderWindow *window){
+void GameLoop::RunGame(RenderWindow *window){
+
+	//gets timer time
+	timeElapsed = timer.getElapsedTime();
+	//resets timer instantly after to reuse getElapsedTime to get the time for the loop iteration
+	timer.restart();
+		
+	//Checks for user input
+	newArea = handleInput.CheckUserInput(&player, &timeElapsed);
+	if (newArea != Areas::No_Area){
+		EnterNewArea(window, view);
+	}
+		
+	//If quick menu is active the game must listen for it's keyevent
+	if (triggerdObject != NULL){
+		//if the key for the quick menu is pressed the object gets triggerd.
+		if (handleInput.checkQuickMenuInput()){
+			ExecuteObjectTrigger(window);
+		}
+	}
+
+	
+
+	triggerdObject = NULL;
+	//Checks collisions with each interactable gameobject
+	for (int i = 0; i < currentGameArea->getAreaObjects().size(); ++i){
+		//if a player is near an interactable game object a quick menu will be displayed
+		if(currentGameArea->getAreaObjects()[i]->isTriggerd(&player)){
+			triggerdObject = currentGameArea->getAreaObjects()[i];
+			//gui.setQuickMenu(currentGameArea->getAreaObjects()[i]);
+			break;
+		}
+	}	
+
+	//TEST CODE!
+	if (lastArea == Areas::Survival){
+		Texture test;
+		if (!test.loadFromFile("Textures/PHTest.png")){
+			throw "Test img did not load correctly.";
+		}
+		Sprite s;
+		s.setTexture(test);
+		s.setPosition(Vector2f(1200, 100));
+
+		window->draw(s);
+
+		s.setPosition(Vector2f(2800, 100));
+		window->draw(s);
+	}
+	//END TEST CODE
+
+		
+
+	//Camera movement, changes the values of the view to follow the player
+	//moves camera X-led
+	if (player.getPosition().x >= window->getSize().x / 2 && 
+		player.getPosition().x + window->getSize().x/2 <= currentGameArea->getAreaSize().x){
+
+		view->setCenter((window->getSize().x / 2) + (player.getPosition().x - window->getSize().x / 2), view->getCenter().y);
+		window->setView(*view);
+	}
+	//moves camera Y-led
+	if (player.getPosition().y + player.getSize().y >= window->getSize().y / 2 &&
+		player.getPosition().y + window->getSize().y / 2 - 200 + player.getSize().y <= currentGameArea->getAreaSize().y){
+
+		view->setCenter(view->getCenter().x, player.getPosition().y + player.getSize().y);
+		window->setView(*view);
+	}
+
+	//draw the game
+	gui->DrawGame(currentGameArea->getAreaVisualObjects(), window, view, &player, triggerdObject, &timeElapsed, amountOfDaysLeft);
+}
+
+void GameLoop::EnterNewArea(RenderWindow *window, View *view){
 	switch (newArea)
 	{
 	case Base:
@@ -130,8 +108,8 @@ void GameLoop::EnterNewArea(RenderWindow *window){
 	case Hostile:
 		currentGameArea = hostileGameArea;
 		break;
+	//TODO: write cases
 	case Dungeon:
-
 		break;
 	case Final:
 		break;
@@ -164,8 +142,8 @@ void GameLoop::EnterNewArea(RenderWindow *window){
 	player.setBorders(currentGameArea->getAreaSize());
 	
 	
-	view.setCenter(x, y);
-	window->setView(view);
+	view->setCenter(x, y);
+	window->setView(*view);
 }
 
 
@@ -174,7 +152,7 @@ void GameLoop::EnterNewArea(RenderWindow *window){
 
 
 
-void GameLoop::ExecuteObjectTrigger(){
+void GameLoop::ExecuteObjectTrigger(RenderWindow *window){
 
 	switch (triggerdObject->getTriggerType()){
 
@@ -194,6 +172,28 @@ void GameLoop::ExecuteObjectTrigger(){
 			//TODO: build trigger for construction
 			break;
 
+
+		case TriggerType::Interactable:
+			switch (triggerdObject->getObjectType())
+			{
+			case GameObjectType::Bed:				
+				gui->activateSleepAnimation(Vector2f(window->getSize().x, window->getSize().y));
+				handleInput.DisableControls(gui->getSleepAnimationTime());
+				player.Sleep();
+				amountOfDaysLeft -= 1;
+				//TODO: give the player a notice on the last day to warn them that the game is about to be over.
+
+				//if there is 0 days left then the game is over.
+				if (amountOfDaysLeft <= 0){
+					isGameOver = true;
+				}
+				break; 
+
+			default:
+				throw "Object type is not interactable.";
+				break;
+			}
+			break;
 		case TriggerType::No_Action:
 			//Nothing happens
 			break;

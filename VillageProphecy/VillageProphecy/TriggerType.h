@@ -7,5 +7,6 @@ enum TriggerType
 	Loot = 400,
 	Harvest,
 	Build,
+	Interactable,
 	No_Action
 };
