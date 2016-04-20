@@ -104,6 +104,10 @@ Inventory* Player::InventoryManager(){
 void Player::Sleep(){
 	//TODO: effects that can occur during sleep
 	actionPoints = ACTION_POINTS_MAX;
+	playerHitpoints -= 10;
+	currentHunger -= 10;
+	currentMood -= 10;
+	currentStamina -= 10;
 }
 
 //returns remaning actions points for the day.
@@ -126,6 +130,42 @@ Sprite Player::getConsumedAPSprite(){
 
 int Player::getMaxActionsPoints(){
 	return ACTION_POINTS_MAX;
+}
+
+float Player::getPlayerHP(){
+	return playerHitpoints;
+}
+
+//returns players current max HP;
+float Player::getMaxPlayerHP(){
+	return BASE_HIT_POINTS;
+}
+
+float Player::getPlayerHunger(){
+	return currentHunger;
+}
+float Player::getPlayerMood(){
+	return currentMood;
+}
+float Player::getPlayerStamina(){
+	return currentStamina;
+}
+
+float Player::getPlayerMAXHunger(){
+	return MAX_HUNGER_POINTS;
+}
+float Player::getPlayerMAXMood(){
+	return MAX_MOOD_POINTS;
+}
+float Player::getPlayerMAXStamina(){
+	return MAX_STAMINA_POINTS;
+}
+
+void Player::damagePlayer(int amount){
+	playerHitpoints -= amount;
+	if (playerHitpoints <= 0){
+		//TODO: Player dies, game over.
+	}
 }
 
 

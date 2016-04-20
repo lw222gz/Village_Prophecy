@@ -37,7 +37,12 @@ private:
 	const float sleepTime = .5;
 	float sleepAnimationTime = 4;
 	RectangleShape *rectPtr = NULL;
-	//Transform trans;
+
+	RectangleShape behindHPBar;
+	RectangleShape hpBar;
+
+	RectangleShape behindStatBar;
+	RectangleShape statBar;
 
 	Sprite inGameMenuSprite;
 	Texture inGameMenuTexture;

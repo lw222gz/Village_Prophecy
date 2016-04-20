@@ -34,6 +34,18 @@ public:
 	Sprite getAPSprite();
 	Sprite getConsumedAPSprite();
 
+	float getPlayerHP();
+	float getMaxPlayerHP();
+	void damagePlayer(int amount);
+
+	float getPlayerHunger();
+	float getPlayerMood();
+	float getPlayerStamina();
+
+	float getPlayerMAXHunger();
+	float getPlayerMAXMood();
+	float getPlayerMAXStamina();
+
 private:
 	//pixel speed of player per second
 	float speed = 300.0;
@@ -51,5 +63,17 @@ private:
 	Texture consumedAPTexture;
 	Sprite APSprite;
 	Sprite consumedAPSprite;
+
+
+	const float BASE_HIT_POINTS = 100;
+	float playerHitpoints = BASE_HIT_POINTS;
+
+	const float MAX_HUNGER_POINTS = 100;
+	const float MAX_MOOD_POINTS = 100;
+	const float MAX_STAMINA_POINTS = 100;
+
+	float currentHunger = MAX_HUNGER_POINTS;
+	float currentMood = MAX_MOOD_POINTS;
+	float currentStamina = MAX_STAMINA_POINTS;
 };
 

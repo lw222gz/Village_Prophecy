@@ -35,6 +35,19 @@ GUIMaster::GUIMaster()
 	displayText.setCharacterSize(16);
 	displayText.setColor(Color::Black);
 	//displayText.setStyle(Text::Bold);
+
+
+	//Sets status bar colors.
+	behindHPBar.setSize(Vector2f(250, 40));
+	behindHPBar.setFillColor(Color::Red);
+
+	hpBar.setFillColor(Color::Green);
+
+	behindStatBar.setSize(Vector2f(150, 10));
+	behindStatBar.setFillColor(Color(64, 64, 64, 255));
+
+	statBar.setFillColor(Color(255,165,0,255));
+
 }
 
 
@@ -125,6 +138,45 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, V
 	delete trans;
 	//#END DRAW Action Points
 
+
+	//#START DRAW Player hit points
+
+	
+	behindHPBar.setPosition(inGameMenuSprite.getPosition().x + 50, inGameMenuSprite.getPosition().y + 20);
+	window->draw(behindHPBar);
+
+	hpBar.setSize(Vector2f(250 * (player->getPlayerHP() / player->getMaxPlayerHP()), 40));
+	hpBar.setPosition(inGameMenuSprite.getPosition().x + 50, inGameMenuSprite.getPosition().y + 20);
+	window->draw(hpBar);
+	
+
+	//#END DRAW Player hit points
+
+	//#START DRAW Player status
+
+	Transform statusBarTrans;
+	statusBarTrans.translate(inGameMenuSprite.getPosition().x + 50, inGameMenuSprite.getPosition().y + 90);
+	
+	//Hunger bar
+	statBar.setSize(Vector2f(150 * (player->getPlayerHunger() / player->getPlayerMAXHunger()), 10));
+	window->draw(behindStatBar, statusBarTrans);
+	window->draw(statBar, statusBarTrans);
+
+	statusBarTrans.translate(0, 30);
+
+	//Mood bar
+	statBar.setSize(Vector2f(150 * (player->getPlayerMood() / player->getPlayerMAXMood()), 10));
+	window->draw(behindStatBar, statusBarTrans);
+	window->draw(statBar, statusBarTrans);
+
+	statusBarTrans.translate(0, 30); 
+
+	//Stamina bar
+	statBar.setSize(Vector2f(150 * (player->getPlayerStamina() / player->getPlayerMAXStamina()), 10));
+	window->draw(behindStatBar, statusBarTrans);
+	window->draw(statBar, statusBarTrans);
+
+	//END DRAW Player status
 
 	//#END IN-GAME MENU DRAW
 
