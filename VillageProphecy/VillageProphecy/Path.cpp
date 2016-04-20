@@ -1,16 +1,40 @@
 #include "Path.h"
 
 //TODO: optimize contrsuctros
+/*
+* <DESCRIPTION>
+* Constructor for the Path class.
+* Will randomize the position for the path.
+*
+* @PARAMS
+* area: Areas enum that represents to what game area the path will lead to.
+* dir: Direction enum that represents what direction the path heads towards.
+*/
 Path::Path(Areas area, Direction dir) : leadsTo(area), direction(dir){
 	//Loads path texture
 	if (!pathTexture.loadFromFile("Textures/PHRoad.png")){
 		throw "Error loading Path texture.";
 	}
 	pathSprite.setTexture(pathTexture);
+
 	//TODO: generate random position
 	pathSprite.setPosition(120, 120);
 }
 
+Path::~Path()
+{
+}
+
+/*
+* <DESCRIPTION>
+* Second constructor for the Path class.
+* Will have a set position for the path
+*
+* @PARAMS
+* area: Areas enum that represents to what game area the path will lead to.
+* dir: Direction enum that represents what direction the path heads towards.
+* position: a Vector2f that represents the position the path will be placed at.
+*/
 Path::Path(Areas area, Direction dir, Vector2f position) : leadsTo(area), direction(dir){
 	//Loads path texture
 	if (!pathTexture.loadFromFile("Textures/PHRoad.png")){
@@ -34,26 +58,44 @@ Path::Path(Areas area, Direction dir, Vector2f position) : leadsTo(area), direct
 	pathSprite.setPosition(position);
 }
 
-Path::~Path()
-{
-}
 
+
+/*
+* @RETURNS
+* returns the position of the path
+*/
 Vector2f Path::getPosition(){
 	return pathSprite.getPosition();
 }
 
+/*
+* @RETURNS
+* returns the path visual sprite
+*/
 Sprite Path::getSprite(){
 	return pathSprite;
 }
 
+/*
+* @RETURNS
+* returns the size of the path
+*/
 Vector2u Path::getSize(){
 	return pathTexture.getSize();
 }
 
+/*
+* @RETURNS
+* returns a Areas enum value that represents the type of area the path leads to.
+*/
 Areas Path::getNextArea(){
 	return leadsTo;
 }
 
+/*
+* @RETURNS
+* returns a Direction enum value that represents the direction the path is heading towards
+*/
 Direction Path::getDirection(){
 	return direction;
 }

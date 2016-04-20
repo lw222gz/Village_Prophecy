@@ -1,6 +1,13 @@
 #include "GameItem.h"
 
-
+/*
+* <DESCRIPTION>
+* GameItem constructor.
+* Loads in the textures for any game items and calls the setItemSprite function
+*
+* @PARAMS
+* objectType: GameObjectType enum value representing the kind of item that is being created.
+*/
 GameItem::GameItem(GameObjectType objectType) : itemType(objectType)
 {
 	if (!emptySlotTexture.loadFromFile("Textures/PHInventorySpot.png")){
@@ -17,21 +24,26 @@ GameItem::~GameItem()
 {
 }
 
-
-//sets the visual position of an item slot.
-void GameItem::setSlotPosition(Vector2f pos){
-	itemSprite.setPosition(pos);
-}
-
+/*
+* @RETURNS
+* returns the item sprite
+*/
 Sprite GameItem::getSprite(){
 	return itemSprite;
 }
 
-//Returns the item type.
+/*
+* @RETURNS
+* returns GameObjectType enum value representing the item type
+*/
 GameObjectType GameItem::getType(){
 	return itemType;
 }
 
+/*
+* @RETURNS
+* if the item is stackable the amount in the stack is returned, otherwise returns 0
+*/
 int GameItem::getStackAmount(){
 	if (stackAble){
 		return stackAmount;
@@ -41,15 +53,33 @@ int GameItem::getStackAmount(){
 	}
 }
 
+/*
+* @RETURNS
+* returns boolean, true if the item is stackable, otherwise false.
+*/
 bool GameItem::isStackAble(){
 	return stackAble;
 }
 
+/*
+* <DESCRIPTION>
+* Adds 1 amount to the stack of the item if it's stackable.
+*/
 void GameItem::addToStack(){
-	stackAmount += 1;
+	if (stackAble){
+		stackAmount += 1;
+	}	
 }
 
-//Removes amount form the stack of items
+
+/*
+* <DESCRIPTION>
+* Removes X amount from a stackable item.
+*
+* @PARAMS
+* amount: integer representing the amount to be removed, 
+* if this is heigher than the stack amount an error is thrown
+*/
 void GameItem::reduceStackAmount(int amount){
 	if (amount > stackAmount){
 		throw "Amount to remove from stack is too high";
@@ -57,7 +87,10 @@ void GameItem::reduceStackAmount(int amount){
 	stackAmount -= amount;
 }
 
-//sets the item sprite depending on the item type
+/*
+* <DESCRIPTION>
+* Sets the sprite for the item based 
+*/
 void GameItem::setItemSprite(){
 	switch (itemType){
 		case GameObjectType::None:

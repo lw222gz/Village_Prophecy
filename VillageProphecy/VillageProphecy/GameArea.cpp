@@ -1,6 +1,13 @@
 #include "GameArea.h"
 
-
+/*
+* <DESCRIPTION>
+* Constructor for the gamearea class, initiating a gamearea requires the 
+* following parameters
+* @PARAMS
+* area: an enum value of the Areas enum, this is important as it will decide the contents of the game area
+* size: a Vector2u that sets the size of the gamearea
+*/
 GameArea::GameArea(Areas area, Vector2u size) : areaType(area), areaSize(size)
 {
 	generateGameArea();
@@ -11,31 +18,57 @@ GameArea::~GameArea()
 {
 }
 
-
+/*
+* @RETURNS
+* returns a vector contaning all the visual objects in the game area.
+*/
 vector<IDrawAble*> GameArea::getAreaVisualObjects(){
 	return areaVisualObjects;
 }
 
+
+/*
+* @RETURNS
+* returns the area type of the game area.
+*/
 Areas GameArea::getAreaType(){
 	return areaType;
 }
 
-//returns a Vector2u representing the 
+/*
+* @RETURNS
+* returns a Vector2u representing the game area's size.
+*/
 Vector2u GameArea::getAreaSize(){
 	return areaSize;
 }
 
-//returns the path objects in the area
+
+/*
+* @RETURNS
+* returns a vector contaning all the path objects for the game area.
+*/
 vector<Path*> GameArea::getAreaPaths(){
 	return areaPaths;
 }
 
-//returnes the game objects in the area
+/*
+* @RETURNS
+* returns the game objects of the game area.
+*/
 vector<GameObject*> GameArea::getAreaObjects(){
 	return areaObjects;
 }
 
-//remove formula found at : http://stackoverflow.com/questions/3385229/c-erase-vector-element-by-value-rather-than-by-position
+/*
+* <DESCRIPTION>
+* Removes the given GameObject parameter from the game area.
+* @PARAMS
+* *obj: removes the object from the area.
+*
+* <EXTRA>
+* remove formula found at : http://stackoverflow.com/questions/3385229/c-erase-vector-element-by-value-rather-than-by-position
+*/
 void GameArea::removeAreaObject(GameObject *obj){
 	areaObjects.erase(remove(areaObjects.begin(), areaObjects.end(), obj), areaObjects.end());
 	areaVisualObjects.erase(remove(areaVisualObjects.begin(), areaVisualObjects.end(), obj), areaVisualObjects.end());
@@ -43,6 +76,10 @@ void GameArea::removeAreaObject(GameObject *obj){
 }
 
 
+/*
+* <DESCRIPTION>
+* Generates the game areas objects and paths depending on the type of game area that is being created.
+*/
 void GameArea::generateGameArea(){
 	
 	switch (areaType)
@@ -90,6 +127,10 @@ void GameArea::generateGameArea(){
 			areaObjects.push_back(go);
 
 			go = new GameObject(GameObjectType::Tree, Vector2f(500, 200));
+			areaVisualObjects.push_back(go);
+			areaObjects.push_back(go);
+
+			go = new GameObject(GameObjectType::Tree, Vector2f(700, 250));
 			areaVisualObjects.push_back(go);
 			areaObjects.push_back(go);
 

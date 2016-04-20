@@ -1,5 +1,16 @@
 #include "GameLoop.h"
 
+/*
+* <DESCRIPTION> 
+* Constructor for gameloop
+*	- sets View and GUIMaster pointers
+*	- Initiates all game areas
+*	- Initiates the first zone for the player
+*
+* @PARAMS
+*	*gameView: Pointer to the View object for the game.
+*	*guiMaster: Pointer to the gui object for the game. (To reduce stack memory)
+*/
 GameLoop::GameLoop(View *gameView, GUIMaster *guiMaster) : view(gameView), gui(guiMaster){
 
 	survivalGameArea = new GameArea(Areas::Survival, Vector2u(3000, 1500));
@@ -18,11 +29,23 @@ GameLoop::~GameLoop()
 {
 }
 
-//returns boolean representing if game is over.
+/*
+* <DESCRIPTION> 
+* returns a boolean representing if the game is over.
+*/
 bool GameLoop::GameOver(){
 	return isGameOver;
 }
 
+/*
+* <DESCRIPTION> 
+* Runs the main game outside of combat, calls functions that check
+* collisions, if the player has entered a new area, updates positions,
+* controls the game "camera" aswell as calling the GUIMaster class to draw the game.
+*
+* @PARAMS
+* *window: pointer to the game window object.
+*/
 void GameLoop::RunGame(RenderWindow *window){
 
 	//gets timer time
@@ -96,6 +119,14 @@ void GameLoop::RunGame(RenderWindow *window){
 	gui->DrawGame(currentGameArea->getAreaVisualObjects(), window, view, &player, triggerdObject, &timeElapsed, amountOfDaysLeft);
 }
 
+
+/*
+* <DESCRIPTION> Changes the current game area
+*
+* @PARAMS
+* *window: pointer to the game window object
+* *view: pointer to the View object for the game.
+*/
 void GameLoop::EnterNewArea(RenderWindow *window, View *view){
 	switch (newArea)
 	{
@@ -151,20 +182,31 @@ void GameLoop::EnterNewArea(RenderWindow *window, View *view){
 
 
 
-
+/*
+* <DESCRIPTION>
+* Called when a game object was triggerd, depending on the game objects trigger type diffrent 
+* functions and actions will be taken.
+*
+* @PARAMS
+* *window: pointer to the game window object
+*/
 void GameLoop::ExecuteObjectTrigger(RenderWindow *window){
 
 	switch (triggerdObject->getTriggerType()){
 
 		case TriggerType::Harvest:
 		case TriggerType::Loot:
-			player.InventoryManager()->addItem(new GameItem(triggerdObject->getObjectType()));
-			//TODO: dont remove object if it's not looted
-			currentGameArea->removeAreaObject(triggerdObject);
+			if (player.getRemaningActionPoints() > 0){
+				player.InventoryManager()->addItem(new GameItem(triggerdObject->getObjectType()));
+				//TODO: dont remove object if it's not looted
+				currentGameArea->removeAreaObject(triggerdObject);
+				player.ConsumeActionPoints(1);
+			}
+			//TODO: add ingame error displaying that the player does not have sufficient AP
 			break;
 
 		case TriggerType::Build: 
-			triggerdObject->MaterialListManager()->addItemsToConstruction(player.InventoryManager());
+			triggerdObject->MaterialListManager()->addItemsToConstruction(&player);
 
 			if (triggerdObject->MaterialListManager()->getMaterialList().size() <= 0){
 				triggerdObject->completeConstruction();

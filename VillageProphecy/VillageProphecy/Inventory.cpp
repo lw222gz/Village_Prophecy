@@ -1,5 +1,10 @@
 #include "Inventory.h"
 
+/*
+* <DESCRIPTION>
+* Inventory class constructor.
+* Initiates the inventory with empty slots.
+*/
 Inventory::Inventory() 
 {
 	//set amount of inventory spots
@@ -15,7 +20,13 @@ Inventory::~Inventory()
 {
 }
 
-//add a gameitem to the player inventory
+/*
+* <DESCRIPTION>
+* Add a gameitem to the inventory
+*
+* @PARAMS
+* item: pointer to a gameitem object
+*/
 void Inventory::addItem(GameItem *item){
 	int inventoryIndex = -1;
 	for (int i = 0; i < inventoryItems.size(); ++i){
@@ -49,13 +60,22 @@ void Inventory::addItem(GameItem *item){
 	}
 }
 
-//Gets the players inventory items
+/*
+* @RETURNS
+* returns the inventory vector.
+*/
 vector<GameItem*> Inventory::getInventoryItems(){
 	return inventoryItems;
 }
 
 
-//removes pointer and frees up memory 
+/*
+* <DESCRIPTION>
+* Removes an item in the inventory by index.
+*
+* @PARAMS
+* index: int value representing the position to remove in the vector.
+*/
 void Inventory::removeInventoryItem(int index){
 	delete inventoryItems[index];
 

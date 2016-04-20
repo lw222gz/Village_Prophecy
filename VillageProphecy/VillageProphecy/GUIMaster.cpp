@@ -1,6 +1,10 @@
 #include "GUIMaster.h"
 
-
+/*
+* <DESCRIPTION>
+* GUIMaster constructor.
+* Initiates all general textures and fonts.
+*/
 GUIMaster::GUIMaster()
 {
 	//loads and sets textures
@@ -39,7 +43,18 @@ GUIMaster::~GUIMaster()
 }
 
 
-//Draws the game
+/*
+* <DESCRIPTION>
+* Main function for drawing the game
+*
+* @PARAMS
+* gameObject: a vector containg all the current visual game objects for the current game area.
+* window: pointer to the game window object.
+* gameView: pointer to the View object for the the game.
+* triggerdobject: pointer to a GameObject that is triggerd, if no object is triggerd this is NULL.
+* t: pointer to a Time object representing the time spent in the current iteration of the loop.
+* amountOfDaysLeft: integer representing the amount of days left before gameover.
+*/
 void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, View *gameView, Player *player, GameObject *triggerdObj, Time *t, int amountOfDaysLeft){
 	//Optimize: Remove the need of reversing the vector
 	//reverses the vector, thus items added first gets draw over items added after.
@@ -49,35 +64,69 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, V
 		window->draw(gameObjects[i]->getSprite());
 	}	
 	
+	//#START IN-GAME MENU DRAW
 	inGameMenuSprite.setPosition(gameView->getCenter().x - window->getSize().x / 2,
 								gameView->getCenter().y + window->getSize().y / 2 - 200);
 	window->draw(inGameMenuSprite);
 
 	//TODO: Bugg makes the inventory slots "bounce around" abit when moving.
-	int x = inGameMenuSprite.getPosition().x + 1060;
-	int y = inGameMenuSprite.getPosition().y + 15;
-	for (int i = 0; i < player->InventoryManager()->getInventoryItems().size(); ++i){		
+	//TODO: -optimize- the positioning is veary badly built atm
+	//#START DRAW Inventory
+	Transform *inventoryTrans = new Transform();
+	Transform *textTrans = new Transform();
+	inventoryTrans->translate(inGameMenuSprite.getPosition().x + 1060, inGameMenuSprite.getPosition().y + 15);
+	for (int i = 0; i < player->InventoryManager()->getInventoryItems().size(); i++){		
+		
 		if (i == 3){
-			y = inGameMenuSprite.getPosition().y + 105;
+			inventoryTrans->translate(-270, 90);
 		}
-		if (i == 3){
-			x = inGameMenuSprite.getPosition().x + 1060;
-		}
+		//adds 90 to the x-led pos
+		inventoryTrans->translate(90, 0);
 
-		x += 90;
-
-
-		player->InventoryManager()->getInventoryItems()[i]->setSlotPosition(Vector2f(x, y));
-		window->draw(player->InventoryManager()->getInventoryItems()[i]->getSprite());
+		window->draw(player->InventoryManager()->getInventoryItems()[i]->getSprite(), *inventoryTrans);
 
 		//If an item is stackable the amount in the inventory is shown.
 		if (player->InventoryManager()->getInventoryItems()[i]->isStackAble()){
 			displayText.setString(to_string(player->InventoryManager()->getInventoryItems()[i]->getStackAmount()));
-			displayText.setPosition(x + 55, y + 60);
-			window->draw(displayText);
+			displayText.setPosition(0, 0);
+			inventoryTrans->translate(60, 60);
+		
+			window->draw(displayText, *inventoryTrans);
+
+			//resets position for next inventory slot.
+			inventoryTrans->translate(-60, -60);
 		}
 		
+
+		
+		
 	}
+
+	delete inventoryTrans;
+	//#END DRAW Inventory
+
+
+	//#START DRAW Action Points
+	Transform *trans = new Transform();
+	trans->translate(inGameMenuSprite.getPosition().x + 500, inGameMenuSprite.getPosition().y + 20);
+
+	//trans.translate(100, 100);
+	for (int i = 0; i < player->getMaxActionsPoints(); i++){
+		if (i + 1 > player->getRemaningActionPoints()){
+			window->draw(player->getConsumedAPSprite(), *trans);
+		}
+		else {
+			window->draw(player->getAPSprite(), *trans);
+		}
+		
+		trans->translate(30, 0);
+	}
+
+	delete trans;
+	//#END DRAW Action Points
+
+
+	//#END IN-GAME MENU DRAW
 
 	//If triggerdObj isent null a quick menu should be displayed.
 	if (triggerdObj != NULL && triggerdObj->getTriggerType() != TriggerType::No_Action){
@@ -133,6 +182,17 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, V
 }
 
 
+/*
+* <DESCRIPTION>
+* returns string representation depending on the given enum value given. If the givent value
+* doesn't have a case "No string rep" will be returned.
+*
+* @PARAMS
+* enumValue: template allows any kind of value.
+*
+* @RETURNS
+* string that represents the given enum value.
+*/
 template <class T>
 string GUIMaster::getStringRepresentation(T enumValue){
 	switch (enumValue)
@@ -158,8 +218,6 @@ string GUIMaster::getStringRepresentation(T enumValue){
 	case GameObjectType::Bed:
 		return "Sleep";
 
-	
-
 	default:
 		return "No string rep";
 	}
@@ -167,7 +225,13 @@ string GUIMaster::getStringRepresentation(T enumValue){
 }
 
 
-
+/*
+* <DESCRIPTION>
+* Activates and initates the values for the in-game sleep animation.
+*
+* @PARAMS
+* screenSize: a Vector2f representing the size of the game window.
+*/
 void GUIMaster::activateSleepAnimation(Vector2f screenSize){
 	sleepAnimationActive = true;
 	rectPtr = new RectangleShape(screenSize);
@@ -177,7 +241,14 @@ void GUIMaster::activateSleepAnimation(Vector2f screenSize){
 }
 
 
-//Animtion when the player goes to sleep
+/*
+* <DESCRIPTION>
+* Executes the sleep animation.
+*
+* @PARAMS
+* window: pointer to the game window object.
+* t: pointer to Time object representing time passd in the current iteration of the loop.
+*/
 void GUIMaster::sleepAnimation(RenderWindow *window, Time *t){
 
 	currentAnimationTime += t->asSeconds();
@@ -208,11 +279,23 @@ void GUIMaster::sleepAnimation(RenderWindow *window, Time *t){
 }
 
 
+/*
+* @RETURNS
+* returns the amount of seconds the sleep animation will take up.
+*/
 float GUIMaster::getSleepAnimationTime(){
 	return sleepAnimationTime;
 }
 
 
+/*
+* <DESCRIPTION>
+* Draws the game over screen
+*
+* @PARAMS
+* window: pointer to the game window object.
+* view: pointer to the View object for the game.
+*/
 void GUIMaster::DrawGameOver(RenderWindow *window, View *view){
 	gameOverSprite.setPosition(view->getCenter().x - window->getSize().x/2,
 								view->getCenter().y - window->getSize().y / 2);

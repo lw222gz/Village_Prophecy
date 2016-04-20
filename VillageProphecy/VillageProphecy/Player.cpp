@@ -1,6 +1,11 @@
 #include "Player.h"
 
-
+/*
+* <DESCRIPTION>
+* Player class constructor.
+* Initiates the players position, loads the player texture and initiates the players inventory.
+* Also loads the AP textures.
+*/
 Player::Player()
 {
 	//default position
@@ -11,6 +16,16 @@ Player::Player()
 	}
 	playerSprite.setTexture(playerTexture);
 
+	if (!APTexture.loadFromFile("Textures/PHActionPoint.png")){
+		throw "TEXTURE LOAD ERROR: Action point texture did not load correctly.";
+	}
+	APSprite.setTexture(APTexture);
+
+	if (!consumedAPTexture.loadFromFile("Textures/PHConsumedActionPoint.png")){
+		throw "TEXTURE LOAD ERROR: Consumed Action point texture did not load correctly.";
+	}
+	consumedAPSprite.setTexture(consumedAPTexture);
+
 	//defines inventory
 	inventory = new Inventory();
 }
@@ -20,53 +35,108 @@ Player::~Player()
 {
 }
 
-//returns the players postion
+/*
+* @RETURNS
+* returns a Vector2f representing the position of the player
+*/
 Vector2f Player::getPosition(){
 	return playerSprite.getPosition();
 }
 
-//returns the size of the users texture.
+/*
+* @RETURNS
+* returns a Vector2u representing the size of the player
+*/
 Vector2u Player::getSize(){
 	return playerTexture.getSize();
 }
 
-//Sets the vector for all the avalibel paths in the current game area.
+/*
+* <DESCRIPTION>
+* Sets all current game areas paths refrence to use for collision.
+*
+* @PARAMS
+* areaPaths: a vector contaning all the Path object for the current game area.
+*/
 void Player::setAreaPaths(vector<Path*> areaPaths){
 	avaliblePaths = areaPaths;
 }
 
-//Forces the player to the given vector position.
+/*
+* <DESCRIPTION>
+* Forces the player to the given parameter position.
+*
+* @PARAMS
+* pos: a Vector2f that will set the players position to that value.
+*/
 void Player::setPlayerPosition(Vector2f pos){
 	playerSprite.setPosition(pos);
 }
 
-//Sets the borders the player will collide against.
+/*
+* <DESCRIPTION>
+* Sets the borders for the player collides in.
+*
+* @PARAMS
+* size: a Vector2u representing the size of the current game area
+*/
 void Player::setBorders(Vector2u size){
 	borders = size;
 }
 
-//returns the players sprite
+/*
+* @RETURNS
+* returns the player sprite
+*/
 Sprite Player::getSprite(){
 	return playerSprite;
 }
 
-//returns a pointer of the inventoryManager object
+/*
+* @RETURNS
+* returns a pointer to the inventory object.
+*/
 Inventory* Player::InventoryManager(){
 	return inventory;
 }
 
-
+//TODO: create function
 void Player::Sleep(){
 	//TODO: effects that can occur during sleep
+	actionPoints = ACTION_POINTS_MAX;
 }
 
+//returns remaning actions points for the day.
+int Player::getRemaningActionPoints(){
+	return actionPoints;
+}
+
+//removes actions points
+void Player::ConsumeActionPoints(int amount){
+	actionPoints -= amount;
+}
+
+Sprite Player::getAPSprite(){
+	return APSprite;
+}
+
+Sprite Player::getConsumedAPSprite(){
+	return consumedAPSprite;
+}
+
+int Player::getMaxActionsPoints(){
+	return ACTION_POINTS_MAX;
+}
+
+
 /*
-* <DESCRIPTION>: Updates the players position depending on user input
+* <DESCRIPTION>
+* Updates the players position depending on user input
 * Also if the player would enter a path to another area, the area that path leads to is returned.
 *
 * @PARAMS
-*	dir = the direction the player is moving.
-*	t = a pointer to a clock timer to calculate the distance the player should move
+*	dir: the direction the player is moving.
+*	t: a pointer to a clock timer to calculate the distance the player should move
 * @RETURNS
 *	Areas enum. If a player entered a new area that area enum value will be returned, otherwise 
 *	Areas::None is returned.

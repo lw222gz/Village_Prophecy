@@ -28,6 +28,12 @@ public:
 	Inventory* InventoryManager();
 	void Sleep();
 
+	int getRemaningActionPoints();
+	int getMaxActionsPoints();
+	void ConsumeActionPoints(int amount);
+	Sprite getAPSprite();
+	Sprite getConsumedAPSprite();
+
 private:
 	//pixel speed of player per second
 	float speed = 300.0;
@@ -38,5 +44,12 @@ private:
 	Vector2u borders;
 	vector<Path*> avaliblePaths;
 	Inventory *inventory = NULL;
+	
+	const int ACTION_POINTS_MAX = 10;
+	int actionPoints = 2;
+	Texture APTexture;
+	Texture consumedAPTexture;
+	Sprite APSprite;
+	Sprite consumedAPSprite;
 };
 

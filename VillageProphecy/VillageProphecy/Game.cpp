@@ -10,7 +10,10 @@ Game::~Game()
 {
 }
 
-
+/*
+* <DESCRIPTION>
+* Main game loop, controls the game with a GameState status. Loops until the game is closed.
+*/
 void Game::StartGame(){
 	RenderWindow window = RenderWindow(VideoMode(windowWidth, windowHeight), "Village Prophecy");
 	view = View(Vector2f(720, 450), Vector2f(1440, 900));

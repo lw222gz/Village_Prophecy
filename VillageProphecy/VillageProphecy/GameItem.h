@@ -9,7 +9,6 @@ public:
 	~GameItem();	
 	Sprite getSprite();
 	GameObjectType getType();
-	void setSlotPosition(Vector2f);
 	int getStackAmount();
 	bool isStackAble();
 	void addToStack();
