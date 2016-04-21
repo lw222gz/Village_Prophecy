@@ -18,6 +18,10 @@ GameArea::~GameArea()
 {
 }
 
+vector<VisualEnemy*>* GameArea::getAreaEnemies(){
+	return &enemies;
+}
+
 /*
 * @RETURNS
 * returns a vector contaning all the visual objects in the game area.
@@ -146,6 +150,9 @@ void GameArea::generateGameArea(){
 			areaVisualObjects.push_back(p);
 			areaPaths.push_back(p);
 
+			VisualEnemy *e = new VisualEnemy(EnemyVisualType::Skeleton, Vector2f(areaSize.x - 400, areaSize.y - 500));
+			areaVisualObjects.push_back(e);
+			enemies.push_back(e);
 		
 		}
 		break;

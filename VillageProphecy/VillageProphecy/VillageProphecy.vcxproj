@@ -81,8 +81,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CombatGUI.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameArea.cpp" />
+    <ClCompile Include="GameCombatLoop.cpp" />
     <ClCompile Include="GameItem.cpp" />
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -94,12 +97,17 @@
     <ClCompile Include="Path.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="VisualEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CombatGUI.h" />
     <ClInclude Include="Direction.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyType.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameArea.h" />
     <ClInclude Include="GameAreas.h" />
+    <ClInclude Include="GameCombatLoop.h" />
     <ClInclude Include="GameItem.h" />
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="GameObject.h" />
@@ -115,6 +123,7 @@
     <ClInclude Include="Path.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TriggerType.h" />
+    <ClInclude Include="VisualEnemy.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

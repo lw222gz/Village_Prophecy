@@ -37,6 +37,9 @@ private:
 	const float sleepTime = .5;
 	float sleepAnimationTime = 4;
 	RectangleShape *rectPtr = NULL;
+	//IMPORTANT: After each use resetTransformation must be called before next use.
+	Transform transformation;
+	void resetTransformation();
 
 	RectangleShape behindHPBar;
 	RectangleShape hpBar;

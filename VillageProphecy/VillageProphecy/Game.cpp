@@ -20,27 +20,39 @@ void Game::StartGame(){
 	window.setView(view);
 	
 	while (window.isOpen()){
-		//Clear window
-		window.clear(Color::White);
+		//Clear window		
 		switch (currentGameState)
 		{
-		case GameState::Play:
-			gameLoop.RunGame(&window);
+			case GameState::Play:
+				window.clear(Color::White);
+				gameLoop.RunGame(&window);
 			
-			if (gameLoop.GameOver()){
-				currentGameState = GameState::GameOver;
-			}
-			//play game
-			break;
+				if (gameLoop.GameOver()){
+					currentGameState = GameState::GameOver;
+				}
+				if (gameLoop.switchToCombat()){
+					currentGameState = GameState::Combat;
+					gameCombatLoop.InitiateCombatLoopValues();
+				}
+				//play game
+				break;
 
-		case GameState::GameOver:
-			window.clear(Color::White);
-			gui.DrawGameOver(&window, &view);		
-			break;
+			case GameState::GameOver:
+				window.clear(Color::White);
+				gui.DrawGameOver(&window, &view);		
+				break;
 
-		default:
-			throw "Not in a gamestate";
-			break;
+			case GameState::Combat:
+				if (gameCombatLoop.isNormalRenderingActive()){
+					window.clear(Color::White);
+				}
+				gameCombatLoop.runCombatLoop(&window, gameLoop.getCombatEnemies());
+				//IMPORTANT - When switching back to GameState::Play the timer in GameLoop.cpp must be reset
+				break;
+
+			default:
+				throw "Not in a gamestate";
+				break;
 		}
 
 		Event event;

@@ -6,5 +6,6 @@ enum GameState{
 	Play,
 	Pause,
 	GameOver,
-	Menu
+	Menu,
+	Combat
 };

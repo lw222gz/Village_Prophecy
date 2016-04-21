@@ -105,9 +105,16 @@ void Player::Sleep(){
 	//TODO: effects that can occur during sleep
 	actionPoints = ACTION_POINTS_MAX;
 	playerHitpoints -= 10;
-	currentHunger -= 10;
-	currentMood -= 10;
-	currentStamina -= 10;
+	playerHungerAffected(-40);
+	playerMoodAffected(-40);
+	playerStaminaAffected(-40);
+}
+
+void Player::savePosition(){
+	savedPosition = playerSprite.getPosition();
+}
+void Player::setToSavedPosition(){
+	playerSprite.setPosition(savedPosition);
 }
 
 //returns remaning actions points for the day.
@@ -164,7 +171,29 @@ float Player::getPlayerMAXStamina(){
 void Player::damagePlayer(int amount){
 	playerHitpoints -= amount;
 	if (playerHitpoints <= 0){
+		playerHitpoints = 0;
 		//TODO: Player dies, game over.
+	}
+}
+
+void Player::playerHungerAffected(float amount){
+	currentHunger += amount;
+	if (currentHunger < 0){
+		currentHunger = 0;
+	}
+}
+
+void Player::playerMoodAffected(float amount){
+	currentMood += amount;
+	if (currentMood < 0){
+		currentMood = 0;
+	}
+}
+
+void Player::playerStaminaAffected(float amount){
+	currentStamina += amount;
+	if (currentStamina < 0){
+		currentStamina = 0;
 	}
 }
 

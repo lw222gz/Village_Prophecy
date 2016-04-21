@@ -29,12 +29,25 @@ GameLoop::~GameLoop()
 {
 }
 
+Player* GameLoop::getPlayerPointer(){
+	return &player;
+}
+
 /*
 * <DESCRIPTION> 
 * returns a boolean representing if the game is over.
 */
 bool GameLoop::GameOver(){
 	return isGameOver;
+}
+
+
+bool GameLoop::switchToCombat(){
+	return playerEnteredCombatPhase;
+}
+
+vector<Enemy*>* GameLoop::getCombatEnemies(){
+	return currentGameArea->getAreaEnemies()->at(enemyVectorIndex)->getEnemyGroup();
 }
 
 /*
@@ -79,6 +92,18 @@ void GameLoop::RunGame(RenderWindow *window){
 			break;
 		}
 	}	
+
+	//Checks for collisions with enemies, if so then combat phase is initiated.
+	for (int i = 0; i < currentGameArea->getAreaEnemies()->size(); ++i){
+		if (currentGameArea->getAreaEnemies()->at(i)->collideWithPlayer(player.getSprite().getPosition(), player.getSize())){
+			playerEnteredCombatPhase = true;
+			enemyVectorIndex = i;
+			player.savePosition();
+			break;
+			//TODO: ADD ANIMATIOn
+			
+		}
+	}
 
 	//TEST CODE!
 	if (lastArea == Areas::Survival){

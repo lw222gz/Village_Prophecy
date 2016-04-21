@@ -4,6 +4,7 @@
 //#include "Direction.h"
 //#include "Player.h"
 #include "GameObject.h"
+#include "VisualEnemy.h"
 //#include <SFML/Graphics.hpp>
 
 using namespace sf;
@@ -21,8 +22,11 @@ public:
 	Vector2u getAreaSize();
 	void removeAreaObject(GameObject *obj);
 
+	vector<VisualEnemy*>* getAreaEnemies();
+
 
 private:
+	vector<VisualEnemy*> enemies;
 	vector<IDrawAble*> areaVisualObjects;
 	Vector2u areaSize;
 	Areas areaType;

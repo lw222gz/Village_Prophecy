@@ -85,97 +85,103 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, V
 	//TODO: Bugg makes the inventory slots "bounce around" abit when moving.
 	//TODO: -optimize- the positioning is veary badly built atm
 	//#START DRAW Inventory
-	Transform *inventoryTrans = new Transform();
-	Transform *textTrans = new Transform();
-	inventoryTrans->translate(inGameMenuSprite.getPosition().x + 1060, inGameMenuSprite.getPosition().y + 15);
+	transformation.translate(inGameMenuSprite.getPosition().x + 1060, inGameMenuSprite.getPosition().y + 15);
+
 	for (int i = 0; i < player->InventoryManager()->getInventoryItems().size(); i++){		
 		
 		if (i == 3){
-			inventoryTrans->translate(-270, 90);
+			transformation.translate(-270, 90);
 		}
 		//adds 90 to the x-led pos
-		inventoryTrans->translate(90, 0);
+		transformation.translate(90, 0);
 
-		window->draw(player->InventoryManager()->getInventoryItems()[i]->getSprite(), *inventoryTrans);
+		window->draw(player->InventoryManager()->getInventoryItems()[i]->getSprite(), transformation);
 
 		//If an item is stackable the amount in the inventory is shown.
 		if (player->InventoryManager()->getInventoryItems()[i]->isStackAble()){
 			displayText.setString(to_string(player->InventoryManager()->getInventoryItems()[i]->getStackAmount()));
 			displayText.setPosition(0, 0);
-			inventoryTrans->translate(60, 60);
+			transformation.translate(60, 60);
 		
-			window->draw(displayText, *inventoryTrans);
+			window->draw(displayText, transformation);
 
 			//resets position for next inventory slot.
-			inventoryTrans->translate(-60, -60);
-		}
-		
-
-		
-		
+			transformation.translate(-60, -60);
+		}			
 	}
+	resetTransformation();
 
-	delete inventoryTrans;
 	//#END DRAW Inventory
 
 
 	//#START DRAW Action Points
-	Transform *trans = new Transform();
-	trans->translate(inGameMenuSprite.getPosition().x + 500, inGameMenuSprite.getPosition().y + 20);
+	transformation.translate(inGameMenuSprite.getPosition().x + 500, inGameMenuSprite.getPosition().y + 20);
 
 	//trans.translate(100, 100);
 	for (int i = 0; i < player->getMaxActionsPoints(); i++){
 		if (i + 1 > player->getRemaningActionPoints()){
-			window->draw(player->getConsumedAPSprite(), *trans);
+			window->draw(player->getConsumedAPSprite(), transformation);
 		}
 		else {
-			window->draw(player->getAPSprite(), *trans);
+			window->draw(player->getAPSprite(), transformation);
 		}
 		
-		trans->translate(30, 0);
+		transformation.translate(30, 0);
 	}
 
-	delete trans;
+	resetTransformation();
 	//#END DRAW Action Points
 
 
 	//#START DRAW Player hit points
-
-	
-	behindHPBar.setPosition(inGameMenuSprite.getPosition().x + 50, inGameMenuSprite.getPosition().y + 20);
-	window->draw(behindHPBar);
+	transformation.translate(inGameMenuSprite.getPosition().x + 70, inGameMenuSprite.getPosition().y + 20);
+	window->draw(behindHPBar, transformation);
 
 	hpBar.setSize(Vector2f(250 * (player->getPlayerHP() / player->getMaxPlayerHP()), 40));
-	hpBar.setPosition(inGameMenuSprite.getPosition().x + 50, inGameMenuSprite.getPosition().y + 20);
-	window->draw(hpBar);
+	window->draw(hpBar, transformation);
 	
-
+	resetTransformation();
 	//#END DRAW Player hit points
 
 	//#START DRAW Player status
+	transformation.translate(inGameMenuSprite.getPosition().x + 80, inGameMenuSprite.getPosition().y + 90);
+	displayText.setPosition(0, 0);
 
-	Transform statusBarTrans;
-	statusBarTrans.translate(inGameMenuSprite.getPosition().x + 50, inGameMenuSprite.getPosition().y + 90);
-	
 	//Hunger bar
 	statBar.setSize(Vector2f(150 * (player->getPlayerHunger() / player->getPlayerMAXHunger()), 10));
-	window->draw(behindStatBar, statusBarTrans);
-	window->draw(statBar, statusBarTrans);
+	window->draw(behindStatBar, transformation);
+	window->draw(statBar, transformation);
 
-	statusBarTrans.translate(0, 30);
+	displayText.setString("Hunger:");	
+	transformation.translate(-70, -6);
+	window->draw(displayText, transformation);
+	transformation.translate(70, 6);
 
-	//Mood bar
+	transformation.translate(0, 30);
+
+	//Mood bar	
 	statBar.setSize(Vector2f(150 * (player->getPlayerMood() / player->getPlayerMAXMood()), 10));
-	window->draw(behindStatBar, statusBarTrans);
-	window->draw(statBar, statusBarTrans);
+	window->draw(behindStatBar, transformation);
+	window->draw(statBar, transformation);
 
-	statusBarTrans.translate(0, 30); 
+	displayText.setString("Mood: ");
+	transformation.translate(-70, -6);
+	window->draw(displayText, transformation);
+	transformation.translate(70, 6);
 
-	//Stamina bar
+	transformation.translate(0, 30);
+
+	//Stamina bar	
 	statBar.setSize(Vector2f(150 * (player->getPlayerStamina() / player->getPlayerMAXStamina()), 10));
-	window->draw(behindStatBar, statusBarTrans);
-	window->draw(statBar, statusBarTrans);
+	window->draw(behindStatBar, transformation);
+	window->draw(statBar, transformation);
 
+	displayText.setString("Stamina: ");
+	transformation.translate(-70, -6);
+	window->draw(displayText, transformation);
+	transformation.translate(70, 6);
+
+	resetTransformation();
 	//END DRAW Player status
 
 	//#END IN-GAME MENU DRAW
@@ -231,6 +237,11 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, V
 	displayText.setPosition(gameView->getCenter().x - window->getSize().x/2,
 							gameView->getCenter().y - window->getSize().y/2);
 	window->draw(displayText);
+}
+
+//resets the transformation position
+void GUIMaster::resetTransformation(){
+	transformation.translate(-transformation.transformPoint(0, 0));
 }
 
 

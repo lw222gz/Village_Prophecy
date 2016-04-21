@@ -19,8 +19,13 @@ public:
 	~GameLoop();
 	void RunGame(RenderWindow *window);
 	bool GameOver();
+	bool switchToCombat();
+	Player* getPlayerPointer();
+	vector<Enemy*>* getCombatEnemies();
 
 private:
+	bool playerEnteredCombatPhase = false;
+	int enemyVectorIndex = 0;
 	bool isGameOver = false;
 	Time timeElapsed;
 	HandleInput handleInput;

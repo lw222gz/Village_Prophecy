@@ -111,13 +111,8 @@ void GameObject::setObjectSprite(){
 			break;
 
 		default:
-			//To possible bugg check I will use the empty inventory slot texture
-			//as default.
-			if (!objectTexture.loadFromFile("Textures/PHInventorySpot.png")){
-				throw "Defualt texture for a new gameobject did not load correctly.";
-			}
-			//Default trigger type will be No_Action, then nothing will happen on trigger
-			triggerType = TriggerType::No_Action;
+			//Throw err if the game object type is not defined
+			throw "GAME_OBJECT_ERROR: Not a valid gameobject type was given.";
 			break;
 	}
 

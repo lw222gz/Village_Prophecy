@@ -27,6 +27,8 @@ public:
 	void setAreaPaths(vector<Path*> areaPaths);
 	Inventory* InventoryManager();
 	void Sleep();
+	void savePosition();
+	void setToSavedPosition();
 
 	int getRemaningActionPoints();
 	int getMaxActionsPoints();
@@ -46,6 +48,10 @@ public:
 	float getPlayerMAXMood();
 	float getPlayerMAXStamina();
 
+	void playerHungerAffected(float amount);
+	void playerMoodAffected(float amount);
+	void playerStaminaAffected(float amount);
+
 private:
 	//pixel speed of player per second
 	float speed = 300.0;
@@ -53,10 +59,12 @@ private:
 	Texture playerTexture;
 	//Also hold the value for the players position
 	Sprite playerSprite;
+	Vector2f playerCombatPosition = Vector2f(500.0,500.0);
 	Vector2u borders;
 	vector<Path*> avaliblePaths;
 	Inventory *inventory = NULL;
-	
+	Vector2f savedPosition = Vector2f(0, 0);
+
 	const int ACTION_POINTS_MAX = 10;
 	int actionPoints = 2;
 	Texture APTexture;
