@@ -3,6 +3,7 @@
 //Inventory
 #include "HandleInput.h"
 #include "GUIMaster.h"
+#include "InGameMenuGUI.h"
 #include "GameArea.h"
 //#include "GameObject.h"
 //#include "TriggerType.h"
@@ -15,7 +16,7 @@ using namespace std;
 class GameLoop
 {
 public:
-	GameLoop(View *view, GUIMaster *gui);
+	GameLoop(View *view, GUIMaster *gui, InGameMenuGUI *inGameMenuGUI, HandleInput *inputHandler);
 	~GameLoop();
 	void RunGame(RenderWindow *window);
 	bool GameOver();
@@ -24,11 +25,12 @@ public:
 	vector<Enemy*>* getCombatEnemies();
 
 private:
+	InGameMenuGUI *gameMenuGUI;
 	bool playerEnteredCombatPhase = false;
 	int enemyVectorIndex = 0;
 	bool isGameOver = false;
 	Time timeElapsed;
-	HandleInput handleInput;
+	HandleInput *handleInput = NULL;
 	Player player;
 	Clock timer;
 	vector<IDrawAble*> gameObjects;

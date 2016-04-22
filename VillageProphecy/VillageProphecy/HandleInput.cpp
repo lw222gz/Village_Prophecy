@@ -9,17 +9,95 @@ HandleInput::~HandleInput()
 {
 }
 
+
+
+
+int HandleInput::CheckTargetChoiceInput(Time t, int currentIndex, int maxIndex){
+	if (controlsEnabled){
+		if (Keyboard::isKeyPressed(Keyboard::W)){
+			if (currentIndex == 0){				
+				DisableControls(.25);
+				return currentIndex + 1;
+			}
+			else if (currentIndex + 1 == maxIndex){
+				DisableControls(.25);
+				return currentIndex - 2;
+			}
+		}
+		else if (Keyboard::isKeyPressed(Keyboard::S)){
+			if (currentIndex - 1 == 0){				
+				DisableControls(.25);
+				return currentIndex - 1;
+			}
+			else if (currentIndex == 0){
+				DisableControls(.25);
+				return currentIndex + 2;
+			}
+		}
+	}
+	else{
+		updatePauseTimer(t.asSeconds());
+	}
+	
+	return currentIndex;
+}
+
+
+
+
+
+
+bool HandleInput::CheckUserCombatDecision(){
+	if (Keyboard::isKeyPressed(Keyboard::Return)){
+		return true;
+	}
+	return false;
+}
+
+
+
+CombatOptions HandleInput::CheckUserCombatInput(CombatOptions currentOption){
+
+	if (Keyboard::isKeyPressed(Keyboard::W)){
+		if (currentOption - 2 >= CombatOptions::First &&
+			currentOption - 2 <= CombatOptions::Last){
+
+			currentOption = static_cast<CombatOptions>(currentOption - 2);
+		}
+	}
+	if (Keyboard::isKeyPressed(Keyboard::S)){
+		if (currentOption + 2 >= CombatOptions::First &&
+			currentOption + 2 <= CombatOptions::Last){
+
+			currentOption = static_cast<CombatOptions>(currentOption + 2);
+		}
+	}
+	if (Keyboard::isKeyPressed(Keyboard::A)){
+		if ((currentOption - 1) %2 == 0){
+			currentOption = static_cast<CombatOptions>(currentOption - 1);
+		}
+	}
+	if (Keyboard::isKeyPressed(Keyboard::D)){
+		if ((currentOption + 1) % 2 == 1){
+			currentOption = static_cast<CombatOptions>(currentOption + 1);
+		}
+	}
+
+	return currentOption;
+}
+
 /*
 * <DESCRIPTION>
 * Checks for user input and executes the proper order
 *
 * @PARAMS
-* Player *player: 
+* Player *player: pointer to the Player object
 *
 * @RETURNS
-*
+* returns an Enum Value of Areas representing any newly entered area.
 */
-Areas HandleInput::CheckUserInput(Player *player, Time *t){
+//TODO: Rename to CheckUserMovementInput
+Areas HandleInput::CheckUserMovementInput(Player *player, Time *t){
 
 	area = Areas::No_Area;
 

@@ -44,8 +44,8 @@ void VisualEnemy::setValues(){
 			if (!enemyTexture.loadFromFile("Textures/PHEnemy.png")){
 				throw "TEXTURE LOAD ERROR: Visual enemy texture Skeleton could not load.";
 			}
-			//TODO:Add enemies to the enemygrou vector
 			break;
+			
 
 		case Humans:
 			//TODO: add own texture
@@ -53,9 +53,34 @@ void VisualEnemy::setValues(){
 				throw "TEXTURE LOAD ERROR: Visual enemy texture Skeleton could not load.";
 			}
 			break;
+
 		default:
 			break;
 	}
 
 	enemySprite.setTexture(enemyTexture);
+	generareMobGroup();
+}
+
+
+void VisualEnemy::generareMobGroup(){
+	switch (type)
+	{
+		case Skeleton:{
+				//TODO:Add enemies to the enemygrou vector
+				srand(time(NULL));
+				amountOfMobs = 3;//rand() % 3 + 1;
+
+				for (int i = 0; i < amountOfMobs; ++i){
+					Enemy *e = new Enemy(EnemyType::Skeleton_MELEE);
+					enemyGroup.push_back(e);
+				}
+			break;
+			}
+			
+		case Humans:
+			break;
+		default:
+			break;
+	}
 }

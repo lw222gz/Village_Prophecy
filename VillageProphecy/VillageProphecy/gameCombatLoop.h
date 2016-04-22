@@ -1,22 +1,31 @@
 #pragma once
 #include "CombatGUI.h"
-#include "Enemy.h"
+#include "InGameMenuGUI.h"
+#include "HandleInput.h"
+
 
 class GameCombatLoop
 {
 public:
-	GameCombatLoop(View *gameView, Player *p);
+	GameCombatLoop(View *gameView, Player *p, InGameMenuGUI *inGameMenuGUI, HandleInput *inputHandler);
 	~GameCombatLoop();
 	void runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies);
 	void InitiateCombatLoopValues();
 	bool isNormalRenderingActive();
 
 private:
+	HandleInput *handleInput;
+	InGameMenuGUI *combatMenuGUI;
 	bool phaseTransmissionAnimation = true;
 	View *view;
 	CombatGUI *gui = NULL;
 	Player *player;
 	Time timeElapsed;
 	Clock timer;
+	CombatOptions currentOption;
+	int targetIndex = 0;
+
+	CombatState currentCombatState = CombatState::Choosing_Action;
+	void ExecuteCombatOption();
 };
 

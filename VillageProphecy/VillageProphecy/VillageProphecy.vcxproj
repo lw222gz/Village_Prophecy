@@ -91,6 +91,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GUIMaster.cpp" />
     <ClCompile Include="HandleInput.cpp" />
+    <ClCompile Include="InGameMenuGUI.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialList.cpp" />
@@ -101,6 +102,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CombatGUI.h" />
+    <ClInclude Include="CombatOptions.h" />
+    <ClInclude Include="CombatState.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyType.h" />
@@ -115,6 +118,7 @@
     <ClInclude Include="GUIMaster.h" />
     <ClInclude Include="HandleInput.h" />
     <ClInclude Include="IDrawAble.h" />
+    <ClInclude Include="InGameMenuGUI.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialList.h" />

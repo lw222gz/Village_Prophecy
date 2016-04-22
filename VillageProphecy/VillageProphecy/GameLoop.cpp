@@ -11,7 +11,9 @@
 *	*gameView: Pointer to the View object for the game.
 *	*guiMaster: Pointer to the gui object for the game. (To reduce stack memory)
 */
-GameLoop::GameLoop(View *gameView, GUIMaster *guiMaster) : view(gameView), gui(guiMaster){
+GameLoop::GameLoop(View *gameView, GUIMaster *guiMaster, InGameMenuGUI *inGameMenuGUI, HandleInput *inputHandler)
+	: view(gameView), gui(guiMaster), gameMenuGUI(inGameMenuGUI), handleInput(inputHandler)
+{
 
 	survivalGameArea = new GameArea(Areas::Survival, Vector2u(3000, 1500));
 	hostileGameArea = new GameArea(Areas::Hostile, Vector2u(4000, 1000));
@@ -67,7 +69,7 @@ void GameLoop::RunGame(RenderWindow *window){
 	timer.restart();
 		
 	//Checks for user input
-	newArea = handleInput.CheckUserInput(&player, &timeElapsed);
+	newArea = handleInput->CheckUserMovementInput(&player, &timeElapsed);
 	if (newArea != Areas::No_Area){
 		EnterNewArea(window, view);
 	}
@@ -75,7 +77,7 @@ void GameLoop::RunGame(RenderWindow *window){
 	//If quick menu is active the game must listen for it's keyevent
 	if (triggerdObject != NULL){
 		//if the key for the quick menu is pressed the object gets triggerd.
-		if (handleInput.checkQuickMenuInput()){
+		if (handleInput->checkQuickMenuInput()){
 			ExecuteObjectTrigger(window);
 		}
 	}
@@ -142,6 +144,7 @@ void GameLoop::RunGame(RenderWindow *window){
 
 	//draw the game
 	gui->DrawGame(currentGameArea->getAreaVisualObjects(), window, view, &player, triggerdObject, &timeElapsed, amountOfDaysLeft);
+	gameMenuGUI->DrawGameMenu(window, &player);
 }
 
 
@@ -245,7 +248,7 @@ void GameLoop::ExecuteObjectTrigger(RenderWindow *window){
 			{
 			case GameObjectType::Bed:				
 				gui->activateSleepAnimation(Vector2f(window->getSize().x, window->getSize().y));
-				handleInput.DisableControls(gui->getSleepAnimationTime());
+				handleInput->DisableControls(gui->getSleepAnimationTime());
 				player.Sleep();
 				amountOfDaysLeft -= 1;
 				//TODO: give the player a notice on the last day to warn them that the game is about to be over.

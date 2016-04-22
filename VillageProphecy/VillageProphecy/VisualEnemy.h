@@ -21,5 +21,7 @@ private:
 	vector<Enemy*> enemyGroup;
 
 	void setValues();
+	void generareMobGroup();
+	int amountOfMobs;
 };
 

@@ -7,9 +7,10 @@ using namespace std;
 class Enemy : public IDrawAble
 {
 public:
-	Enemy(EnemyType typeOfEnemy, Vector2f pos);
+	Enemy(EnemyType typeOfEnemy);
 	~Enemy();
 	Sprite getSprite();
+	EnemyType getEnemyType();
 
 private:
 	void setEnemyTexture();

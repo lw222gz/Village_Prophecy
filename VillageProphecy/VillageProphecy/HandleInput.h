@@ -1,5 +1,6 @@
 #pragma once
 #include "Player.h"
+#include "CombatOptions.h"
 //#include "MoveDirection.h"
 //#include "GameAreas.h"
 //#include <SFML/Graphics.hpp>
@@ -11,7 +12,10 @@ class HandleInput
 public:
 	HandleInput();
 	~HandleInput();
-	Areas CheckUserInput(Player *player, Time *t);
+	Areas CheckUserMovementInput(Player *player, Time *t);
+	CombatOptions CheckUserCombatInput(CombatOptions currentOption);
+	int CheckTargetChoiceInput(Time t, int currentIndex,int maxIndex);
+	bool CheckUserCombatDecision();
 	void DisableControls(float secondsToPause);
 	bool checkQuickMenuInput();
 

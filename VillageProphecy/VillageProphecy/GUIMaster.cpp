@@ -13,11 +13,6 @@ GUIMaster::GUIMaster()
 	}
 	gameOverSprite.setTexture(gameOverTexture);
 	
-	
-	if (!inGameMenuTexture.loadFromFile("Textures/PHInGameMenu.png")){
-		throw "TEXTURE LOAD ERROR: inGameMenu did not load correctly.";
-	}
-	inGameMenuSprite.setTexture(inGameMenuTexture);
 
 	if (!quickMenuTexture.loadFromFile("Textures/PHQuickMenu.png")){
 		throw "TEXTURE LOAD ERROR: quickMenu texture did not load correctly.";
@@ -37,16 +32,7 @@ GUIMaster::GUIMaster()
 	//displayText.setStyle(Text::Bold);
 
 
-	//Sets status bar colors.
-	behindHPBar.setSize(Vector2f(250, 40));
-	behindHPBar.setFillColor(Color::Red);
-
-	hpBar.setFillColor(Color::Green);
-
-	behindStatBar.setSize(Vector2f(150, 10));
-	behindStatBar.setFillColor(Color(64, 64, 64, 255));
-
-	statBar.setFillColor(Color(255,165,0,255));
+	
 
 }
 
@@ -76,115 +62,6 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, V
 	for (int i = 0; i < gameObjects.size(); ++i){
 		window->draw(gameObjects[i]->getSprite());
 	}	
-	
-	//#START IN-GAME MENU DRAW
-	inGameMenuSprite.setPosition(gameView->getCenter().x - window->getSize().x / 2,
-								gameView->getCenter().y + window->getSize().y / 2 - 200);
-	window->draw(inGameMenuSprite);
-
-	//TODO: Bugg makes the inventory slots "bounce around" abit when moving.
-	//TODO: -optimize- the positioning is veary badly built atm
-	//#START DRAW Inventory
-	transformation.translate(inGameMenuSprite.getPosition().x + 1060, inGameMenuSprite.getPosition().y + 15);
-
-	for (int i = 0; i < player->InventoryManager()->getInventoryItems().size(); i++){		
-		
-		if (i == 3){
-			transformation.translate(-270, 90);
-		}
-		//adds 90 to the x-led pos
-		transformation.translate(90, 0);
-
-		window->draw(player->InventoryManager()->getInventoryItems()[i]->getSprite(), transformation);
-
-		//If an item is stackable the amount in the inventory is shown.
-		if (player->InventoryManager()->getInventoryItems()[i]->isStackAble()){
-			displayText.setString(to_string(player->InventoryManager()->getInventoryItems()[i]->getStackAmount()));
-			displayText.setPosition(0, 0);
-			transformation.translate(60, 60);
-		
-			window->draw(displayText, transformation);
-
-			//resets position for next inventory slot.
-			transformation.translate(-60, -60);
-		}			
-	}
-	resetTransformation();
-
-	//#END DRAW Inventory
-
-
-	//#START DRAW Action Points
-	transformation.translate(inGameMenuSprite.getPosition().x + 500, inGameMenuSprite.getPosition().y + 20);
-
-	//trans.translate(100, 100);
-	for (int i = 0; i < player->getMaxActionsPoints(); i++){
-		if (i + 1 > player->getRemaningActionPoints()){
-			window->draw(player->getConsumedAPSprite(), transformation);
-		}
-		else {
-			window->draw(player->getAPSprite(), transformation);
-		}
-		
-		transformation.translate(30, 0);
-	}
-
-	resetTransformation();
-	//#END DRAW Action Points
-
-
-	//#START DRAW Player hit points
-	transformation.translate(inGameMenuSprite.getPosition().x + 70, inGameMenuSprite.getPosition().y + 20);
-	window->draw(behindHPBar, transformation);
-
-	hpBar.setSize(Vector2f(250 * (player->getPlayerHP() / player->getMaxPlayerHP()), 40));
-	window->draw(hpBar, transformation);
-	
-	resetTransformation();
-	//#END DRAW Player hit points
-
-	//#START DRAW Player status
-	transformation.translate(inGameMenuSprite.getPosition().x + 80, inGameMenuSprite.getPosition().y + 90);
-	displayText.setPosition(0, 0);
-
-	//Hunger bar
-	statBar.setSize(Vector2f(150 * (player->getPlayerHunger() / player->getPlayerMAXHunger()), 10));
-	window->draw(behindStatBar, transformation);
-	window->draw(statBar, transformation);
-
-	displayText.setString("Hunger:");	
-	transformation.translate(-70, -6);
-	window->draw(displayText, transformation);
-	transformation.translate(70, 6);
-
-	transformation.translate(0, 30);
-
-	//Mood bar	
-	statBar.setSize(Vector2f(150 * (player->getPlayerMood() / player->getPlayerMAXMood()), 10));
-	window->draw(behindStatBar, transformation);
-	window->draw(statBar, transformation);
-
-	displayText.setString("Mood: ");
-	transformation.translate(-70, -6);
-	window->draw(displayText, transformation);
-	transformation.translate(70, 6);
-
-	transformation.translate(0, 30);
-
-	//Stamina bar	
-	statBar.setSize(Vector2f(150 * (player->getPlayerStamina() / player->getPlayerMAXStamina()), 10));
-	window->draw(behindStatBar, transformation);
-	window->draw(statBar, transformation);
-
-	displayText.setString("Stamina: ");
-	transformation.translate(-70, -6);
-	window->draw(displayText, transformation);
-	transformation.translate(70, 6);
-
-	resetTransformation();
-	//END DRAW Player status
-
-	//#END IN-GAME MENU DRAW
 
 	//If triggerdObj isent null a quick menu should be displayed.
 	if (triggerdObj != NULL && triggerdObj->getTriggerType() != TriggerType::No_Action){
@@ -237,11 +114,6 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, V
 	displayText.setPosition(gameView->getCenter().x - window->getSize().x/2,
 							gameView->getCenter().y - window->getSize().y/2);
 	window->draw(displayText);
-}
-
-//resets the transformation position
-void GUIMaster::resetTransformation(){
-	transformation.translate(-transformation.transformPoint(0, 0));
 }
 
 

@@ -15,8 +15,9 @@ Game::~Game()
 * Main game loop, controls the game with a GameState status. Loops until the game is closed.
 */
 void Game::StartGame(){
-	RenderWindow window = RenderWindow(VideoMode(windowWidth, windowHeight), "Village Prophecy");
+	RenderWindow window = RenderWindow(VideoMode(windowWidth, windowHeight), "Village Prophecy", Style::Titlebar);
 	view = View(Vector2f(720, 450), Vector2f(1440, 900));
+	
 	window.setView(view);
 	
 	while (window.isOpen()){
@@ -47,6 +48,7 @@ void Game::StartGame(){
 					window.clear(Color::White);
 				}
 				gameCombatLoop.runCombatLoop(&window, gameLoop.getCombatEnemies());
+				
 				//IMPORTANT - When switching back to GameState::Play the timer in GameLoop.cpp must be reset
 				break;
 
@@ -58,6 +60,7 @@ void Game::StartGame(){
 		Event event;
 		while (window.pollEvent(event))
 		{
+			
 			// "close requested" event: we close the window
 			if (event.type == Event::Closed){
 				window.close();

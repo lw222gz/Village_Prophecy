@@ -1,9 +1,9 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy(EnemyType typeOfEnemy, Vector2f pos) : type(typeOfEnemy)
+Enemy::Enemy(EnemyType typeOfEnemy) : type(typeOfEnemy)
 {
-	enemySprite.setPosition(pos);
+	setEnemyTexture();
 }
 
 
@@ -13,6 +13,10 @@ Enemy::~Enemy()
 
 Sprite Enemy::getSprite(){
 	return enemySprite;
+}
+
+EnemyType Enemy::getEnemyType(){
+	return type;
 }
 
 
