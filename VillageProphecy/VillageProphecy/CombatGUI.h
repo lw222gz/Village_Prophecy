@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "CombatState.h"
+#include "GameMessage.h"
 
 class CombatGUI
 {
@@ -12,9 +13,13 @@ public:
 	void TransitionAnimation(RenderWindow *window, Time *t);
 	void DrawTargetArrow(RenderWindow *window, int targetIndex);
 
+	void DrawCombatText(RenderWindow *window, Time *t);
+	void AddCombatText(string mess, int target);
+
 	bool isNormalRenderingActive();
 	bool isTransitionAnimationOver();
 	void ResetAnimationValues();
+	
 
 private:
 	View *view;
@@ -24,6 +29,9 @@ private:
 	float currentAnimationTime = 0;
 	float percentComplete = 0;
 	RectangleShape rect;
+
+	RectangleShape enemyHpBar;
+	RectangleShape enemyHpBehindBar;
 
 	Transform transformation;
 	void ResetTransformation(RenderWindow *window);
@@ -35,5 +43,7 @@ private:
 
 	Texture targetArrowTexture;
 	Sprite targetArrowSprite;
+
+	vector<GameMessage*> combatMessages;
 };
 

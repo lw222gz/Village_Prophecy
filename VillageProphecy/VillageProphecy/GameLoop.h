@@ -23,6 +23,7 @@ public:
 	bool switchToCombat();
 	Player* getPlayerPointer();
 	vector<Enemy*>* getCombatEnemies();
+	void CombatOver();
 
 private:
 	InGameMenuGUI *gameMenuGUI;

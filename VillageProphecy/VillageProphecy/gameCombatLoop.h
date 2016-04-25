@@ -12,6 +12,7 @@ public:
 	void runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies);
 	void InitiateCombatLoopValues();
 	bool isNormalRenderingActive();
+	bool IsCombatOver();
 
 private:
 	HandleInput *handleInput;
@@ -24,8 +25,11 @@ private:
 	Clock timer;
 	CombatOptions currentOption;
 	int targetIndex = 0;
-
 	CombatState currentCombatState = CombatState::Choosing_Action;
+
+	const float enemyTurnTime = 5;
+	float currentEnemyTurnTime = 0;
+
 	void ExecuteCombatOption();
 };
 

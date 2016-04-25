@@ -49,7 +49,13 @@ void Game::StartGame(){
 				}
 				gameCombatLoop.runCombatLoop(&window, gameLoop.getCombatEnemies());
 				
-				//IMPORTANT - When switching back to GameState::Play the timer in GameLoop.cpp must be reset
+				if (gameCombatLoop.IsCombatOver()){
+					currentGameState = GameState::Play;
+					gameLoop.getPlayerPointer()->setToSavedPosition();
+					gameLoop.CombatOver();
+					//IMPORTANT - When switching back to GameState::Play the timer in GameLoop.cpp must be reset
+				}
+				
 				break;
 
 			default:

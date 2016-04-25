@@ -12,26 +12,50 @@ HandleInput::~HandleInput()
 
 
 
-int HandleInput::CheckTargetChoiceInput(Time t, int currentIndex, int maxIndex){
+
+
+
+
+
+
+
+
+
+//TODO: build more dynamicly so it would be easy to implement more amount 
+//of possible enemies during a battle
+int HandleInput::CheckTargetChoiceInput(Time t, int currentIndex, vector<Enemy*> *enemies){
+
 	if (controlsEnabled){
+
 		if (Keyboard::isKeyPressed(Keyboard::W)){
-			if (currentIndex == 0 && maxIndex > 1){				
-				DisableControls(.25);
-				return currentIndex + 1;
+			DisableControls(.25);
+
+			if (currentIndex == 2){
+				if (enemies->at(0)->IsAlive()){
+					return 0;
+				}
+				else if (enemies->at(1)->IsAlive()){
+					return 1;
+				}
+				
 			}
-			else if (maxIndex == 3 && currentIndex + 1 == maxIndex){
-				DisableControls(.25);
-				return currentIndex - 2;
+			else if (enemies->size() >= 2 && currentIndex == 0 && enemies->at(1)->IsAlive()){				
+				return 1;
 			}
 		}
 		else if (Keyboard::isKeyPressed(Keyboard::S)){
-			if (currentIndex - 1 == 0){				
-				DisableControls(.25);
-				return currentIndex - 1;
+			DisableControls(.25);
+
+			if (currentIndex == 1){
+				if (enemies->at(0)->IsAlive()){
+					return 0;
+				}
+				else if (enemies->size() == 3 && enemies->at(2)->IsAlive()){					
+					return 2;
+				}			
 			}
-			else if (currentIndex == 0 && maxIndex == 3){
-				DisableControls(.25);
-				return currentIndex + 2;
+			else if (enemies->size() == 3 && currentIndex == 0 && enemies->at(2)->IsAlive()){
+				return 2;
 			}
 		}
 	}
@@ -46,10 +70,18 @@ int HandleInput::CheckTargetChoiceInput(Time t, int currentIndex, int maxIndex){
 
 
 
-
+//TODO: add move backward option
 bool HandleInput::CheckUserCombatDecision(){
+
 	if (Keyboard::isKeyPressed(Keyboard::Return)){
-		return true;
+		if (!enterJustPressed){
+			enterJustPressed = true;
+			return true;
+		}
+	}
+	else
+	{
+		enterJustPressed = false;
 	}
 	return false;
 }
@@ -73,7 +105,7 @@ CombatOptions HandleInput::CheckUserCombatInput(CombatOptions currentOption){
 		}
 	}
 	if (Keyboard::isKeyPressed(Keyboard::A)){
-		if ((currentOption - 1) %2 == 0){
+		if ((currentOption - 1) % 2 == 0){
 			currentOption = static_cast<CombatOptions>(currentOption - 1);
 		}
 	}

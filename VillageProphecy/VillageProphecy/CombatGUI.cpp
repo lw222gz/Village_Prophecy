@@ -20,6 +20,11 @@ CombatGUI::CombatGUI(View *gameView)
 	displayText.setCharacterSize(16);
 	displayText.setColor(Color::Black);
 	//displayText.setStyle(Text::Bold);
+
+
+	enemyHpBar.setFillColor(Color::Red);
+	enemyHpBehindBar.setFillColor(Color::Black);
+
 }
 
 
@@ -28,20 +33,38 @@ CombatGUI::~CombatGUI()
 }
 
 void CombatGUI::DrawCombatPhase(RenderWindow *window, Time *t, Player *p, vector<Enemy*> *enemies){
-	//TODO: draw combat ui	
+
+	//TODO: give a transformation to the player drawn, if done so there is no
+	//need to save the position of the player before entering combat.
 	window->draw(p->getSprite());
+
 	for (int i = 0; i < enemies->size(); ++i){
 
-		ResetTransformation(window);
-		transformation.translate(enemyPositions[i]);
-		window->draw(enemies->at(i)->getSprite(), transformation);
-		
-		displayText.setString(getEnemyName(enemies->at(i)->getEnemyType()));
-		transformation.translate(0, -25);
+		if (enemies->at(i)->IsAlive()){
+			ResetTransformation(window);
+			transformation.translate(enemyPositions[i]);
+			window->draw(enemies->at(i)->getSprite(), transformation);
 
-		window->draw(displayText, transformation);
+			displayText.setString(getEnemyName(enemies->at(i)->getEnemyType()));
 
-		
+			transformation.translate(0, -20);
+			enemyHpBehindBar.setSize(Vector2f(enemies->at(i)->getSprite().getTexture()->getSize().x, 10));
+
+			enemyHpBar.setSize(Vector2f(
+				enemies->at(i)->getSprite().getTexture()->getSize().x * (enemies->at(i)->getHitPoints() / enemies->at(i)->getMaxHitPoints())
+				, 10));
+
+			window->draw(enemyHpBehindBar, transformation);
+			window->draw(enemyHpBar, transformation);
+
+			enemies->at(i)->getSprite().getTexture()->getSize();
+
+			transformation.translate(0, -25);
+			window->draw(displayText, transformation);
+		}
+		else {
+			//TODO: draw dead enemy
+		}
 	}
 }
 
@@ -65,6 +88,33 @@ void CombatGUI::DrawTargetArrow(RenderWindow *window, int targetIndex){
 	transformation.translate(10, -100);
 
 	window->draw(targetArrowSprite, transformation);
+}
+
+//TODO: the player will need his own addcombattext method because it will
+//require the player parameter anyway
+void CombatGUI::AddCombatText(string mess, int targetIndex){
+	combatMessages.push_back(new GameMessage(mess, enemyPositions[targetIndex], 5));
+}
+
+void CombatGUI::DrawCombatText(RenderWindow *window, Time *t){
+	for (int i = 0; i < combatMessages.size(); ++i){
+		ResetTransformation(window);
+
+		combatMessages[i]->updateMessageTimer(t->asSeconds());
+		//if the message life time is over then it will be removed and the next
+		//loop iteration will begin.
+		if (combatMessages[i]->getLifeTimePercent() >= 1){
+			delete combatMessages[i];  
+			combatMessages.erase(combatMessages.begin() + i);
+			continue;
+		}
+		//transformation.translate(enemyPositions[0]);//combatMessages[i]->getMessage().getPosition());
+		//transformation.translate(-100, 20);//combatMessages[i]->getLifeTimePercent() * 50
+		combatMessages[i]->setPosition(Vector2f(view->getCenter().x - window->getSize().x / 2 + 50, 
+			view->getCenter().y - window->getSize().y / 2 + 50));
+
+		window->draw(combatMessages[i]->getMessage());
+	}
 }
 
 bool CombatGUI::isNormalRenderingActive(){

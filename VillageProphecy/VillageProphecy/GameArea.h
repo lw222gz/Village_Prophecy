@@ -21,6 +21,7 @@ public:
 	vector<Path*> getAreaPaths();
 	Vector2u getAreaSize();
 	void removeAreaObject(GameObject *obj);
+	void removeAreaEnemy(VisualEnemy *enemy);
 
 	vector<VisualEnemy*>* getAreaEnemies();
 

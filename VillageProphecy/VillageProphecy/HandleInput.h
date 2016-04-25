@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "CombatOptions.h"
+#include "Enemy.h"
 //#include "MoveDirection.h"
 //#include "GameAreas.h"
 //#include <SFML/Graphics.hpp>
@@ -14,7 +15,7 @@ public:
 	~HandleInput();
 	Areas CheckUserMovementInput(Player *player, Time *t);
 	CombatOptions CheckUserCombatInput(CombatOptions currentOption);
-	int CheckTargetChoiceInput(Time t, int currentIndex,int maxIndex);
+	int CheckTargetChoiceInput(Time t, int currentIndex, vector<Enemy*> *enemies);
 	bool CheckUserCombatDecision();
 	void DisableControls(float secondsToPause);
 	bool checkQuickMenuInput();
@@ -22,6 +23,7 @@ public:
 private:
 	Areas area = Areas::No_Area;
 	bool controlsEnabled = true;
+	bool enterJustPressed = false;
 	float pauseTime = 0;
 	float currentPauseTime = 0;
 

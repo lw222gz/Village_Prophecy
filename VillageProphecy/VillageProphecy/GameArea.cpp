@@ -80,6 +80,14 @@ void GameArea::removeAreaObject(GameObject *obj){
 }
 
 
+//removes a enemy game object
+void GameArea::removeAreaEnemy(VisualEnemy *enemy){
+	enemies.erase(remove(enemies.begin(), enemies.end(), enemy), enemies.end());
+	areaVisualObjects.erase(remove(areaVisualObjects.begin(), areaVisualObjects.end(), enemy), areaVisualObjects.end());
+	delete enemy;
+}
+
+
 /*
 * <DESCRIPTION>
 * Generates the game areas objects and paths depending on the type of game area that is being created.

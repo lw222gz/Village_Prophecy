@@ -9,7 +9,11 @@ GameCombatLoop::GameCombatLoop(View *gameView, Player *p, InGameMenuGUI *inGameM
 
 GameCombatLoop::~GameCombatLoop()
 {
+}
 
+//returns true if the combat phase is over.
+bool GameCombatLoop::IsCombatOver(){
+	return (currentCombatState == CombatState::Combat_Over);
 }
 
 void GameCombatLoop::InitiateCombatLoopValues(){
@@ -48,22 +52,49 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 				break;
 
 			case Choosing_Target:
-				targetIndex = handleInput->CheckTargetChoiceInput(timeElapsed, targetIndex, enemies->size());
+				targetIndex = handleInput->CheckTargetChoiceInput(timeElapsed, targetIndex, enemies);
 				gui->DrawTargetArrow(window, targetIndex);
+
+				if (handleInput->CheckUserCombatDecision()){
+
+					currentCombatState = CombatState::Enemy_Turn;
+					currentEnemyTurnTime = 0;
+
+					enemies->at(targetIndex)->TakeDamage(10);
+					gui->AddCombatText("10" , targetIndex);
+
+					//If the enemy died a new target index is set.
+					if (!enemies->at(targetIndex)->IsAlive()){
+
+						for (int i = 0; i < enemies->size(); ++i){
+							if (enemies->at(i)->IsAlive()){
+								targetIndex = i;
+								break;
+							}
+							//Last iteration of the loop.
+							if (i + 1 == enemies->size()){
+								//All enemies are dead and the normal gameplay should resume.
+								currentCombatState = CombatState::Combat_Over;
+							}
+						}
+					}
+					
+				}
+				
 				break;
 
 			case Enemy_Turn:
+				currentCombatState = Choosing_Action;
 				break;
 
 			default:
 				break;
 		}
 		
+		
 		gui->DrawCombatPhase(window, &timeElapsed, player, enemies);
-
 		combatMenuGUI->DrawCombatMenu(window, player, &currentOption);
-		
-		
+		gui->DrawCombatText(window, &timeElapsed);		
 	}
 
 	if (phaseTransmissionAnimation){
@@ -90,6 +121,7 @@ void GameCombatLoop::ExecuteCombatOption(){
 
 		case CombatOptions::Run:
 			break;
+
 
 		default:
 			throw "Not a valid combat option was executed.";

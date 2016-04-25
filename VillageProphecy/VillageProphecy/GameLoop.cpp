@@ -43,6 +43,10 @@ bool GameLoop::GameOver(){
 	return isGameOver;
 }
 
+void GameLoop::CombatOver(){
+	playerEnteredCombatPhase = false;
+	currentGameArea->removeAreaEnemy(currentGameArea->getAreaEnemies()->at(enemyVectorIndex));
+}
 
 bool GameLoop::switchToCombat(){
 	return playerEnteredCombatPhase;
@@ -95,6 +99,10 @@ void GameLoop::RunGame(RenderWindow *window){
 		}
 	}	
 
+	if (currentGameArea->getAreaEnemies()->size() == 0
+		&& currentGameArea->getAreaType() == Areas::Hostile){
+		int a = 5;
+	}
 	//Checks for collisions with enemies, if so then combat phase is initiated.
 	for (int i = 0; i < currentGameArea->getAreaEnemies()->size(); ++i){
 		if (currentGameArea->getAreaEnemies()->at(i)->collideWithPlayer(player.getSprite().getPosition(), player.getSize())){
@@ -158,24 +166,24 @@ void GameLoop::RunGame(RenderWindow *window){
 void GameLoop::EnterNewArea(RenderWindow *window, View *view){
 	switch (newArea)
 	{
-	case Base:
-		currentGameArea = baseGameArea;
-		break;
-	case Survival:
-		currentGameArea = survivalGameArea;
-		break;
-	case Hostile:
-		currentGameArea = hostileGameArea;
-		break;
-	//TODO: write cases
-	case Dungeon:
-		break;
-	case Final:
-		break;
-	case No_Area:
-		break;
-	default:
-		break;
+		case Base:
+			currentGameArea = baseGameArea;
+			break;
+		case Survival:
+			currentGameArea = survivalGameArea;
+			break;
+		case Hostile:
+			currentGameArea = hostileGameArea;
+			break;
+		//TODO: write cases
+		case Dungeon:
+			break;
+		case Final:
+			break;
+		case No_Area:
+			break;
+		default:
+			break;
 	}
 
 	int y;
