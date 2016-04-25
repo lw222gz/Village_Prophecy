@@ -15,11 +15,11 @@ HandleInput::~HandleInput()
 int HandleInput::CheckTargetChoiceInput(Time t, int currentIndex, int maxIndex){
 	if (controlsEnabled){
 		if (Keyboard::isKeyPressed(Keyboard::W)){
-			if (currentIndex == 0){				
+			if (currentIndex == 0 && maxIndex > 1){				
 				DisableControls(.25);
 				return currentIndex + 1;
 			}
-			else if (currentIndex + 1 == maxIndex){
+			else if (maxIndex == 3 && currentIndex + 1 == maxIndex){
 				DisableControls(.25);
 				return currentIndex - 2;
 			}
@@ -29,7 +29,7 @@ int HandleInput::CheckTargetChoiceInput(Time t, int currentIndex, int maxIndex){
 				DisableControls(.25);
 				return currentIndex - 1;
 			}
-			else if (currentIndex == 0){
+			else if (currentIndex == 0 && maxIndex == 3){
 				DisableControls(.25);
 				return currentIndex + 2;
 			}
