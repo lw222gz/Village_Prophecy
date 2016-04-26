@@ -98,6 +98,7 @@
     <ClCompile Include="GameMessage.cpp" />
     <ClCompile Include="Path.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerStatsManager.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="VisualEnemy.cpp" />
   </ItemGroup>
@@ -121,6 +122,7 @@
     <ClInclude Include="IDrawAble.h" />
     <ClInclude Include="InGameMenuGUI.h" />
     <ClInclude Include="Inventory.h" />
+    <ClInclude Include="LevelEXPRequirement.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialList.h" />
     <ClInclude Include="GameMessage.h" />
@@ -128,6 +130,7 @@
     <ClInclude Include="ObjectType.h" />
     <ClInclude Include="Path.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerStatsManager.h" />
     <ClInclude Include="TriggerType.h" />
     <ClInclude Include="VisualEnemy.h" />
   </ItemGroup>

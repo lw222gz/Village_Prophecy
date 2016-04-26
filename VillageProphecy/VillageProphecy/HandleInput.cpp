@@ -9,18 +9,18 @@ HandleInput::~HandleInput()
 {
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+/*
+* <DESCRIPTION>
+* Switches to diffrent targetable enemies depending on input.
+*
+* @PARAMS
+* t: Time object contaning amount of time passed this iteration of the loop.
+* currentIndex: index of the current targeted enemy
+* enemies: pointer to vector of enemies the player is facing.
+*
+* @RETURNS
+* returns integer representing the unchanged or changed index of the targeted enemy.
+*/
 //TODO: build more dynamicly so it would be easy to implement more amount 
 //of possible enemies during a battle
 int HandleInput::CheckTargetChoiceInput(Time t, int currentIndex, vector<Enemy*> *enemies){
@@ -69,7 +69,14 @@ int HandleInput::CheckTargetChoiceInput(Time t, int currentIndex, vector<Enemy*>
 
 
 
-
+/*
+* <DESCRIPTION>
+* Checks if the player has confirmed a combat option using the enter key.
+* A new option cant be confirmed until the Enter key has been release and pressed again.
+*
+* @RETURNS
+* returns boolean, true if the player just pressed enter after it has been released, otherwise false.
+*/
 //TODO: add move backward option
 bool HandleInput::CheckUserCombatDecision(){
 
@@ -87,7 +94,17 @@ bool HandleInput::CheckUserCombatDecision(){
 }
 
 
-
+/*
+* <DESCRIPTION>
+* Checks user combat choice input, the player has 4 diffrent options
+* he/she can choose between using the WASD keys.
+*
+* @PARAMS
+* currentOption: CombatOptions enum value of the current option the player is considering.
+*
+* @RETURNS
+* returns a CombatOptions enum value representing a new or same combat option the player is considering.
+*/
 CombatOptions HandleInput::CheckUserCombatInput(CombatOptions currentOption){
 
 	if (Keyboard::isKeyPressed(Keyboard::W)){

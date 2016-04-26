@@ -12,13 +12,17 @@ public:
 	void DrawCombatPhase(RenderWindow *window, Time *t, Player *p, vector<Enemy*> *enemies);
 	void TransitionAnimation(RenderWindow *window, Time *t);
 	void DrawTargetArrow(RenderWindow *window, int targetIndex);
+	void DrawEnemyAttackAnimation(Enemy *enemy, float currentTurnTime, float maxTurnTime);
 
 	void DrawCombatText(RenderWindow *window, Time *t);
-	void AddCombatText(string mess, int target);
+	void AddCombatText(string mess, int targetIndex);
+	void AddPlayerCombatText(string mess, Player *player);
+	void AddStatusCombatText(EnemyType enemyType);
+	void AddStatusText(string mess);
 
 	bool isNormalRenderingActive();
 	bool isTransitionAnimationOver();
-	void ResetAnimationValues();
+	void ResetTransitionAnimationValues();
 	
 
 private:
@@ -26,6 +30,7 @@ private:
 	const float transitionAnimationTime = 1;
 	//Positions of enemies, they player can meet up to 3 at once.
 	vector<Vector2f> enemyPositions;
+	const Vector2f statusMessagePosition = Vector2f(500, 200);
 	float currentAnimationTime = 0;
 	float percentComplete = 0;
 	RectangleShape rect;
@@ -45,5 +50,7 @@ private:
 	Sprite targetArrowSprite;
 
 	vector<GameMessage*> combatMessages;
+
+	string getEnemyStringRepresentation(EnemyType enemyType);
 };
 

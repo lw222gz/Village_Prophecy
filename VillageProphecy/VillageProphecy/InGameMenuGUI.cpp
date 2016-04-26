@@ -33,6 +33,12 @@ InGameMenuGUI::InGameMenuGUI(View *gameView) : view(gameView)
 	displayText.setCharacterSize(16);
 	displayText.setColor(Color::Black);
 	//displayText.setStyle(Text::Bold);
+
+	XPBar.setSize(Vector2f(150, 10));
+	behindXPBar.setSize(Vector2f(150, 10));
+
+	XPBar.setFillColor(Color(75, 0, 130, 255));
+	behindXPBar.setFillColor(Color::Black);
 }
 
 
@@ -45,6 +51,8 @@ void InGameMenuGUI::DrawGameMenu(RenderWindow *window, Player *player){
 	DrawBaseMenu(window);
 
 	DrawPlayerInventory(window, player);
+
+	DrawXPBar(window, player);
 
 	DrawPlayerActionPoints(window, player);
 
@@ -61,24 +69,80 @@ void InGameMenuGUI::DrawCombatMenu(RenderWindow *window, Player *player, CombatO
 	DrawCombatOptions(window, currentOption);
 }
 
-void InGameMenuGUI::ResetTransformation(){
+void InGameMenuGUI::DrawXPBar(RenderWindow *window, Player *player){
+	ResetTransformation(window->getSize());
+	transformation.translate(300, 150);
+
+	window->draw(behindXPBar, transformation);
+
+	XPBar.setSize(Vector2f(behindXPBar.getSize().x * ((float)player->StatsManager()->getTotalExp() / (float)player->StatsManager()->getNextLevelExp()), 
+							XPBar.getSize().y));
+
+	window->draw(XPBar, transformation);
+
+	displayText.setCharacterSize(26);
+	displayText.setString("Level: " + getStringRepPlayerLevel(player->StatsManager()->getCurrentLevel()));
+	transformation.translate(0, -36);
+	window->draw(displayText, transformation);
+	transformation.translate(0, 36);
+
+	displayText.setCharacterSize(16);
+	transformation.translate(-25, -5);
+	displayText.setString("XP:");
+	window->draw(displayText, transformation);
+	transformation.translate(25, 5);
+
+	transformation.translate(150, -5);
+	displayText.setString(to_string(player->StatsManager()->getTotalExp()) + " / " + to_string(player->StatsManager()->getNextLevelExp()));
+	window->draw(displayText, transformation);
+	
+}
+
+string InGameMenuGUI::getStringRepPlayerLevel(LevelEXPRequirement currlevel){
+	switch (currlevel)
+	{
+	case LEVEL_0:
+		return "0";
+
+	case LEVEL_1:
+		return "1";
+
+	case LEVEL_2:
+		return "2";
+
+	case LEVEL_3:
+		return "3";
+
+	case LEVEL_30:
+		return "MAX";
+
+	default:
+		return "No defined level";
+	}
+}
+
+//resets the current transformation and sets the position of the top
+//left corner for the in-game menu
+void InGameMenuGUI::ResetTransformation(Vector2u windowSize){
 	transformation.translate(-transformation.transformPoint(0, 0));
+	transformation.translate(view->getCenter().x - windowSize.x / 2,
+							view->getCenter().y + windowSize.y / 2 - 200);
 }
 
 void InGameMenuGUI::DrawBaseMenu(RenderWindow *window){
-	inGameMenuSprite.setPosition(view->getCenter().x - window->getSize().x / 2,
-		view->getCenter().y + window->getSize().y / 2 - 200);
-	window->draw(inGameMenuSprite);
+	ResetTransformation(window->getSize());
+	window->draw(inGameMenuSprite, transformation);
 }
 
 
 
 void InGameMenuGUI::DrawPlayerStats(RenderWindow *window, Player *player){
+	ResetTransformation(window->getSize());
 	//#START DRAW Player hit points
-	transformation.translate(inGameMenuSprite.getPosition().x + 80, inGameMenuSprite.getPosition().y + 20);
+	transformation.translate(80, 20);
 	window->draw(behindHPBar, transformation);
 
-	hpBar.setSize(Vector2f(250 * (player->getPlayerHP() / player->getMaxPlayerHP()), 40));
+	hpBar.setSize(Vector2f(250 * (player->StatsManager()->getPlayerHP() / player->StatsManager()->getMaxPlayerHP()), 40));
 	window->draw(hpBar, transformation);
 
 	//HP bar text
@@ -86,21 +150,23 @@ void InGameMenuGUI::DrawPlayerStats(RenderWindow *window, Player *player){
 	displayText.setString("HP: ");
 	transformation.translate(-40, 5);
 	window->draw(displayText, transformation);
-	displayText.setString(to_string((int)player->getPlayerHP()) + "/" + to_string((int)player->getMaxPlayerHP()));
+	displayText.setString(to_string((int)player->StatsManager()->getPlayerHP()) + "/" + to_string((int)player->StatsManager()->getMaxPlayerHP()));
 	transformation.translate(300, 0);
 	window->draw(displayText, transformation);
 
 	displayText.setCharacterSize(16);
 
-	ResetTransformation();
+	
 	//#END DRAW Player hit points
 
 	//#START DRAW Player status
-	transformation.translate(inGameMenuSprite.getPosition().x + 80, inGameMenuSprite.getPosition().y + 90);
+	ResetTransformation(window->getSize());
+
+	transformation.translate(80, 90);
 	displayText.setPosition(0, 0);
 
 	//Hunger bar
-	statBar.setSize(Vector2f(150 * (player->getPlayerHunger() / player->getPlayerMAXHunger()), 10));
+	statBar.setSize(Vector2f(150 * (player->StatsManager()->getPlayerHunger() / player->StatsManager()->getPlayerMAXHunger()), 10));
 	window->draw(behindStatBar, transformation);
 	window->draw(statBar, transformation);
 
@@ -112,11 +178,11 @@ void InGameMenuGUI::DrawPlayerStats(RenderWindow *window, Player *player){
 	transformation.translate(0, 30);
 
 	//Mood bar	
-	statBar.setSize(Vector2f(150 * (player->getPlayerMood() / player->getPlayerMAXMood()), 10));
+	statBar.setSize(Vector2f(150 * (player->StatsManager()->getPlayerMood() / player->StatsManager()->getPlayerMAXMood()), 10));
 	window->draw(behindStatBar, transformation);
 	window->draw(statBar, transformation);
 
-	displayText.setString("Mood: ");
+	displayText.setString("Mood:");
 	transformation.translate(-70, -6);
 	window->draw(displayText, transformation);
 	transformation.translate(70, 6);
@@ -124,7 +190,7 @@ void InGameMenuGUI::DrawPlayerStats(RenderWindow *window, Player *player){
 	transformation.translate(0, 30);
 
 	//Stamina bar	
-	statBar.setSize(Vector2f(150 * (player->getPlayerStamina() / player->getPlayerMAXStamina()), 10));
+	statBar.setSize(Vector2f(150 * (player->StatsManager()->getPlayerStamina() / player->StatsManager()->getPlayerMAXStamina()), 10));
 	window->draw(behindStatBar, transformation);
 	window->draw(statBar, transformation);
 
@@ -133,14 +199,15 @@ void InGameMenuGUI::DrawPlayerStats(RenderWindow *window, Player *player){
 	window->draw(displayText, transformation);
 	transformation.translate(70, 6);
 	//#END DRAW Player status
-
-	ResetTransformation();
 }
 
 
 
 void InGameMenuGUI::DrawCombatOptions(RenderWindow *window, CombatOptions *currentOption){
-	transformation.translate(inGameMenuSprite.getPosition().x + 500, inGameMenuSprite.getPosition().y + 20);
+
+	ResetTransformation(window->getSize());
+
+	transformation.translate(500, 20);
 
 	displayText.setCharacterSize(36);
 	for (int i = CombatOptions::First; i <= CombatOptions::Last; ++i){
@@ -156,12 +223,12 @@ void InGameMenuGUI::DrawCombatOptions(RenderWindow *window, CombatOptions *curre
 		}
 
 		transformation.translate(150, 0);
+
+		//sets values for the next row of options
 		if (i == 1){
 			transformation.translate(-300, 50);
 		}
 	}
-
-	ResetTransformation();
 }
 
 string InGameMenuGUI::getStringRepCombatOptions(CombatOptions option){
@@ -187,7 +254,9 @@ string InGameMenuGUI::getStringRepCombatOptions(CombatOptions option){
 
 
 void InGameMenuGUI::DrawPlayerInventory(RenderWindow *window, Player *player){
-	transformation.translate(inGameMenuSprite.getPosition().x + 1060, inGameMenuSprite.getPosition().y + 15);
+	ResetTransformation(window->getSize());
+
+	transformation.translate(1060, 15);
 
 	for (int i = 0; i < player->InventoryManager()->getInventoryItems().size(); i++){
 
@@ -211,23 +280,20 @@ void InGameMenuGUI::DrawPlayerInventory(RenderWindow *window, Player *player){
 			transformation.translate(-60, -60);
 		}
 	}
-	ResetTransformation();
 }
 
 void InGameMenuGUI::DrawPlayerActionPoints(RenderWindow *window, Player *player){
-	transformation.translate(inGameMenuSprite.getPosition().x + 500, inGameMenuSprite.getPosition().y + 20);
+	ResetTransformation(window->getSize());
+	transformation.translate(500, 20);
 
-	//trans.translate(100, 100);
-	for (int i = 0; i < player->getMaxActionsPoints(); i++){
-		if (i + 1 > player->getRemaningActionPoints()){
-			window->draw(player->getConsumedAPSprite(), transformation);
+	for (int i = 0; i < player->StatsManager()->getMaxActionsPoints(); i++){
+		if (i + 1 > player->StatsManager()->getRemaningActionPoints()){
+			window->draw(player->StatsManager()->getConsumedAPSprite(), transformation);
 		}
 		else {
-			window->draw(player->getAPSprite(), transformation);
+			window->draw(player->StatsManager()->getAPSprite(), transformation);
 		}
 
 		transformation.translate(30, 0);
 	}
-
-	ResetTransformation();
 }

@@ -17,6 +17,9 @@ private:
 	Texture optionPointerTexture;
 	Sprite optionPointerSprite;
 
+	RectangleShape XPBar;
+	RectangleShape behindXPBar;
+
 	RectangleShape behindHPBar;
 	RectangleShape hpBar;
 
@@ -29,10 +32,12 @@ private:
 	Font coolvetica;
 	Text displayText;
 
+	string getStringRepPlayerLevel(LevelEXPRequirement currlevel);
 	string getStringRepCombatOptions(CombatOptions option);
-	void ResetTransformation();
+	void ResetTransformation(Vector2u windowSize);
 
 	void DrawBaseMenu(RenderWindow *window);
+	void DrawXPBar(RenderWindow *window, Player *player);
 	void DrawPlayerStats(RenderWindow *window, Player *player);
 	void DrawCombatOptions(RenderWindow *window, CombatOptions *currentOption);
 	void DrawPlayerInventory(RenderWindow *window, Player *player);

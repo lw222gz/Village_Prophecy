@@ -61,7 +61,7 @@ void MaterialList::setMaterialList(GameObjectType buildAbleObject){
 void MaterialList::addItemsToConstruction(Player *player){
 	
 	//If there is no remaning AP then the player cant add anything to the construction
-	if (player->getRemaningActionPoints() <= 0){
+	if (player->StatsManager()->getRemaningActionPoints() <= 0){
 		return;
 	}
 	for (int i = 0; i < player->InventoryManager()->getInventoryItems().size(); ++i){
@@ -79,10 +79,10 @@ void MaterialList::addItemsToConstruction(Player *player){
 					if (player->InventoryManager()->getInventoryItems()[i]->getStackAmount() > materialList[j]->getAmountRequired()){
 
 						//if the player has enough AP
-						if (player->getRemaningActionPoints() >= materialList[j]->getAmountRequired()){
+						if (player->StatsManager()->getRemaningActionPoints() >= materialList[j]->getAmountRequired()){
 
 							player->InventoryManager()->getInventoryItems()[i]->reduceStackAmount(materialList[j]->getAmountRequired());
-							player->ConsumeActionPoints(materialList[j]->getAmountRequired());
+							player->StatsManager()->ConsumeActionPoints(materialList[j]->getAmountRequired());
 							removeMaterialFromList(j);
 						}
 						//else amount if removed based on remaning AP
@@ -96,9 +96,9 @@ void MaterialList::addItemsToConstruction(Player *player){
 					else if (player->InventoryManager()->getInventoryItems()[i]->getStackAmount() < materialList[j]->getAmountRequired()){
 
 						//if the player has enough AP to add material to the construction
-						if (player->getRemaningActionPoints() >= player->InventoryManager()->getInventoryItems()[i]->getStackAmount()){
+						if (player->StatsManager()->getRemaningActionPoints() >= player->InventoryManager()->getInventoryItems()[i]->getStackAmount()){
 							materialList[j]->reduceAmountRequired(player->InventoryManager()->getInventoryItems()[i]->getStackAmount());
-							player->ConsumeActionPoints(player->InventoryManager()->getInventoryItems()[i]->getStackAmount());
+							player->StatsManager()->ConsumeActionPoints(player->InventoryManager()->getInventoryItems()[i]->getStackAmount());
 							player->InventoryManager()->removeInventoryItem(i);
 						}
 						//else amount if removed based on remaning AP
@@ -110,8 +110,8 @@ void MaterialList::addItemsToConstruction(Player *player){
 					//else the player has the exact amount of the required material.
 					else{
 						//if the player has enough AP to add to the construction
-						if (player->getRemaningActionPoints() >= materialList[j]->getAmountRequired()){
-							player->ConsumeActionPoints(materialList[j]->getAmountRequired());
+						if (player->StatsManager()->getRemaningActionPoints() >= materialList[j]->getAmountRequired()){
+							player->StatsManager()->ConsumeActionPoints(materialList[j]->getAmountRequired());
 							removeMaterialFromList(j);
 							player->InventoryManager()->removeInventoryItem(i);
 						}
@@ -137,9 +137,9 @@ void MaterialList::addItemsToConstruction(Player *player){
 
 
 void MaterialList::reduceMaterialsBasedOnAP(Player *player, int inventoryIndex, int materialListIndex){
-	player->InventoryManager()->getInventoryItems()[inventoryIndex]->reduceStackAmount(player->getRemaningActionPoints());
-	materialList[materialListIndex]->reduceAmountRequired(player->getRemaningActionPoints());
-	player->ConsumeActionPoints(player->getRemaningActionPoints());
+	player->InventoryManager()->getInventoryItems()[inventoryIndex]->reduceStackAmount(player->StatsManager()->getRemaningActionPoints());
+	materialList[materialListIndex]->reduceAmountRequired(player->StatsManager()->getRemaningActionPoints());
+	player->StatsManager()->ConsumeActionPoints(player->StatsManager()->getRemaningActionPoints());
 }
 
 /*

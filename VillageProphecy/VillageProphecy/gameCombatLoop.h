@@ -27,8 +27,11 @@ private:
 	int targetIndex = 0;
 	CombatState currentCombatState = CombatState::Choosing_Action;
 
-	const float enemyTurnTime = 5;
+	int currentEnemyTurnIndex = 0;
+	bool attackConfirm = false;
+	const float enemyTurnTime = 2;
 	float currentEnemyTurnTime = 0;
+	void NewEnemyTurn();
 
 	void ExecuteCombatOption();
 };

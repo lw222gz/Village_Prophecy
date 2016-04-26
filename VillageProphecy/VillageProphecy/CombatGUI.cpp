@@ -34,9 +34,8 @@ CombatGUI::~CombatGUI()
 
 void CombatGUI::DrawCombatPhase(RenderWindow *window, Time *t, Player *p, vector<Enemy*> *enemies){
 
-	//TODO: give a transformation to the player drawn, if done so there is no
-	//need to save the position of the player before entering combat.
-	window->draw(p->getSprite());
+	ResetTransformation(window);
+	window->draw(p->getSprite(), transformation);
 
 	for (int i = 0; i < enemies->size(); ++i){
 
@@ -82,6 +81,17 @@ string CombatGUI::getEnemyName(EnemyType type){
 	}
 }
 
+void CombatGUI::DrawEnemyAttackAnimation(Enemy *enemy, float currentTurnTime, float maxTurnTime){
+	float percentComplete = currentTurnTime / maxTurnTime;
+	if (percentComplete <= .05){
+		enemy->setPosition(-(percentComplete * 75 * 20), 0);
+	}
+	//TODO: add animation for the enemy walking back.
+	else if(percentComplete >= .5){
+		enemy->setPosition(0, 0);
+	}
+}
+
 void CombatGUI::DrawTargetArrow(RenderWindow *window, int targetIndex){
 	ResetTransformation(window);
 	transformation.translate(enemyPositions[targetIndex]);
@@ -93,12 +103,29 @@ void CombatGUI::DrawTargetArrow(RenderWindow *window, int targetIndex){
 //TODO: the player will need his own addcombattext method because it will
 //require the player parameter anyway
 void CombatGUI::AddCombatText(string mess, int targetIndex){
-	combatMessages.push_back(new GameMessage(mess, enemyPositions[targetIndex], 5));
+	combatMessages.push_back(new GameMessage(mess, enemyPositions[targetIndex], true, .5));
 }
 
+
+void CombatGUI::AddPlayerCombatText(string mess, Player *player){
+	combatMessages.push_back(new GameMessage(mess, player->getPosition(), true, .5));
+	
+}
+
+void CombatGUI::AddStatusCombatText(EnemyType enemyType){
+	combatMessages.push_back(new GameMessage("An Enemy " + getEnemyStringRepresentation(enemyType) + " Attacked You!", statusMessagePosition, true, 1.5));
+}
+
+void CombatGUI::AddStatusText(string mess){
+	combatMessages.push_back(new GameMessage(mess, statusMessagePosition, true, 1.5));
+}
+
+
+//Draw combat messages
 void CombatGUI::DrawCombatText(RenderWindow *window, Time *t){
 	for (int i = 0; i < combatMessages.size(); ++i){
 		ResetTransformation(window);
+		transformation.translate(0, -50);
 
 		combatMessages[i]->updateMessageTimer(t->asSeconds());
 		//if the message life time is over then it will be removed and the next
@@ -110,10 +137,11 @@ void CombatGUI::DrawCombatText(RenderWindow *window, Time *t){
 		}
 		//transformation.translate(enemyPositions[0]);//combatMessages[i]->getMessage().getPosition());
 		//transformation.translate(-100, 20);//combatMessages[i]->getLifeTimePercent() * 50
-		combatMessages[i]->setPosition(Vector2f(view->getCenter().x - window->getSize().x / 2 + 50, 
-			view->getCenter().y - window->getSize().y / 2 + 50));
-
-		window->draw(combatMessages[i]->getMessage());
+		if (combatMessages[i]->IsMoving()){
+			combatMessages[i]->addToCurrentPosition(Vector2f(0, combatMessages[i]->getTextSpeed() * t->asSeconds()));
+		}
+		
+		window->draw(combatMessages[i]->getMessage(), transformation);
 	}
 }
 
@@ -125,7 +153,7 @@ bool CombatGUI::isTransitionAnimationOver(){
 	return percentComplete >= 2;
 }
 
-void CombatGUI::ResetAnimationValues(){
+void CombatGUI::ResetTransitionAnimationValues(){
 	percentComplete = 0;
 	currentAnimationTime = 0;
 }
@@ -149,4 +177,19 @@ void CombatGUI::TransitionAnimation(RenderWindow *window, Time *t){
 void CombatGUI::ResetTransformation(RenderWindow *window){
 	transformation.translate(-transformation.transformPoint(0, 0));
 	transformation.translate(view->getCenter().x - window->getSize().x / 2, view->getCenter().y - window->getSize().y / 2);
+}
+
+
+string CombatGUI::getEnemyStringRepresentation(EnemyType enemyType){
+	switch (enemyType)
+	{
+	case Skeleton_MELEE:
+		return "Skeleton Warrior";
+
+	case Human_MELEE:
+		return "Human Warrior";
+
+	default:
+		return "Unknown";
+	}
 }

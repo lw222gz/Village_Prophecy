@@ -16,15 +16,7 @@ Player::Player()
 	}
 	playerSprite.setTexture(playerTexture);
 
-	if (!APTexture.loadFromFile("Textures/PHActionPoint.png")){
-		throw "TEXTURE LOAD ERROR: Action point texture did not load correctly.";
-	}
-	APSprite.setTexture(APTexture);
-
-	if (!consumedAPTexture.loadFromFile("Textures/PHConsumedActionPoint.png")){
-		throw "TEXTURE LOAD ERROR: Consumed Action point texture did not load correctly.";
-	}
-	consumedAPSprite.setTexture(consumedAPTexture);
+	
 
 	//defines inventory
 	inventory = new Inventory();
@@ -103,11 +95,12 @@ Inventory* Player::InventoryManager(){
 //TODO: create function
 void Player::Sleep(){
 	//TODO: effects that can occur during sleep
-	actionPoints = ACTION_POINTS_MAX;
+	statsManager.ResetAP();
+	/*actionPoints = ACTION_POINTS_MAX;
 	playerHitpoints -= 10;
 	playerHungerAffected(-40);
 	playerMoodAffected(-40);
-	playerStaminaAffected(-40);
+	playerStaminaAffected(-40);*/
 }
 
 void Player::savePosition(){
@@ -117,84 +110,8 @@ void Player::setToSavedPosition(){
 	playerSprite.setPosition(savedPosition);
 }
 
-//returns remaning actions points for the day.
-int Player::getRemaningActionPoints(){
-	return actionPoints;
-}
-
-//removes actions points
-void Player::ConsumeActionPoints(int amount){
-	actionPoints -= amount;
-}
-
-Sprite Player::getAPSprite(){
-	return APSprite;
-}
-
-Sprite Player::getConsumedAPSprite(){
-	return consumedAPSprite;
-}
-
-int Player::getMaxActionsPoints(){
-	return ACTION_POINTS_MAX;
-}
-
-float Player::getPlayerHP(){
-	return playerHitpoints;
-}
-
-//returns players current max HP;
-float Player::getMaxPlayerHP(){
-	return BASE_HIT_POINTS;
-}
-
-float Player::getPlayerHunger(){
-	return currentHunger;
-}
-float Player::getPlayerMood(){
-	return currentMood;
-}
-float Player::getPlayerStamina(){
-	return currentStamina;
-}
-
-float Player::getPlayerMAXHunger(){
-	return MAX_HUNGER_POINTS;
-}
-float Player::getPlayerMAXMood(){
-	return MAX_MOOD_POINTS;
-}
-float Player::getPlayerMAXStamina(){
-	return MAX_STAMINA_POINTS;
-}
-
-void Player::damagePlayer(int amount){
-	playerHitpoints -= amount;
-	if (playerHitpoints <= 0){
-		playerHitpoints = 0;
-		//TODO: Player dies, game over.
-	}
-}
-
-void Player::playerHungerAffected(float amount){
-	currentHunger += amount;
-	if (currentHunger < 0){
-		currentHunger = 0;
-	}
-}
-
-void Player::playerMoodAffected(float amount){
-	currentMood += amount;
-	if (currentMood < 0){
-		currentMood = 0;
-	}
-}
-
-void Player::playerStaminaAffected(float amount){
-	currentStamina += amount;
-	if (currentStamina < 0){
-		currentStamina = 0;
-	}
+PlayerStatsManager* Player::StatsManager(){
+	return &statsManager;
 }
 
 

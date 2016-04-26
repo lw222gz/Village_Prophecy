@@ -232,11 +232,11 @@ void GameLoop::ExecuteObjectTrigger(RenderWindow *window){
 
 		case TriggerType::Harvest:
 		case TriggerType::Loot:
-			if (player.getRemaningActionPoints() > 0){
+			if (player.StatsManager()->getRemaningActionPoints() > 0){
 				player.InventoryManager()->addItem(new GameItem(triggerdObject->getObjectType()));
 				//TODO: dont remove object if it's not looted
 				currentGameArea->removeAreaObject(triggerdObject);
-				player.ConsumeActionPoints(1);
+				player.StatsManager()->ConsumeActionPoints(1);
 			}
 			//TODO: add ingame error displaying that the player does not have sufficient AP
 			break;

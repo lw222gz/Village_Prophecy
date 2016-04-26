@@ -15,14 +15,17 @@ public:
 	float getMaxHitPoints();
 	void TakeDamage(float amount);
 	bool IsAlive();
+	float getAttackDamage();
+	void setPosition(float x, float y);
 
 private:
-	void setEnemyTexture();
+	void setEnemyValues();
 	EnemyType type;
 	Sprite enemySprite;
 	Texture enemyTexture;
 	float hitPoints = 100;
 	float maxHitPoints = hitPoints;
-	bool isAlive = true;
+	float attackDamage = 0;
+	int XPGrant = 0;
 };
 
