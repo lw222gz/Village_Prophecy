@@ -6,7 +6,7 @@
 * Sets Textures for player AP and contains all values for the player stats.
 * Sets the players currentLevel to 0 as initialization.
 */
-PlayerStatsManager::PlayerStatsManager()
+PlayerStatsManager::PlayerStatsManager(PlayerSkillManager *skillManager)
 {
 	currentLevel = LEVEL_0;
 
@@ -27,6 +27,7 @@ PlayerStatsManager::~PlayerStatsManager()
 }
 
 
+
 /*
 * <DESCRIPTION>
 * Rewards the player with Experience points.
@@ -39,6 +40,10 @@ void PlayerStatsManager::GainEXPPoints(int amount){
 	if (TotalExperiencePoints >= ExperiencePointsToLevel){
 		PlayerLevelUp();
 	}
+}
+
+float PlayerStatsManager::getPlayerAttackDamage(){
+	return playerAttackDamage;
 }
 
 /*
@@ -106,7 +111,7 @@ float PlayerStatsManager::getPlayerHP(){
 * returns the players hit point cap.
 */
 float PlayerStatsManager::getMaxPlayerHP(){
-	return BASE_HIT_POINTS;
+	return MAX_HIT_POINTS;
 }
 
 /*
@@ -247,27 +252,38 @@ void PlayerStatsManager::PlayerLevelUp(){
 	switch (currentLevel)
 	{
 		case LEVEL_0:
-			currentLevel = LEVEL_0;
-			ExperiencePointsToLevel = LEVEL_1;
-			break;
-
-		case LEVEL_1:
 			currentLevel = LEVEL_1;
+			MAX_HIT_POINTS += 10;
+			playerHitpoints += 10;
+
 			ExperiencePointsToLevel = LEVEL_2;
 			break;
 
-		case LEVEL_2:
+		case LEVEL_1:
 			currentLevel = LEVEL_2;
+			MAX_HIT_POINTS += 25;
+			playerHitpoints += 25;
+			playerAttackDamage += 5;
+
 			ExperiencePointsToLevel = LEVEL_3;
 			break;
 
-		case LEVEL_3:
+		case LEVEL_2:
 			currentLevel = LEVEL_3;
+			MAX_HIT_POINTS += 25;
+			playerHitpoints += 25;
+			playerAttackDamage += 5;
+
+			ExperiencePointsToLevel = LEVEL_30;
+			break;
+
+		case LEVEL_3:
+			currentLevel = LEVEL_30;
 			ExperiencePointsToLevel = LEVEL_30;
 			break;
 
 		case LEVEL_30:
-			currentLevel = LEVEL_30;
+			//currentLevel = LEVEL_30;
 			//Max level?
 			break;
 		default:

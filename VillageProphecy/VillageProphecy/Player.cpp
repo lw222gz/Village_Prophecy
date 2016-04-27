@@ -16,12 +16,9 @@ Player::Player()
 	}
 	playerSprite.setTexture(playerTexture);
 
-	
-
 	//defines inventory
 	inventory = new Inventory();
 }
-
 
 Player::~Player()
 {
@@ -103,13 +100,26 @@ void Player::Sleep(){
 	playerStaminaAffected(-40);*/
 }
 
+/*
+* <DESCRIPTION>
+* Saves the players position in the normal game mode as it will be a set position during combat phase.
+*/
 void Player::savePosition(){
 	savedPosition = playerSprite.getPosition();
 }
+
+/*
+* <DESCRIPTION>
+* Sets the players position to the saved position
+*/
 void Player::setToSavedPosition(){
 	playerSprite.setPosition(savedPosition);
 }
 
+/*
+* @RETURNS
+* returns a pointer of the players StatsManager object
+*/
 PlayerStatsManager* Player::StatsManager(){
 	return &statsManager;
 }

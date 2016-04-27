@@ -17,6 +17,7 @@ public:
 	bool IsAlive();
 	float getAttackDamage();
 	void setPosition(float x, float y);
+	int getXPGrant();
 
 private:
 	void setEnemyValues();

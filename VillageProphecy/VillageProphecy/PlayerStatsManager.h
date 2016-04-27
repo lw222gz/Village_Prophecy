@@ -1,13 +1,17 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "LevelEXPRequirement.h"
+#include "PlayerSkillManager.h"
+
+//forward decleration
+class PlayerSkillManager;
 
 using namespace sf;
 
 class PlayerStatsManager
 {
 public:
-	PlayerStatsManager();
+	PlayerStatsManager(PlayerSkillManager *skillManager);
 	~PlayerStatsManager();
 
 	void GainEXPPoints(int amount);
@@ -20,6 +24,7 @@ public:
 	Sprite getAPSprite();
 	Sprite getConsumedAPSprite();
 
+	float getPlayerAttackDamage();
 	float getPlayerHP();
 	float getMaxPlayerHP();
 	void damagePlayer(int amount);
@@ -54,9 +59,10 @@ private:
 	LevelEXPRequirement currentLevel = LEVEL_0;
 	LevelEXPRequirement ExperiencePointsToLevel = LevelEXPRequirement::LEVEL_1;
 
+	float playerAttackDamage = 10;
 
-	const float BASE_HIT_POINTS = 100;
-	float playerHitpoints = BASE_HIT_POINTS;
+	float MAX_HIT_POINTS = 100;
+	float playerHitpoints = MAX_HIT_POINTS;
 
 	const float MAX_HUNGER_POINTS = 100;
 	const float MAX_MOOD_POINTS = 100;

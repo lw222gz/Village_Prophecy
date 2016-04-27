@@ -55,6 +55,12 @@
     <Filter Include="Source Files\Enemy">
       <UniqueIdentifier>{924c1906-c919-439a-95b9-0d2fc9319501}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Player\Skills">
+      <UniqueIdentifier>{5dc8242d-b9ae-49b9-a674-f5d3ce03bdff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Player\Skills">
+      <UniqueIdentifier>{2f19ca95-e7be-488d-8dd9-8191c9562f38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -116,6 +122,12 @@
     </ClCompile>
     <ClCompile Include="PlayerStatsManager.cpp">
       <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSkillManager.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_HeavyStrike.cpp">
+      <Filter>Source Files\Player\Skills</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +220,18 @@
     </ClInclude>
     <ClInclude Include="LevelEXPRequirement.h">
       <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSkillManager.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_HeavyStrike.h">
+      <Filter>Header Files\Player\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillConsumeableStats.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

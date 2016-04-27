@@ -16,8 +16,16 @@ GameCombatLoop::~GameCombatLoop()
 * returns boolean, true if the fight is over, otherwise false.
 */
 bool GameCombatLoop::IsCombatOver(){
-	return (currentCombatState == CombatState::Combat_Over);
+	return (currentCombatState == CombatState::Combat_Phase_Over);
 }
+
+
+bool GameCombatLoop::IsGameOver(){
+	return (currentCombatState == CombatState::Game_Over);
+}
+
+
+
 
 /*
 * <DESCRIPTION>
@@ -34,7 +42,9 @@ void GameCombatLoop::InitiateCombatLoopValues(){
 	targetIndex = 0;
 	currentEnemyTurnIndex = 0;
 	currentEnemyTurnTime = 0;
-	
+	phaseSwitchPause = 0;
+	gui->ResetMessages();
+	hasDisplayedPlayerDied = false;	
 }
 
 /*
@@ -84,8 +94,8 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 					currentCombatState = CombatState::Enemy_Turn;
 					currentEnemyTurnTime = 0;
 
-					enemies->at(targetIndex)->TakeDamage(10);
-					gui->AddCombatText("10" , targetIndex);
+					enemies->at(targetIndex)->TakeDamage(player->StatsManager()->getPlayerAttackDamage());
+					gui->AddCombatText(to_string((int)player->StatsManager()->getPlayerAttackDamage()), targetIndex);
 
 					//If the enemy died a new target index is set.
 					if (!enemies->at(targetIndex)->IsAlive()){
@@ -100,6 +110,12 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 								//All enemies are dead and the normal gameplay should resume.
 								//TODO: add player XP
 								currentCombatState = CombatState::Combat_Over;
+								gui->AddStatusText("You Won!");
+
+								//grants the player wind EXP
+								for (auto &e : *enemies){
+									player->StatsManager()->GainEXPPoints(e->getXPGrant());
+								}
 							}
 						}
 					}
@@ -134,6 +150,10 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 						gui->AddPlayerCombatText(to_string((int)enemies->at(currentEnemyTurnIndex)->getAttackDamage()), player);
 						gui->AddStatusCombatText(enemies->at(currentEnemyTurnIndex)->getEnemyType());
 						attackConfirm = true;
+
+						if (player->StatsManager()->getPlayerHP() <= 0){
+							currentCombatState = Player_Lost;
+						}
 					}
 
 				}
@@ -142,6 +162,27 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 				}
 
 				
+				break;
+
+			case Combat_Over: 
+				phaseSwitchPause += timeElapsed.asSeconds();
+				if (phaseSwitchPause >= phaseSwitchPauseTime){
+					currentCombatState = Combat_Phase_Over;
+				}
+				//after 1 sec switch back to normal game mode
+				break;
+
+			case Player_Lost:
+				phaseSwitchPause += timeElapsed.asSeconds();
+
+				//TODO: -optimize- hasDisplayedPlayerDied is a quick fix.
+				if (!hasDisplayedPlayerDied && phaseSwitchPause >= .5){
+					gui->AddStatusText("You died.");
+					hasDisplayedPlayerDied = true;
+				}
+				if (phaseSwitchPause >= phaseSwitchPauseTime + .5){
+					currentCombatState = Game_Over;					
+				}
 				break;
 
 			default:

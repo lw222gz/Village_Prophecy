@@ -7,5 +7,8 @@ enum CombatState
 	Choosing_Action = 100,
 	Choosing_Target,
 	Enemy_Turn,
-	Combat_Over
+	Combat_Over,
+	Combat_Phase_Over,
+	Player_Lost,
+	Game_Over
 };

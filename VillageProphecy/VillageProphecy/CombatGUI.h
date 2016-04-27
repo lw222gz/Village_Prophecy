@@ -24,6 +24,7 @@ public:
 	bool isTransitionAnimationOver();
 	void ResetTransitionAnimationValues();
 	
+	void ResetMessages();
 
 private:
 	View *view;
@@ -50,7 +51,5 @@ private:
 	Sprite targetArrowSprite;
 
 	vector<GameMessage*> combatMessages;
-
-	string getEnemyStringRepresentation(EnemyType enemyType);
 };
 

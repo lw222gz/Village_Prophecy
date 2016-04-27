@@ -55,6 +55,9 @@ void Game::StartGame(){
 					gameLoop.CombatOver();
 					//IMPORTANT - When switching back to GameState::Play the timer in GameLoop.cpp must be reset
 				}
+				else if (gameCombatLoop.IsGameOver()){
+					currentGameState = GameState::GameOver;
+				}
 				
 				break;
 

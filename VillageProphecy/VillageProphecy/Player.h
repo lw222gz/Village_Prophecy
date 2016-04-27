@@ -25,14 +25,14 @@ public:
 	Vector2u getSize();
 	Sprite getSprite();
 	void setPlayerPosition(Vector2f pos);
-	void setAreaPaths(vector<Path*> areaPaths);
-	Inventory* InventoryManager();
-	PlayerStatsManager* StatsManager();
+	void setAreaPaths(vector<Path*> areaPaths);	
 	void Sleep();
 	void savePosition();
 	void setToSavedPosition();
 
-	
+	Inventory* InventoryManager();
+	PlayerSkillManager SkillManager();
+	PlayerStatsManager* StatsManager();
 
 private:
 	//pixel speed of player per second
@@ -44,10 +44,11 @@ private:
 	Vector2f playerCombatPosition = Vector2f(500.0,500.0);
 	Vector2u borders;
 	vector<Path*> avaliblePaths;
-	Inventory *inventory = NULL;
-	Vector2f savedPosition = Vector2f(0, 0);
-	PlayerStatsManager statsManager;
-
 	
+	Vector2f savedPosition = Vector2f(0, 0);
+	
+	Inventory *inventory = NULL;
+	PlayerSkillManager skillManager;
+	PlayerStatsManager statsManager = PlayerStatsManager(&skillManager);
 };
 

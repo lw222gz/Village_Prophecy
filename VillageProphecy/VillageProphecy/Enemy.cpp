@@ -91,6 +91,10 @@ bool Enemy::IsAlive(){
 	return hitPoints > 0;
 }
 
+
+int Enemy::getXPGrant(){
+	return XPGrant;
+}
 /*
 * <DESCRIPTION>
 * Sets values for the enemy object depending on it's type.
@@ -104,8 +108,8 @@ void Enemy::setEnemyValues(){
 				throw "TEXTURE LOAD ERROR: Enemy::Skeleton could not load texture.";
 			}
 			hitPoints = 20;
-			XPGrant = 20;
-			attackDamage = 2;
+			XPGrant = 1000;
+			attackDamage = 200;
 			break;
 
 		case Human_MELEE:

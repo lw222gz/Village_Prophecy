@@ -1,6 +1,15 @@
 #include "InGameMenuGUI.h"
 
-
+/*
+* <DESCRIPTION>
+* Constructor for the InGameMenuGUI class
+* Sets any general textures for the game menu
+* Initiates all RectangleShape objects for the bars that can be displayed
+* Sets Text font and base values
+*
+* @PARAMS
+* gameView: pointer to the View object for the game.
+*/
 InGameMenuGUI::InGameMenuGUI(View *gameView) : view(gameView)
 {
 	if (!optionPointerTexture.loadFromFile("Textures/PHOptionPointer.png")){
@@ -46,7 +55,14 @@ InGameMenuGUI::~InGameMenuGUI()
 {
 }
 
-
+/*
+* <DESCRIPTION>
+* Calls methods for drawing the normal game mode game menu.
+*
+* @PARAMS
+* window: pointer to the game window object.
+* player: pointer to the game Player object.
+*/
 void InGameMenuGUI::DrawGameMenu(RenderWindow *window, Player *player){
 	DrawBaseMenu(window);
 
@@ -59,6 +75,16 @@ void InGameMenuGUI::DrawGameMenu(RenderWindow *window, Player *player){
 	DrawPlayerStats(window, player);
 }
 
+
+/*
+* <DESCRIPTION>
+* Calls methods for drawing the combat game menu
+*
+* @PARAMS
+* window: pointer to the game window object
+* player: pointer to the game Player game object.
+* currentOption: CombatOptions enum value representing the current option the player is deciding on.
+*/
 void InGameMenuGUI::DrawCombatMenu(RenderWindow *window, Player *player, CombatOptions *currentOption){
 	DrawBaseMenu(window);
 
@@ -69,6 +95,15 @@ void InGameMenuGUI::DrawCombatMenu(RenderWindow *window, Player *player, CombatO
 	DrawCombatOptions(window, currentOption);
 }
 
+
+/*
+* <DESCRIPTION>
+* Draws the player EXP bar
+*
+* @PARAMS
+* window: pointer to the game window object.
+* player: pointer to the game Player object.
+*/
 void InGameMenuGUI::DrawXPBar(RenderWindow *window, Player *player){
 	ResetTransformation(window->getSize());
 	transformation.translate(300, 150);
@@ -98,6 +133,10 @@ void InGameMenuGUI::DrawXPBar(RenderWindow *window, Player *player){
 	
 }
 
+/*
+* @RETURNS
+* string representation of the players current level.
+*/
 string InGameMenuGUI::getStringRepPlayerLevel(LevelEXPRequirement currlevel){
 	switch (currlevel)
 	{
@@ -121,21 +160,40 @@ string InGameMenuGUI::getStringRepPlayerLevel(LevelEXPRequirement currlevel){
 	}
 }
 
-//resets the current transformation and sets the position of the top
-//left corner for the in-game menu
+/*
+* <DESCRIPTION>
+* Resets the transformation object and sets it's position to the left top of the screen.
+*
+* @PARAMS
+* windowSize: Vector2u representing the size of the game window
+*/
 void InGameMenuGUI::ResetTransformation(Vector2u windowSize){
 	transformation.translate(-transformation.transformPoint(0, 0));
 	transformation.translate(view->getCenter().x - windowSize.x / 2,
 							view->getCenter().y + windowSize.y / 2 - 200);
 }
 
+/*
+* <DESCRIPTION>
+* Draws the base menu background
+*
+* @PARAMS
+* window: pointer to the game window object.
+*/
 void InGameMenuGUI::DrawBaseMenu(RenderWindow *window){
 	ResetTransformation(window->getSize());
 	window->draw(inGameMenuSprite, transformation);
 }
 
 
-
+/*
+* <DESCRIPTION>
+* Draws the player stats. Hit points, hunger points, mood points and stamina points.
+*
+* @PARAMS
+* window: pointer to the game window object.
+* player: pointer to the game Player object.
+*/
 void InGameMenuGUI::DrawPlayerStats(RenderWindow *window, Player *player){
 	ResetTransformation(window->getSize());
 	//#START DRAW Player hit points
@@ -202,7 +260,14 @@ void InGameMenuGUI::DrawPlayerStats(RenderWindow *window, Player *player){
 }
 
 
-
+/*
+* <DESCRIPTION>
+* Draws the combat options of the player and an arrow at the current choice of the player
+*
+* @PARAMS
+* window: pointer to the game window object.
+* currentOption: CombatOptions enum value representing the current combat option the player is considering
+*/
 void InGameMenuGUI::DrawCombatOptions(RenderWindow *window, CombatOptions *currentOption){
 
 	ResetTransformation(window->getSize());
@@ -231,6 +296,11 @@ void InGameMenuGUI::DrawCombatOptions(RenderWindow *window, CombatOptions *curre
 	}
 }
 
+
+/*
+* @RETURNS
+* returns a string representation for the CombatOptions enum
+*/
 string InGameMenuGUI::getStringRepCombatOptions(CombatOptions option){
 	switch (option)
 	{
@@ -252,7 +322,14 @@ string InGameMenuGUI::getStringRepCombatOptions(CombatOptions option){
 }
 
 
-
+/*
+* <DESCRIPTION>
+* Draws the player inventory and it's items.
+*
+* @PARAMS
+* window: pointer to the game window object.
+* player: pointer to the game Player object.
+*/
 void InGameMenuGUI::DrawPlayerInventory(RenderWindow *window, Player *player){
 	ResetTransformation(window->getSize());
 
@@ -282,6 +359,15 @@ void InGameMenuGUI::DrawPlayerInventory(RenderWindow *window, Player *player){
 	}
 }
 
+
+/*
+* <DESCRIPTION>
+* Draws the player Action Points. 
+* 
+* @PARAMS
+* window: pointer to the game window object.
+* player: pointer to the game Player object.
+*/
 void InGameMenuGUI::DrawPlayerActionPoints(RenderWindow *window, Player *player){
 	ResetTransformation(window->getSize());
 	transformation.translate(500, 20);

@@ -98,7 +98,9 @@
     <ClCompile Include="GameMessage.cpp" />
     <ClCompile Include="Path.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerSkillManager.cpp" />
     <ClCompile Include="PlayerStatsManager.cpp" />
+    <ClCompile Include="Skill_HeavyStrike.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="VisualEnemy.cpp" />
   </ItemGroup>
@@ -130,7 +132,11 @@
     <ClInclude Include="ObjectType.h" />
     <ClInclude Include="Path.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerSkillManager.h" />
     <ClInclude Include="PlayerStatsManager.h" />
+    <ClInclude Include="Skill.h" />
+    <ClInclude Include="SkillConsumeableStats.h" />
+    <ClInclude Include="Skill_HeavyStrike.h" />
     <ClInclude Include="TriggerType.h" />
     <ClInclude Include="VisualEnemy.h" />
   </ItemGroup>

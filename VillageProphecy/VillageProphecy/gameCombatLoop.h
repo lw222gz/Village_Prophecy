@@ -13,6 +13,7 @@ public:
 	void InitiateCombatLoopValues();
 	bool isNormalRenderingActive();
 	bool IsCombatOver();
+	bool IsGameOver();
 
 private:
 	HandleInput *handleInput;
@@ -32,6 +33,10 @@ private:
 	const float enemyTurnTime = 2;
 	float currentEnemyTurnTime = 0;
 	void NewEnemyTurn();
+
+	float phaseSwitchPause = 0;
+	const float phaseSwitchPauseTime = 1;
+	bool hasDisplayedPlayerDied = false;
 
 	void ExecuteCombatOption();
 };
