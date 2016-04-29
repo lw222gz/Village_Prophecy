@@ -69,7 +69,7 @@ void VisualEnemy::generareMobGroup(){
 		case Skeleton:{
 				//TODO:Add enemies to the enemygrou vector
 				srand(time(NULL));
-				amountOfMobs = 3;//rand() % 3 + 1;
+				amountOfMobs = 1;//rand() % 3 + 1;
 
 				for (int i = 0; i < amountOfMobs; ++i){
 					Enemy *e = new Enemy(EnemyType::Skeleton_MELEE);

@@ -48,6 +48,12 @@ InGameMenuGUI::InGameMenuGUI(View *gameView) : view(gameView)
 
 	XPBar.setFillColor(Color(75, 0, 130, 255));
 	behindXPBar.setFillColor(Color::Black);
+
+	skillOptionBackground.setFillColor(Color(223,127,0,255));
+	skillOptionBackground.setSize(Vector2f(300, 150));
+
+	skillDescriptionBox.setFillColor(Color(0, 134, 223, 255));
+	skillDescriptionBox.setSize(Vector2f(150, 150));
 }
 
 
@@ -85,16 +91,39 @@ void InGameMenuGUI::DrawGameMenu(RenderWindow *window, Player *player){
 * player: pointer to the game Player game object.
 * currentOption: CombatOptions enum value representing the current option the player is deciding on.
 */
-void InGameMenuGUI::DrawCombatMenu(RenderWindow *window, Player *player, CombatOptions *currentOption){
+void InGameMenuGUI::DrawCombatMenu(RenderWindow *window, Player *player){
 	DrawBaseMenu(window);
 
 	DrawPlayerInventory(window, player);
 	
 	DrawPlayerStats(window, player);
-
-	DrawCombatOptions(window, currentOption);
 }
 
+
+void InGameMenuGUI::DrawSkillOptions(RenderWindow *window, Player *player, int currentSkillIndex){
+	ResetTransformation(window->getSize());
+	transformation.translate(500, -100);
+
+	window->draw(skillOptionBackground, transformation);
+
+	transformation.translate(20, 0);
+
+	for (int i = 0; i < player->SkillManager()->getPlayerSkills()->size(); ++i){
+		transformation.translate(0, 15);
+		displayText.setString(player->SkillManager()->getPlayerSkills()->at(i)->getSkillName());
+		window->draw(displayText, transformation);
+
+		if (i == currentSkillIndex){
+			transformation.translate(-17, 3);
+			window->draw(optionPointerSprite, transformation);
+			transformation.translate(17, -3);
+		}
+	}
+
+	transformation.translate(0, -(skillDescriptionBox.getSize().y + 15));	
+	window->draw(skillDescriptionBox, transformation);
+	//TODO: write out info about the skill in this box
+}
 
 /*
 * <DESCRIPTION>
@@ -160,18 +189,7 @@ string InGameMenuGUI::getStringRepPlayerLevel(LevelEXPRequirement currlevel){
 	}
 }
 
-/*
-* <DESCRIPTION>
-* Resets the transformation object and sets it's position to the left top of the screen.
-*
-* @PARAMS
-* windowSize: Vector2u representing the size of the game window
-*/
-void InGameMenuGUI::ResetTransformation(Vector2u windowSize){
-	transformation.translate(-transformation.transformPoint(0, 0));
-	transformation.translate(view->getCenter().x - windowSize.x / 2,
-							view->getCenter().y + windowSize.y / 2 - 200);
-}
+
 
 /*
 * <DESCRIPTION>
@@ -268,7 +286,7 @@ void InGameMenuGUI::DrawPlayerStats(RenderWindow *window, Player *player){
 * window: pointer to the game window object.
 * currentOption: CombatOptions enum value representing the current combat option the player is considering
 */
-void InGameMenuGUI::DrawCombatOptions(RenderWindow *window, CombatOptions *currentOption){
+void InGameMenuGUI::DrawCombatOptions(RenderWindow *window, CombatOptions currentOption){
 
 	ResetTransformation(window->getSize());
 
@@ -280,8 +298,7 @@ void InGameMenuGUI::DrawCombatOptions(RenderWindow *window, CombatOptions *curre
 		displayText.setString(getStringRepCombatOptions(static_cast<CombatOptions>(i)));
 		window->draw(displayText, transformation);
 
-		//TODO: add indication arrow of the current option chosen.
-		if (*currentOption == static_cast<CombatOptions>(i)){
+		if (currentOption == static_cast<CombatOptions>(i)){
 			transformation.translate(-20, 20);
 			window->draw(optionPointerSprite, transformation);
 			transformation.translate(20, -20);
@@ -307,8 +324,8 @@ string InGameMenuGUI::getStringRepCombatOptions(CombatOptions option){
 		case Attack:
 			return "Attack";
 
-		case Spell:
-			return "Spell";
+		case Skill:
+			return "Skill";
 
 		case Item:
 			return "Item";
@@ -382,4 +399,19 @@ void InGameMenuGUI::DrawPlayerActionPoints(RenderWindow *window, Player *player)
 
 		transformation.translate(30, 0);
 	}
+}
+
+
+
+/*
+* <DESCRIPTION>
+* Resets the transformation object and sets it's position to the left top of the screen.
+*
+* @PARAMS
+* windowSize: Vector2u representing the size of the game window
+*/
+void InGameMenuGUI::ResetTransformation(Vector2u windowSize){
+	transformation.translate(-transformation.transformPoint(0, 0));
+	transformation.translate(view->getCenter().x - windowSize.x / 2,
+		view->getCenter().y + windowSize.y / 2 - 200);
 }

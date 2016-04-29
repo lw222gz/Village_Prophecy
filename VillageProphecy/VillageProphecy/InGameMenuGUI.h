@@ -8,7 +8,10 @@ public:
 	InGameMenuGUI(View *gameView);
 	~InGameMenuGUI();
 	void DrawGameMenu(RenderWindow *window, Player *player);
-	void DrawCombatMenu(RenderWindow *window, Player *player, CombatOptions *currentOption);
+	void DrawCombatMenu(RenderWindow *window, Player *player);
+	void DrawSkillOptions(RenderWindow *window, Player *player, int currentSkillIndex);
+	void DrawCombatOptions(RenderWindow *window, CombatOptions currentOption);
+	
 
 private:
 	View *view;
@@ -26,6 +29,9 @@ private:
 	RectangleShape behindStatBar;
 	RectangleShape statBar;
 
+	RectangleShape skillOptionBackground;
+	RectangleShape skillDescriptionBox;
+
 	Sprite inGameMenuSprite;
 	Texture inGameMenuTexture;
 
@@ -39,7 +45,7 @@ private:
 	void DrawBaseMenu(RenderWindow *window);
 	void DrawXPBar(RenderWindow *window, Player *player);
 	void DrawPlayerStats(RenderWindow *window, Player *player);
-	void DrawCombatOptions(RenderWindow *window, CombatOptions *currentOption);
+	
 	void DrawPlayerInventory(RenderWindow *window, Player *player);
 	void DrawPlayerActionPoints(RenderWindow *window, Player *player);
 };

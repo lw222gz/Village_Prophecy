@@ -86,6 +86,9 @@ void CombatGUI::DrawCombatPhase(RenderWindow *window, Time *t, Player *p, vector
 			//TODO: draw dead enemy
 		}
 	}
+
+	//draws any combat text
+	DrawCombatText(window, t);
 }
 
 
@@ -110,15 +113,14 @@ string CombatGUI::getEnemyName(EnemyType type){
 
 /*
 * <DESCRIPTION>
-* Draws the animation for an enemy attacking by moving their positing forward in a fast manner and then
-* reseting the position.
+* Updates enemy psotion to create and animaion indicating it's attacking
 *
 * @PARAMS
 * enemy: pointer to Enemy object that is attacking.
 * currentTurnTime: float representing the time currently spent in this enemy turn as seconds.
 * maxTurnTime: float representing the time that will be spent in this enemy turn as seconds.
 */
-void CombatGUI::DrawEnemyAttackAnimation(Enemy *enemy, float currentTurnTime, float maxTurnTime){
+void CombatGUI::EnemyAttackAnimation(Enemy *enemy, float currentTurnTime, float maxTurnTime){
 	float percentComplete = currentTurnTime / maxTurnTime;
 	if (percentComplete <= .05){
 		enemy->setPosition(-(percentComplete * 75 * 20), 0);

@@ -16,9 +16,11 @@ public:
 	Areas CheckUserMovementInput(Player *player, Time *t);
 	CombatOptions CheckUserCombatInput(CombatOptions currentOption);
 	int CheckTargetChoiceInput(Time t, int currentIndex, vector<Enemy*> *enemies);
+	int CheckSkillChoiceInput(Time *t, int currentIndex, int maxIndex);
 	bool CheckUserCombatDecision();
 	void DisableControls(float secondsToPause);
-	bool checkQuickMenuInput();
+	bool CheckQuickMenuInput();
+	bool CheckResetCombatStateInput();
 
 private:
 	Areas area = Areas::No_Area;

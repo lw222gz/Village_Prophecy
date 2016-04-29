@@ -31,7 +31,7 @@ public:
 	void setToSavedPosition();
 
 	Inventory* InventoryManager();
-	PlayerSkillManager SkillManager();
+	PlayerSkillManager* SkillManager();
 	PlayerStatsManager* StatsManager();
 
 private:

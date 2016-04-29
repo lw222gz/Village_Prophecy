@@ -47,7 +47,7 @@ public:
 
 	
 private:
-	
+	PlayerSkillManager *skillManager = NULL;
 	const int ACTION_POINTS_MAX = 10;
 	int actionPoints = 2;
 	Texture APTexture;

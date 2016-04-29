@@ -67,6 +67,26 @@ int HandleInput::CheckTargetChoiceInput(Time t, int currentIndex, vector<Enemy*>
 }
 
 
+//checks input for changing index of skill choice.
+int HandleInput::CheckSkillChoiceInput(Time *t, int currentIndex, int maxIndex){
+	if (controlsEnabled){
+		if (Keyboard::isKeyPressed(Keyboard::W)){
+			if (currentIndex - 1 >= 0){
+				currentIndex -= 1;
+			}
+		}
+		if (Keyboard::isKeyPressed(Keyboard::S)){
+			if (currentIndex + 1 <= maxIndex){
+				currentIndex += 1;
+			}
+		}
+	}
+	else {
+		updatePauseTimer(t->asSeconds());
+	}
+	
+	return currentIndex;
+}
 
 
 /*
@@ -89,6 +109,13 @@ bool HandleInput::CheckUserCombatDecision(){
 	else
 	{
 		enterJustPressed = false;
+	}
+	return false;
+}
+
+bool HandleInput::CheckResetCombatStateInput(){
+	if (Keyboard::isKeyPressed(Keyboard::Space)){
+		return true;
 	}
 	return false;
 }
@@ -182,7 +209,7 @@ Areas HandleInput::CheckUserMovementInput(Player *player, Time *t){
 * @RETURNS
 * returns boolean, true if the player has pressed the R-key, otherwise false.
 */
-bool HandleInput::checkQuickMenuInput(){
+bool HandleInput::CheckQuickMenuInput(){
 	if (controlsEnabled && Keyboard::isKeyPressed(Keyboard::R)){
 		return true;
 	}

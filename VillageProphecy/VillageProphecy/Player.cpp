@@ -124,6 +124,13 @@ PlayerStatsManager* Player::StatsManager(){
 	return &statsManager;
 }
 
+/*
+* @RETURNS
+* returns a pointer of the players SkillManage object
+*/
+PlayerSkillManager* Player::SkillManager(){
+	return &skillManager;
+}
 
 /*
 * <DESCRIPTION>
@@ -145,70 +152,70 @@ Areas Player::playerMove(MoveDirection dir, Time *t){
 
 	switch (dir)
 	{
-	case MoveDirection::Up:
-			distanceY = +(movedDistance);	
-			if (playerSprite.getPosition().y - distanceY <= 0){
-				//TODO: add path collision
+		case MoveDirection::Up:
+				distanceY = +(movedDistance);	
+				if (playerSprite.getPosition().y - distanceY <= 0){
+					//TODO: add path collision
 
-				// Player is at the edge of the border thus the player move distance is set to 0
-				distanceY = 0;
-			}
-			
-			break;
-
-	case MoveDirection::Down:
-			distanceY = -(movedDistance);
-			//add height
-			if (playerSprite.getPosition().y - distanceY >= borders.y - playerTexture.getSize().y){
-				//TODO: add path collision
-
-				// Player is at the edge of the border thus the player move distance is set to 0
-				distanceY = 0;
-			}
-			
-			break;
-
-	case MoveDirection::Left:
-			distanceX = +(movedDistance);
-			if (playerSprite.getPosition().x - distanceX <= 0){
-
-				for (unsigned int i = 0; i < avaliblePaths.size(); i++){
-					if (playerSprite.getPosition().y + playerTexture.getSize().y >= avaliblePaths[i]->getPosition().y &&
-						playerSprite.getPosition().y <= avaliblePaths[i]->getPosition().y + avaliblePaths[i]->getSize().y &&
-						playerSprite.getPosition().x >= avaliblePaths[i]->getPosition().x &&
-						playerSprite.getPosition().x <= avaliblePaths[i]->getPosition().x + avaliblePaths[i]->getSize().x){
-						
-						return avaliblePaths[i]->getNextArea();
-					}
+					// Player is at the edge of the border thus the player move distance is set to 0
+					distanceY = 0;
 				}
-				// Player is at the edge of the border thus the player move distance is set to 0
-				distanceX = 0;
-			}
 			
-			break;
+				break;
 
-	case MoveDirection::Right:
-			distanceX = -(movedDistance);
-			if (playerSprite.getPosition().x - distanceX >= borders.x - playerTexture.getSize().x){
+		case MoveDirection::Down:
+				distanceY = -(movedDistance);
+				//add height
+				if (playerSprite.getPosition().y - distanceY >= borders.y - playerTexture.getSize().y){
+					//TODO: add path collision
 
-				for (unsigned int i = 0; i < avaliblePaths.size(); i++){
-					if (playerSprite.getPosition().y + playerTexture.getSize().y >= avaliblePaths[i]->getPosition().y &&
-						playerSprite.getPosition().y <= avaliblePaths[i]->getPosition().y + avaliblePaths[i]->getSize().y &&
-						playerSprite.getPosition().x >= avaliblePaths[i]->getPosition().x &&
-						playerSprite.getPosition().x <= avaliblePaths[i]->getPosition().x + avaliblePaths[i]->getSize().x){
-						
-						return avaliblePaths[i]->getNextArea();
-					}
+					// Player is at the edge of the border thus the player move distance is set to 0
+					distanceY = 0;
 				}
+			
+				break;
 
-				//Player is at the edge of the border thus the player move distance is set to 0
-				distanceX = 0;
-			}
-			break;
+		case MoveDirection::Left:
+				distanceX = +(movedDistance);
+				if (playerSprite.getPosition().x - distanceX <= 0){
 
-		default:
-			throw "Played moved with no direction";
-			break;
+					for (unsigned int i = 0; i < avaliblePaths.size(); i++){
+						if (playerSprite.getPosition().y + playerTexture.getSize().y >= avaliblePaths[i]->getPosition().y &&
+							playerSprite.getPosition().y <= avaliblePaths[i]->getPosition().y + avaliblePaths[i]->getSize().y &&
+							playerSprite.getPosition().x >= avaliblePaths[i]->getPosition().x &&
+							playerSprite.getPosition().x <= avaliblePaths[i]->getPosition().x + avaliblePaths[i]->getSize().x){
+						
+							return avaliblePaths[i]->getNextArea();
+						}
+					}
+					// Player is at the edge of the border thus the player move distance is set to 0
+					distanceX = 0;
+				}
+			
+				break;
+
+		case MoveDirection::Right:
+				distanceX = -(movedDistance);
+				if (playerSprite.getPosition().x - distanceX >= borders.x - playerTexture.getSize().x){
+
+					for (unsigned int i = 0; i < avaliblePaths.size(); i++){
+						if (playerSprite.getPosition().y + playerTexture.getSize().y >= avaliblePaths[i]->getPosition().y &&
+							playerSprite.getPosition().y <= avaliblePaths[i]->getPosition().y + avaliblePaths[i]->getSize().y &&
+							playerSprite.getPosition().x >= avaliblePaths[i]->getPosition().x &&
+							playerSprite.getPosition().x <= avaliblePaths[i]->getPosition().x + avaliblePaths[i]->getSize().x){
+						
+							return avaliblePaths[i]->getNextArea();
+						}
+					}
+
+					//Player is at the edge of the border thus the player move distance is set to 0
+					distanceX = 0;
+				}
+				break;
+
+			default:
+				throw "Played moved with no direction";
+				break;
 	}
 
 	//updates the players position

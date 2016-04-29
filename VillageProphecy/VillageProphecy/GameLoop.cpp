@@ -45,6 +45,7 @@ bool GameLoop::GameOver(){
 
 void GameLoop::CombatOver(){
 	playerEnteredCombatPhase = false;
+	timer.restart();
 	currentGameArea->removeAreaEnemy(currentGameArea->getAreaEnemies()->at(enemyVectorIndex));
 }
 
@@ -81,7 +82,7 @@ void GameLoop::RunGame(RenderWindow *window){
 	//If quick menu is active the game must listen for it's keyevent
 	if (triggerdObject != NULL){
 		//if the key for the quick menu is pressed the object gets triggerd.
-		if (handleInput->checkQuickMenuInput()){
+		if (handleInput->CheckQuickMenuInput()){
 			ExecuteObjectTrigger(window);
 		}
 	}

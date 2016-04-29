@@ -69,6 +69,9 @@ bool GameCombatLoop::isNormalRenderingActive(){
 */
 //TODO: add possibilty to go back to previous options during combat
 void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies){
+	
+	//TODO: draw background first
+	combatMenuGUI->DrawCombatMenu(window, player);
 
 	//gets timer time
 	timeElapsed = timer.getElapsedTime();
@@ -83,6 +86,18 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 				if (handleInput->CheckUserCombatDecision()){
 					ExecuteCombatOption();
 				}
+				combatMenuGUI->DrawCombatOptions(window, currentOption);
+				break;
+
+			case Choosing_Skill:
+				combatMenuGUI->DrawSkillOptions(window, player, 0);
+
+				skillChoiceIndex = handleInput->CheckSkillChoiceInput(&timeElapsed, skillChoiceIndex, player->SkillManager()->getPlayerSkills()->size() - 1);
+				
+				//TODO: Add executable command for skills.
+
+				//space key to go back to choosing action
+				PlayerCanGoBack();
 				break;
 
 			case Choosing_Target:
@@ -118,10 +133,10 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 								}
 							}
 						}
-					}
-					
+					}					
 				}
-				
+
+				PlayerCanGoBack();
 				break;
 
 			//Runs all enemy turns, when all enemies have executed their actions then 
@@ -139,7 +154,7 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 				if (enemies->at(currentEnemyTurnIndex)->IsAlive()){
 					if (attackConfirm){
 						currentEnemyTurnTime += timeElapsed.asSeconds();
-						gui->DrawEnemyAttackAnimation(enemies->at(currentEnemyTurnIndex), currentEnemyTurnTime, enemyTurnTime);
+						gui->EnemyAttackAnimation(enemies->at(currentEnemyTurnIndex), currentEnemyTurnTime, enemyTurnTime);
 
 						if (currentEnemyTurnTime >= enemyTurnTime){
 							NewEnemyTurn();
@@ -189,10 +204,7 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 				break;
 		}
 		
-		
-		gui->DrawCombatPhase(window, &timeElapsed, player, enemies);
-		combatMenuGUI->DrawCombatMenu(window, player, &currentOption);
-		gui->DrawCombatText(window, &timeElapsed);		
+		gui->DrawCombatPhase(window, &timeElapsed, player, enemies);		
 	}
 
 	if (phaseTransmissionAnimation){
@@ -225,9 +237,16 @@ void GameCombatLoop::ExecuteCombatOption(){
 			currentCombatState = CombatState::Choosing_Target;
 			break;
 
-		case CombatOptions::Spell:
-			gui->AddStatusText("You dont know any spells yet.");
+		case CombatOptions::Skill:{
+			if (player->SkillManager()->getPlayerSkills()->size() > 0){
+				currentCombatState = Choosing_Skill;
+			}
+			else {
+				gui->AddStatusText("You dont know any spells yet.");
+			}
+			
 			break;
+		}
 
 		case CombatOptions::Item:
 			gui->AddStatusText("Not Implemented Yet.");
@@ -241,5 +260,14 @@ void GameCombatLoop::ExecuteCombatOption(){
 		default:
 			throw "Not a valid combat option was executed.";
 			break;
+	}
+}
+
+//Any combat state that is where the player is in control this method should be called
+//to see if the player want to go back to the base of choosing an action
+void GameCombatLoop::PlayerCanGoBack(){
+	//space key to go back 
+	if (handleInput->CheckResetCombatStateInput()){
+		currentCombatState = Choosing_Action;
 	}
 }

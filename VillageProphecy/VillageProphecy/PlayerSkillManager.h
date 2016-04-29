@@ -6,6 +6,8 @@
 
 using namespace std;
 
+class PlayerStatsManager;
+
 class PlayerSkillManager
 {
 public:
@@ -13,7 +15,7 @@ public:
 	~PlayerSkillManager();
 
 	vector<Skill*>* getPlayerSkills();
-	void LearnSkill(LevelEXPRequirement playerLevel);
+	void LearnSkill(LevelEXPRequirement playerLevel, PlayerStatsManager *playerStats);
 
 private:
 	vector<Skill*> playerSkills;

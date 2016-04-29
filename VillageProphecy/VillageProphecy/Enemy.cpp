@@ -109,7 +109,7 @@ void Enemy::setEnemyValues(){
 			}
 			hitPoints = 20;
 			XPGrant = 1000;
-			attackDamage = 200;
+			attackDamage = 2;
 			break;
 
 		case Human_MELEE:

@@ -12,9 +12,8 @@ public:
 	void DrawCombatPhase(RenderWindow *window, Time *t, Player *p, vector<Enemy*> *enemies);
 	void TransitionAnimation(RenderWindow *window, Time *t);
 	void DrawTargetArrow(RenderWindow *window, int targetIndex);
-	void DrawEnemyAttackAnimation(Enemy *enemy, float currentTurnTime, float maxTurnTime);
+	void EnemyAttackAnimation(Enemy *enemy, float currentTurnTime, float maxTurnTime);
 
-	void DrawCombatText(RenderWindow *window, Time *t);
 	void AddCombatText(string mess, int targetIndex);
 	void AddPlayerCombatText(string mess, Player *player);
 	void AddStatusCombatText(EnemyType enemyType);
@@ -51,5 +50,7 @@ private:
 	Sprite targetArrowSprite;
 
 	vector<GameMessage*> combatMessages;
+
+	void DrawCombatText(RenderWindow *window, Time *t);
 };
 

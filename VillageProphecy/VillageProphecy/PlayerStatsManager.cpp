@@ -6,7 +6,7 @@
 * Sets Textures for player AP and contains all values for the player stats.
 * Sets the players currentLevel to 0 as initialization.
 */
-PlayerStatsManager::PlayerStatsManager(PlayerSkillManager *skillManager)
+PlayerStatsManager::PlayerStatsManager(PlayerSkillManager *_skillManager) : skillManager(_skillManager)
 {
 	currentLevel = LEVEL_0;
 
@@ -289,6 +289,8 @@ void PlayerStatsManager::PlayerLevelUp(){
 		default:
 			break;
 	}
+
+	skillManager->LearnSkill(currentLevel, this);
 
 	//If the player has already passed the next level limit aswell then the player will level up again.
 	if (TotalExperiencePoints >= ExperiencePointsToLevel){

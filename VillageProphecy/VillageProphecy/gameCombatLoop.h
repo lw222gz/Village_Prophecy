@@ -24,10 +24,11 @@ private:
 	Player *player;
 	Time timeElapsed;
 	Clock timer;
-	CombatOptions currentOption;
-	int targetIndex = 0;
+	CombatOptions currentOption;	
 	CombatState currentCombatState = CombatState::Choosing_Action;
 
+	int targetIndex = 0;
+	int skillChoiceIndex = 0;
 	int currentEnemyTurnIndex = 0;
 	bool attackConfirm = false;
 	const float enemyTurnTime = 2;
@@ -39,5 +40,6 @@ private:
 	bool hasDisplayedPlayerDied = false;
 
 	void ExecuteCombatOption();
+	void PlayerCanGoBack();
 };
 

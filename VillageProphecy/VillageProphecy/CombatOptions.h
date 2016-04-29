@@ -7,7 +7,7 @@
 enum CombatOptions
 {
 	Attack = 0,
-	Spell,
+	Skill,
 	Item,
 	Run,
 

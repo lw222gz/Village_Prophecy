@@ -15,15 +15,16 @@ vector<Skill*>* PlayerSkillManager::getPlayerSkills(){
 	return &playerSkills;
 }
 
-void PlayerSkillManager::LearnSkill(LevelEXPRequirement playerLevel){
+void PlayerSkillManager::LearnSkill(LevelEXPRequirement playerLevel, PlayerStatsManager *playerStats){
 	//Add a skill to the playerskill vector denepning on the level gained
 	switch (playerLevel)
 	{
-		case LEVEL_2:
-			//playerSkills.push_back(new Skill_HeavyStrike());
-
+		case LEVEL_1:
+			playerSkills.push_back(new Skill_HeavyStrike(playerStats));
 			break;
+
 		case LEVEL_3:
+			//Add fireball
 			break;
 		case LEVEL_30:
 			break;
