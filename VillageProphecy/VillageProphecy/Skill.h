@@ -13,5 +13,7 @@ public:
 	virtual float getSkillDamage() = 0;
 	virtual SkillConsumeableStats getStatConsumeType() = 0;
 	virtual float getConsumeAmount() = 0;
+	virtual bool CanCast() = 0;
+	virtual void ConsumeSkillStats() = 0;
 };
 

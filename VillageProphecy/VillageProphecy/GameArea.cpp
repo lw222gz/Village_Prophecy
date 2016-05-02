@@ -162,18 +162,23 @@ void GameArea::generateGameArea(){
 			areaVisualObjects.push_back(p);
 			areaPaths.push_back(p);
 
-			VisualEnemy *e = new VisualEnemy(EnemyVisualType::Skeleton, Vector2f(areaSize.x - 400, areaSize.y - 500));
+			VisualEnemy *e = new VisualEnemy(EnemyVisualType::Skeleton, Vector2f(areaSize.x - 400, areaSize.y - 500), 1);
 			areaVisualObjects.push_back(e);
 			enemies.push_back(e);
 
 
-			e = new VisualEnemy(EnemyVisualType::Skeleton, Vector2f(areaSize.x - 700, areaSize.y - 150));
+			e = new VisualEnemy(EnemyVisualType::Skeleton, Vector2f(areaSize.x - 700, areaSize.y - 150), 0);
 			areaVisualObjects.push_back(e);
 			enemies.push_back(e);
 
-			e = new VisualEnemy(EnemyVisualType::Skeleton, Vector2f(areaSize.x - 1100, areaSize.y - 400));
+			e = new VisualEnemy(EnemyVisualType::Skeleton, Vector2f(areaSize.x - 1100, areaSize.y - 400), 5);
 			areaVisualObjects.push_back(e);
 			enemies.push_back(e);
+
+			e = new VisualEnemy(EnemyVisualType::Humans, Vector2f(areaSize.x - 500, areaSize.y -600), 6);
+			areaVisualObjects.push_back(e);
+			enemies.push_back(e);
+
 		
 		}
 		break;

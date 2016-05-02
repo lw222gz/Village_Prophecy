@@ -8,7 +8,7 @@
 class VisualEnemy : public IDrawAble
 {
 public:
-	VisualEnemy(EnemyVisualType visualType, Vector2f pos);
+	VisualEnemy(EnemyVisualType visualType, Vector2f pos, int level);
 	~VisualEnemy();
 	Sprite getSprite();
 	bool collideWithPlayer(Vector2f playerPos, Vector2u playerSize);
@@ -19,6 +19,7 @@ private:
 	Texture enemyTexture;
 	EnemyVisualType type;
 	vector<Enemy*> enemyGroup;
+	int enemyGroupLevel = 0;
 
 	void setValues();
 	void generareMobGroup();

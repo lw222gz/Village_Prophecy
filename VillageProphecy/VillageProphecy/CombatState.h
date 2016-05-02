@@ -6,6 +6,7 @@ enum CombatState
 {
 	Choosing_Action = 100,
 	Choosing_Skill,
+	Choosing_Skill_Target,
 	Choosing_Target,
 	Enemy_Turn,
 	Combat_Over,

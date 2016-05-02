@@ -3,6 +3,7 @@
 
 PlayerSkillManager::PlayerSkillManager()
 {
+	
 }
 
 
@@ -20,11 +21,13 @@ void PlayerSkillManager::LearnSkill(LevelEXPRequirement playerLevel, PlayerStats
 	switch (playerLevel)
 	{
 		case LEVEL_1:
+			//Test to add many skills to be abel to chose between them
 			playerSkills.push_back(new Skill_HeavyStrike(playerStats));
 			break;
 
 		case LEVEL_3:
 			//Add fireball
+			playerSkills.push_back(new Skill_FireBall(playerStats));
 			break;
 		case LEVEL_30:
 			break;

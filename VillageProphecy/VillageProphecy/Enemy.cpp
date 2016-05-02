@@ -8,7 +8,7 @@
 * @PARAMS
 * typeOfEnemy: EnemyType enum value that describes the enemy rewards, stats and how it will act
 */
-Enemy::Enemy(EnemyType typeOfEnemy) : type(typeOfEnemy)
+Enemy::Enemy(EnemyType typeOfEnemy, int _level) : type(typeOfEnemy), level(_level)
 {
 	setEnemyValues();
 }
@@ -109,21 +109,34 @@ void Enemy::setEnemyValues(){
 			}
 			hitPoints = 20;
 			XPGrant = 1000;
-			attackDamage = 2;
+			attackDamage = 2;		
 			break;
 
 		case Human_MELEE:
 			//TODO: add own texture
-			if (!enemyTexture.loadFromFile("Textures/PHEnemy.png")){
+			if (!enemyTexture.loadFromFile("Textures/PHHumanEnemy.png")){
 				throw "TEXTURE LOAD ERROR: Enemy::Skeleton could not load texture.";
 			}
+			
+			hitPoints = 75;
+			XPGrant = 100;
+			attackDamage = 7;
 			break;
-			hitPoints = 50;
+
 		default:
 			throw "SET TEXTURE ERROR: Not a valid enemy type was given.";
 			break;
 	}
 
+	LevelBonus();
+
 	maxHitPoints = hitPoints;
 	enemySprite.setTexture(enemyTexture);
+}
+
+//Adds a level bonus to the current values.
+void Enemy::LevelBonus(){
+	hitPoints += hitPoints * level * levelBonus;
+	XPGrant += XPGrant * level * levelBonus;
+	attackDamage += attackDamage * level * levelBonus;
 }

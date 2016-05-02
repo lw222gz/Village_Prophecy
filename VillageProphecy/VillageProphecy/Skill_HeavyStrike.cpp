@@ -10,6 +10,7 @@ Skill_HeavyStrike::~Skill_HeavyStrike()
 {
 }
 
+
 string Skill_HeavyStrike::getSkillDescripion(){
 	return "You execute a reckless swing that deals increased damage but backfires on you aswell.";
 }
@@ -27,4 +28,12 @@ SkillConsumeableStats Skill_HeavyStrike::getStatConsumeType(){
 
 float Skill_HeavyStrike::getConsumeAmount(){
 	return playerStats->getMaxPlayerHP() / 10;
+}
+
+void Skill_HeavyStrike::ConsumeSkillStats(){
+	playerStats->playerHitPointsAffected(-getConsumeAmount());
+}
+
+bool Skill_HeavyStrike::CanCast(){
+	return playerStats->getPlayerHP() > getConsumeAmount();
 }

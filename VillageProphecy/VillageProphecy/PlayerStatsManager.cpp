@@ -164,16 +164,20 @@ float PlayerStatsManager::getPlayerMAXStamina(){
 
 /*
 * <DESCRIPTION>
-* Deals damage to the player
+* Affects the player hitpoints
 *
 * @PARAMS
-* amount: integer representing the amount of damage that is about to be dealt to the player.
+* amount: integer representing the amount of health that is gonna be added to the players
+* current hit points or the amount that is to be removed from the players hitpoints
 */
-void PlayerStatsManager::damagePlayer(int amount){
-	playerHitpoints -= amount;
-	if (playerHitpoints <= 0){
+void PlayerStatsManager::playerHitPointsAffected(int amount){
+	playerHitpoints += amount;
+	if (playerHitpoints > MAX_HIT_POINTS){
+		playerHitpoints = MAX_HIT_POINTS;
+	}
+	else if (playerHitpoints <= 0){
 		playerHitpoints = 0;
-		//TODO: Player dies, game over.
+		//TODO: player died and game is over.
 	}
 }
 
@@ -186,7 +190,10 @@ void PlayerStatsManager::damagePlayer(int amount){
 */
 void PlayerStatsManager::playerHungerAffected(float amount){
 	currentHunger += amount;
-	if (currentHunger < 0){
+	if (currentHunger > MAX_HUNGER_POINTS){
+		currentHunger = MAX_HUNGER_POINTS;
+	}
+	else if (currentHunger < 0){
 		currentHunger = 0;
 	}
 }
@@ -200,7 +207,10 @@ void PlayerStatsManager::playerHungerAffected(float amount){
 */
 void PlayerStatsManager::playerMoodAffected(float amount){
 	currentMood += amount;
-	if (currentMood < 0){
+	if (currentMood > MAX_MOOD_POINTS){
+		currentMood = MAX_MOOD_POINTS;
+	}
+	else if (currentMood < 0){
 		currentMood = 0;
 	}
 }
@@ -214,7 +224,10 @@ void PlayerStatsManager::playerMoodAffected(float amount){
 */
 void PlayerStatsManager::playerStaminaAffected(float amount){
 	currentStamina += amount;
-	if (currentStamina < 0){
+	if (currentStamina > MAX_STAMINA_POINTS){
+		currentStamina = MAX_STAMINA_POINTS;
+	}
+	else if (currentStamina < 0){
 		currentStamina = 0;
 	}
 }

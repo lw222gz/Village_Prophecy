@@ -129,6 +129,9 @@
     <ClCompile Include="Skill_HeavyStrike.cpp">
       <Filter>Source Files\Player\Skills</Filter>
     </ClCompile>
+    <ClCompile Include="Skill_FireBall.cpp">
+      <Filter>Source Files\Player\Skills</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IDrawAble.h">
@@ -232,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="Skill.h">
       <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_FireBall.h">
+      <Filter>Header Files\Player\Skills</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

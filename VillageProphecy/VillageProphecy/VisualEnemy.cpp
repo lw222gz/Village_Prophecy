@@ -4,7 +4,7 @@
 //A visual enemy is an enemy that is in the game world. If the player collides
 //with this enemy the combat phase initiates and the player meets the enemies in this
 //objects enemyGroup
-VisualEnemy::VisualEnemy(EnemyVisualType visualType, Vector2f pos) : type(visualType)
+VisualEnemy::VisualEnemy(EnemyVisualType visualType, Vector2f pos, int level) : type(visualType), enemyGroupLevel(level)
 {
 	enemySprite.setPosition(pos);
 	setValues();
@@ -49,7 +49,7 @@ void VisualEnemy::setValues(){
 
 		case Humans:
 			//TODO: add own texture
-			if (!enemyTexture.loadFromFile("Textures/PHEnemy.png")){
+			if (!enemyTexture.loadFromFile("Textures/PHHumanEnemy.png")){
 				throw "TEXTURE LOAD ERROR: Visual enemy texture Skeleton could not load.";
 			}
 			break;
@@ -66,21 +66,30 @@ void VisualEnemy::setValues(){
 void VisualEnemy::generareMobGroup(){
 	switch (type)
 	{
-		case Skeleton:{
+		case Skeleton:
 				//TODO:Add enemies to the enemygrou vector
 				srand(time(NULL));
 				amountOfMobs = 1;//rand() % 3 + 1;
 
 				for (int i = 0; i < amountOfMobs; ++i){
-					Enemy *e = new Enemy(EnemyType::Skeleton_MELEE);
+					Enemy *e = new Enemy(EnemyType::Skeleton_MELEE, enemyGroupLevel);
 					enemyGroup.push_back(e);
 				}
 			break;
-			}
+			
 			
 		case Humans:
+			srand(time(NULL));
+			amountOfMobs = 1;//rand() % 3 + 1;
+
+			for (int i = 0; i < amountOfMobs; ++i){
+				Enemy *e = new Enemy(EnemyType::Human_MELEE, enemyGroupLevel);
+				enemyGroup.push_back(e);
+			}
 			break;
+
 		default:
+			throw "Unknown enemy type.";
 			break;
 	}
 }

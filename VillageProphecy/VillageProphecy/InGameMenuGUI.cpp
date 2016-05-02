@@ -53,7 +53,7 @@ InGameMenuGUI::InGameMenuGUI(View *gameView) : view(gameView)
 	skillOptionBackground.setSize(Vector2f(300, 150));
 
 	skillDescriptionBox.setFillColor(Color(0, 134, 223, 255));
-	skillDescriptionBox.setSize(Vector2f(150, 150));
+	skillDescriptionBox.setSize(Vector2f(250, 175));
 }
 
 
@@ -100,6 +100,7 @@ void InGameMenuGUI::DrawCombatMenu(RenderWindow *window, Player *player){
 }
 
 
+//Draws skill box
 void InGameMenuGUI::DrawSkillOptions(RenderWindow *window, Player *player, int currentSkillIndex){
 	ResetTransformation(window->getSize());
 	transformation.translate(500, -100);
@@ -120,9 +121,95 @@ void InGameMenuGUI::DrawSkillOptions(RenderWindow *window, Player *player, int c
 		}
 	}
 
-	transformation.translate(0, -(skillDescriptionBox.getSize().y + 15));	
+	ResetTransformation(window->getSize());
+	transformation.translate(815, -100);
 	window->draw(skillDescriptionBox, transformation);
+
+	//Draws a message in case the player dont have the required stats to use the skill
+	if (!player->SkillManager()->getPlayerSkills()->at(currentSkillIndex)->CanCast()){
+		displayText.setColor(Color::Red);
+		displayText.setString("You can't cast this.");
+		window->draw(displayText, transformation);
+
+		displayText.setColor(Color::Black);
+		transformation.translate(0, 20);
+	}
+
+	//draw Cost text
+	displayText.setString("Costs: " +
+		to_string((int)player->SkillManager()->getPlayerSkills()->at(currentSkillIndex)->getConsumeAmount()) +
+		" " +
+		getStringRepConsumeType(player->SkillManager()->getPlayerSkills()->at(currentSkillIndex)->getStatConsumeType()));
+	
+	window->draw(displayText, transformation);
+
+	transformation.translate(0, 20);
+
+	
+
+	//draw damage text
+	displayText.setString("Damage: " + to_string((int)player->SkillManager()->getPlayerSkills()->at(currentSkillIndex)->getSkillDamage()));
+
+	window->draw(displayText, transformation);
+
+	transformation.translate(0, 20);
+
+	//draw description
+	string desc = AddRowsToString(player->SkillManager()->getPlayerSkills()->at(currentSkillIndex)->getSkillDescripion(),
+		skillDescriptionBox.getSize().x * 2, 0);
+
+	displayText.setString(desc);
+
+	window->draw(displayText, transformation);
+
+	
+
+	
 	//TODO: write out info about the skill in this box
+}
+
+string InGameMenuGUI::getStringRepConsumeType(SkillConsumeableStats consumeableStat){
+
+	switch (consumeableStat)
+	{
+		case Health:
+			return "Health";
+
+		case Stamina:
+			return "Stamina";
+
+		case Hunger:
+			return "Hunger";
+
+		default:
+			return "No string rep";
+	}
+}
+
+
+//TODO: add so it prefer to split over an empty space instead of the middle of a word.
+//BUGG: int breakPoint has to be twice the wanted pixel break width. I dont know why. Assuming
+//When first called currentIndex should be 0;
+string InGameMenuGUI::AddRowsToString(string str, int breakPoint, int currentIndex){
+	displayText.setString(str);
+	int stringPixelLength = str.length() * displayText.getCharacterSize();
+
+
+	if (stringPixelLength > currentIndex + breakPoint){
+		currentIndex += breakPoint;
+		str.insert(currentIndex /displayText.getCharacterSize(), "\n");
+
+
+		if (currentIndex + breakPoint < stringPixelLength){
+			str = AddRowsToString(str, breakPoint, currentIndex);
+		}
+		/*if (displayText.getLocalBounds().width > currentIndex + (breakPoint * 2)){
+			
+			
+		}*/
+	}
+
+	return str;
 }
 
 /*
@@ -415,3 +502,6 @@ void InGameMenuGUI::ResetTransformation(Vector2u windowSize){
 	transformation.translate(view->getCenter().x - windowSize.x / 2,
 		view->getCenter().y + windowSize.y / 2 - 200);
 }
+
+
+

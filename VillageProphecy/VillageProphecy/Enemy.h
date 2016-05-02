@@ -7,7 +7,7 @@ using namespace std;
 class Enemy : public IDrawAble
 {
 public:
-	Enemy(EnemyType typeOfEnemy);
+	Enemy(EnemyType typeOfEnemy, int level);
 	~Enemy();
 	Sprite getSprite();
 	EnemyType getEnemyType();
@@ -28,5 +28,9 @@ private:
 	float maxHitPoints = hitPoints;
 	float attackDamage = 0;
 	int XPGrant = 0;
+	int level = 0;
+
+	void LevelBonus();
+	const float levelBonus = .25;
 };
 

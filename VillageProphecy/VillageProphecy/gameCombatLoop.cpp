@@ -90,12 +90,20 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 				break;
 
 			case Choosing_Skill:
-				combatMenuGUI->DrawSkillOptions(window, player, 0);
+				combatMenuGUI->DrawSkillOptions(window, player, skillChoiceIndex);
 
 				skillChoiceIndex = handleInput->CheckSkillChoiceInput(&timeElapsed, skillChoiceIndex, player->SkillManager()->getPlayerSkills()->size() - 1);
 				
 				//TODO: Add executable command for skills.
-
+				if (handleInput->CheckUserCombatDecision()){
+					if (player->SkillManager()->getPlayerSkills()->at(skillChoiceIndex)->CanCast()){
+						currentCombatState = Choosing_Skill_Target;
+					}
+					else {
+						gui->AddStatusText("You don't have the required stats to use that skill.");
+					}
+					
+				}
 				//space key to go back to choosing action
 				PlayerCanGoBack();
 				break;
@@ -105,35 +113,19 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 				gui->DrawTargetArrow(window, targetIndex);
 
 				if (handleInput->CheckUserCombatDecision()){
+					PlayerDealsDamage(enemies, (int)player->StatsManager()->getPlayerAttackDamage());									
+				}
 
-					currentCombatState = CombatState::Enemy_Turn;
-					currentEnemyTurnTime = 0;
+				PlayerCanGoBack();
+				break;
 
-					enemies->at(targetIndex)->TakeDamage(player->StatsManager()->getPlayerAttackDamage());
-					gui->AddCombatText(to_string((int)player->StatsManager()->getPlayerAttackDamage()), targetIndex);
+			case Choosing_Skill_Target:
+				targetIndex = handleInput->CheckTargetChoiceInput(timeElapsed, targetIndex, enemies);
+				gui->DrawTargetArrow(window, targetIndex);
 
-					//If the enemy died a new target index is set.
-					if (!enemies->at(targetIndex)->IsAlive()){
-
-						for (int i = 0; i < enemies->size(); ++i){
-							if (enemies->at(i)->IsAlive()){
-								targetIndex = i;
-								break;
-							}
-							//Last iteration of the loop.
-							if (i + 1 == enemies->size()){
-								//All enemies are dead and the normal gameplay should resume.
-								//TODO: add player XP
-								currentCombatState = CombatState::Combat_Over;
-								gui->AddStatusText("You Won!");
-
-								//grants the player wind EXP
-								for (auto &e : *enemies){
-									player->StatsManager()->GainEXPPoints(e->getXPGrant());
-								}
-							}
-						}
-					}					
+				if (handleInput->CheckUserCombatDecision()){
+					player->SkillManager()->getPlayerSkills()->at(skillChoiceIndex)->ConsumeSkillStats();
+					PlayerDealsDamage(enemies, (int)player->SkillManager()->getPlayerSkills()->at(skillChoiceIndex)->getSkillDamage());
 				}
 
 				PlayerCanGoBack();
@@ -161,7 +153,7 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 						}
 					}
 					else if(!attackConfirm) {
-						player->StatsManager()->damagePlayer(enemies->at(currentEnemyTurnIndex)->getAttackDamage());
+						player->StatsManager()->playerHitPointsAffected(-enemies->at(currentEnemyTurnIndex)->getAttackDamage());
 						gui->AddPlayerCombatText(to_string((int)enemies->at(currentEnemyTurnIndex)->getAttackDamage()), player);
 						gui->AddStatusCombatText(enemies->at(currentEnemyTurnIndex)->getEnemyType());
 						attackConfirm = true;
@@ -180,11 +172,12 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 				break;
 
 			case Combat_Over: 
-				phaseSwitchPause += timeElapsed.asSeconds();
-				if (phaseSwitchPause >= phaseSwitchPauseTime){
-					currentCombatState = Combat_Phase_Over;
-				}
-				//after 1 sec switch back to normal game mode
+					//after 1 sec switch back to normal game mode
+					phaseSwitchPause += timeElapsed.asSeconds();
+					if (phaseSwitchPause >= phaseSwitchPauseTime){
+						currentCombatState = Combat_Phase_Over;
+					}
+					
 				break;
 
 			case Player_Lost:
@@ -261,6 +254,39 @@ void GameCombatLoop::ExecuteCombatOption(){
 			throw "Not a valid combat option was executed.";
 			break;
 	}
+}
+
+
+void GameCombatLoop::PlayerDealsDamage(vector<Enemy*> *enemies, int damage){
+	currentCombatState = CombatState::Enemy_Turn;
+	currentEnemyTurnTime = 0;
+
+	enemies->at(targetIndex)->TakeDamage(damage);
+	gui->AddCombatText(to_string(damage), targetIndex);
+
+	//If the enemy died a new target index is set.
+	if (!enemies->at(targetIndex)->IsAlive()){
+
+		for (int i = 0; i < enemies->size(); ++i){
+			if (enemies->at(i)->IsAlive()){
+				targetIndex = i;
+				break;
+			}
+			//Last iteration of the loop.
+			if (i + 1 == enemies->size()){
+				//All enemies are dead and the normal gameplay should resume.
+
+				currentCombatState = CombatState::Combat_Over;
+				gui->AddStatusText("You Won!");
+
+				//grants the player win EXP
+				for (auto &e : *enemies){
+					player->StatsManager()->GainEXPPoints(e->getXPGrant());
+				}
+			}
+		}
+	}
+
 }
 
 //Any combat state that is where the player is in control this method should be called

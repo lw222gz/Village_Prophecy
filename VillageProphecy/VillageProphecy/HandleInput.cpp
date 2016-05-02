@@ -73,11 +73,13 @@ int HandleInput::CheckSkillChoiceInput(Time *t, int currentIndex, int maxIndex){
 		if (Keyboard::isKeyPressed(Keyboard::W)){
 			if (currentIndex - 1 >= 0){
 				currentIndex -= 1;
+				DisableControls(.25);
 			}
 		}
 		if (Keyboard::isKeyPressed(Keyboard::S)){
 			if (currentIndex + 1 <= maxIndex){
 				currentIndex += 1;
+				DisableControls(.25);
 			}
 		}
 	}

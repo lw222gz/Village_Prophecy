@@ -40,6 +40,8 @@ private:
 	bool hasDisplayedPlayerDied = false;
 
 	void ExecuteCombatOption();
+	void ExecuteSkillOption();
 	void PlayerCanGoBack();
+	void PlayerDealsDamage(vector<Enemy*> *enemies, int damage);
 };
 

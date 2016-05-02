@@ -41,6 +41,8 @@ private:
 	string getStringRepPlayerLevel(LevelEXPRequirement currlevel);
 	string getStringRepCombatOptions(CombatOptions option);
 	void ResetTransformation(Vector2u windowSize);
+	string AddRowsToString(string str, int breakPoint, int currentIndex);
+	string getStringRepConsumeType(SkillConsumeableStats consumeableStat);
 
 	void DrawBaseMenu(RenderWindow *window);
 	void DrawXPBar(RenderWindow *window, Player *player);

@@ -3,6 +3,7 @@
 #include "PlayerStatsManager.h"
 
 //forward decleration
+class Skill;
 class PlayerStatsManager;
 
 class Skill_HeavyStrike : public Skill
@@ -16,6 +17,8 @@ public:
 	float getSkillDamage();
 	SkillConsumeableStats getStatConsumeType();
 	float getConsumeAmount();
+	void ConsumeSkillStats();
+	bool CanCast();
 	
 
 private:

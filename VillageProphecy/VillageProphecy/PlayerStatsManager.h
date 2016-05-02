@@ -27,7 +27,7 @@ public:
 	float getPlayerAttackDamage();
 	float getPlayerHP();
 	float getMaxPlayerHP();
-	void damagePlayer(int amount);
+	void playerHitPointsAffected(int amount);
 
 	float getPlayerHunger();
 	float getPlayerMood();
@@ -70,7 +70,7 @@ private:
 
 	float currentHunger = MAX_HUNGER_POINTS;
 	float currentMood = MAX_MOOD_POINTS;
-	float currentStamina = MAX_STAMINA_POINTS;
+	float currentStamina = 10;
 
 
 	void PlayerLevelUp();
