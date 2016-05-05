@@ -25,21 +25,22 @@ public:
 	Sprite getConsumedAPSprite();
 
 	float getPlayerAttackDamage();
+
+	void playerHitPointsAffected(int amount);
 	float getPlayerHP();
 	float getMaxPlayerHP();
-	void playerHitPointsAffected(int amount);
-
-	float getPlayerHunger();
-	float getPlayerMood();
-	float getPlayerStamina();
-
-	float getPlayerMAXHunger();
-	float getPlayerMAXMood();
-	float getPlayerMAXStamina();
-
+	
 	void playerHungerAffected(float amount);
+	float getPlayerHunger();
+	float getPlayerMAXHunger();
+
 	void playerMoodAffected(float amount);
+	float getPlayerMood();
+	float getPlayerMAXMood();
+	
 	void playerStaminaAffected(float amount);
+	float getPlayerStamina();
+	float getPlayerMAXStamina();
 
 	int getTotalExp();
 	int getNextLevelExp();

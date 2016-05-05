@@ -29,8 +29,9 @@ void PlayerSkillManager::LearnSkill(LevelEXPRequirement playerLevel, PlayerStats
 			//Add fireball
 			playerSkills.push_back(new Skill_FireBall(playerStats));
 			break;
-		case LEVEL_30:
+		case LEVEL_MAX:
 			break;
+
 		default:
 			break;
 	}

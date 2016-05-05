@@ -256,23 +256,32 @@ void InGameMenuGUI::DrawXPBar(RenderWindow *window, Player *player){
 string InGameMenuGUI::getStringRepPlayerLevel(LevelEXPRequirement currlevel){
 	switch (currlevel)
 	{
-	case LEVEL_0:
-		return "0";
+		case LEVEL_0:
+			return "0";
 
-	case LEVEL_1:
-		return "1";
+		case LEVEL_1:
+			return "1";
 
-	case LEVEL_2:
-		return "2";
+		case LEVEL_2:
+			return "2";
 
-	case LEVEL_3:
-		return "3";
+		case LEVEL_3:
+			return "3";
 
-	case LEVEL_30:
-		return "MAX";
+		case LEVEL_4:
+			return "4";
 
-	default:
-		return "No defined level";
+		case LEVEL_5:
+			return "5";
+
+		case LEVEL_6:
+			return "6";
+
+		case LEVEL_MAX:
+			return "MAX";
+
+		default:
+			return "No defined level";
 	}
 }
 

@@ -162,6 +162,13 @@ void GameArea::generateGameArea(){
 			areaVisualObjects.push_back(p);
 			areaPaths.push_back(p);
 
+			p = new Path(Areas::Final,
+				Direction::West,
+				Vector2f(0, areaSize.y / 2));
+
+			areaVisualObjects.push_back(p);
+			areaPaths.push_back(p);
+
 			VisualEnemy *e = new VisualEnemy(EnemyVisualType::Skeleton, Vector2f(areaSize.x - 400, areaSize.y - 500), 1);
 			areaVisualObjects.push_back(e);
 			enemies.push_back(e);
@@ -182,6 +189,14 @@ void GameArea::generateGameArea(){
 		
 		}
 		break;
+
+		case Areas::Final:{
+			VisualEnemy *e = new VisualEnemy(EnemyVisualType::Humans, Vector2f(250, 250), 10);
+			areaVisualObjects.push_back(e);
+			enemies.push_back(e);
+
+			break;
+		}
 
 		default:
 			break;

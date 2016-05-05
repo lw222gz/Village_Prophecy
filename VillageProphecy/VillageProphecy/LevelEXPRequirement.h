@@ -7,5 +7,8 @@ enum LevelEXPRequirement{
 	LEVEL_1 = 100,
 	LEVEL_2 = 250,
 	LEVEL_3 = 500,
-	LEVEL_30 = 99999
+	LEVEL_4 = 870,
+	LEVEL_5 = 1300,
+	LEVEL_6 = 1900,
+	LEVEL_MAX = 99999
 };

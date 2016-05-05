@@ -43,6 +43,7 @@ private:
 	GameArea *baseGameArea = NULL;
 	GameArea *survivalGameArea = NULL;
 	GameArea *hostileGameArea = NULL;
+	GameArea *finalGameArea = NULL;
 	void EnterNewArea(RenderWindow *window, View *view);
 	GameObject *triggerdObject = NULL;
 	void ExecuteObjectTrigger(RenderWindow *window);

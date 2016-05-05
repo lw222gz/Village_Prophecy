@@ -18,6 +18,7 @@ GameLoop::GameLoop(View *gameView, GUIMaster *guiMaster, InGameMenuGUI *inGameMe
 	survivalGameArea = new GameArea(Areas::Survival, Vector2u(3000, 1500));
 	hostileGameArea = new GameArea(Areas::Hostile, Vector2u(4000, 1000));
 	baseGameArea = new GameArea(Areas::Base, Vector2u(1440, 900));
+	finalGameArea = new GameArea(Areas::Final, Vector2u(1000, 1000));
 
 	//A game will allways start in the baseGameArea
 	currentGameArea = baseGameArea;
@@ -100,10 +101,6 @@ void GameLoop::RunGame(RenderWindow *window){
 		}
 	}	
 
-	if (currentGameArea->getAreaEnemies()->size() == 0
-		&& currentGameArea->getAreaType() == Areas::Hostile){
-		int a = 5;
-	}
 	//Checks for collisions with enemies, if so then combat phase is initiated.
 	for (int i = 0; i < currentGameArea->getAreaEnemies()->size(); ++i){
 		if (currentGameArea->getAreaEnemies()->at(i)->collideWithPlayer(player.getSprite().getPosition(), player.getSize())){
@@ -180,6 +177,7 @@ void GameLoop::EnterNewArea(RenderWindow *window, View *view){
 		case Dungeon:
 			break;
 		case Final:
+			currentGameArea = finalGameArea;
 			break;
 		case No_Area:
 			break;
@@ -192,6 +190,7 @@ void GameLoop::EnterNewArea(RenderWindow *window, View *view){
 	if (x < window->getSize().x / 2){
 		x = window->getSize().x / 2;
 	}
+	//Crash because the final game area has no paths.
 	for (unsigned int i = 0; i < currentGameArea->getAreaPaths().size(); ++i){
 		//gets the path that leads back to the last area to set the player position.
 		if (currentGameArea->getAreaPaths()[i]->getNextArea() == lastArea){
