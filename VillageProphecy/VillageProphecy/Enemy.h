@@ -2,6 +2,9 @@
 #include "EnemyType.h"
 #include "IDrawAble.h"
 
+
+class EnemySkill;
+
 using namespace std;
 
 class Enemy : public IDrawAble
@@ -18,6 +21,8 @@ public:
 	float getAttackDamage();
 	void setPosition(float x, float y);
 	int getXPGrant();
+	vector<EnemySkill*> *getEnemySkills();
+
 
 private:
 	void setEnemyValues();
@@ -29,6 +34,8 @@ private:
 	float attackDamage = 0;
 	int XPGrant = 0;
 	int level = 0;
+
+	vector<EnemySkill*> enemySkills;
 
 	void LevelBonus();
 	const float levelBonus = .25;

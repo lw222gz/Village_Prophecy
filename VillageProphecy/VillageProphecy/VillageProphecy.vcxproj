@@ -83,6 +83,9 @@
   <ItemGroup>
     <ClCompile Include="CombatGUI.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemySkill_BloodyStrike.cpp" />
+    <ClCompile Include="EnemySkill_DecayingStrike.cpp" />
+    <ClCompile Include="EnemySkill_NormalAttack.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameArea.cpp" />
     <ClCompile Include="GameCombatLoop.cpp" />
@@ -111,6 +114,11 @@
     <ClInclude Include="CombatState.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemySkill.h" />
+    <ClInclude Include="EnemySkillEffect.h" />
+    <ClInclude Include="EnemySkill_BloodyStrike.h" />
+    <ClInclude Include="EnemySkill_DecayingStrike.h" />
+    <ClInclude Include="EnemySkill_NormalAttack.h" />
     <ClInclude Include="EnemyType.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameArea.h" />

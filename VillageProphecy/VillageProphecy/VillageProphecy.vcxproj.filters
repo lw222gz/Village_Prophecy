@@ -61,6 +61,12 @@
     <Filter Include="Header Files\Player\Skills">
       <UniqueIdentifier>{2f19ca95-e7be-488d-8dd9-8191c9562f38}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Enemy\EnemySkills">
+      <UniqueIdentifier>{724a7f84-2dd2-400a-a124-cd4490fecfc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enemy\EnemySkills">
+      <UniqueIdentifier>{d8b2c032-b902-46df-933e-cb42923b0e1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -131,6 +137,15 @@
     </ClCompile>
     <ClCompile Include="Skill_FireBall.cpp">
       <Filter>Source Files\Player\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySkill_DecayingStrike.cpp">
+      <Filter>Source Files\Enemy\EnemySkills</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySkill_NormalAttack.cpp">
+      <Filter>Source Files\Enemy\EnemySkills</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySkill_BloodyStrike.cpp">
+      <Filter>Source Files\Enemy\EnemySkills</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +253,21 @@
     </ClInclude>
     <ClInclude Include="Skill_FireBall.h">
       <Filter>Header Files\Player\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySkill_DecayingStrike.h">
+      <Filter>Header Files\Enemy\EnemySkills</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySkill.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySkill_NormalAttack.h">
+      <Filter>Header Files\Enemy\EnemySkills</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySkillEffect.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySkill_BloodyStrike.h">
+      <Filter>Header Files\Enemy\EnemySkills</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

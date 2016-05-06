@@ -17,7 +17,8 @@ public:
 	CombatOptions CheckUserCombatInput(CombatOptions currentOption);
 	int CheckTargetChoiceInput(Time t, int currentIndex, vector<Enemy*> *enemies);
 	int CheckSkillChoiceInput(Time *t, int currentIndex, int maxIndex);
-	bool CheckUserCombatDecision();
+	bool CheckEnterKeyPressed();
+	bool CheckBackSpaceKeyPressed();
 	void DisableControls(float secondsToPause);
 	bool CheckQuickMenuInput();
 	bool CheckResetCombatStateInput();

@@ -162,7 +162,7 @@ void GameArea::generateGameArea(){
 			areaVisualObjects.push_back(p);
 			areaPaths.push_back(p);
 
-			p = new Path(Areas::Final,
+			p = new Path(Areas::Trigger_Final_Area,
 				Direction::West,
 				Vector2f(0, areaSize.y / 2));
 
@@ -191,7 +191,19 @@ void GameArea::generateGameArea(){
 		break;
 
 		case Areas::Final:{
-			VisualEnemy *e = new VisualEnemy(EnemyVisualType::Humans, Vector2f(250, 250), 10);
+			VisualEnemy *e = new VisualEnemy(EnemyVisualType::Humans, Vector2f(500, 60), 5);
+			/*areaVisualObjects.push_back(e);
+			enemies.push_back(e);
+
+			e = new VisualEnemy(EnemyVisualType::Humans, Vector2f(200, 60), 5);
+			areaVisualObjects.push_back(e);
+			enemies.push_back(e);
+
+			e = new VisualEnemy(EnemyVisualType::Humans, Vector2f(700, 60), 5);
+			areaVisualObjects.push_back(e);
+			enemies.push_back(e);*/
+
+			e = new VisualEnemy(EnemyVisualType::Executioner, Vector2f(0, 10), 2);
 			areaVisualObjects.push_back(e);
 			enemies.push_back(e);
 

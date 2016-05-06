@@ -21,6 +21,12 @@ GUIMaster::GUIMaster()
 	//makes the quick menu semi transparent
 	quickMenuSprite.setColor(Color(255, 255, 255, 128));
 
+
+	if (!gameWonTexture.loadFromFile("Textures/PHGameWon.png")){
+		throw "TEXTURE LOAD ERROR: won game texture could not load correctly.";
+	}
+	gameWonSprite.setTexture(gameWonTexture);	
+
 	if (!coolvetica.loadFromFile("Textures/coolvetica.ttf")){
 		throw "FONT LOAD ERROR: could not load coolvetica.ttf correctly.";
 	}
@@ -32,7 +38,8 @@ GUIMaster::GUIMaster()
 	//displayText.setStyle(Text::Bold);
 
 
-	
+	confirmationBox.setFillColor(Color::Magenta);
+	confirmationBox.setSize(Vector2f(400, 100));
 
 }
 
@@ -159,6 +166,27 @@ string GUIMaster::getStringRepresentation(T enumValue){
 
 }
 
+//Draws a confirmation box
+void GUIMaster::DrawConfirmationBox(RenderWindow *window, View *view, string question){
+	confirmationBox.setPosition(view->getCenter().x - confirmationBox.getSize().x / 2, view->getCenter().y - window->getSize().y / 3);
+
+	screenCoverRect.setSize((Vector2f)window->getSize());
+	screenCoverRect.setFillColor(Color(0, 0, 0, 125));
+	screenCoverRect.setPosition(Vector2f(view->getCenter().x - window->getSize().x / 2, view->getCenter().y - window->getSize().y / 2));
+
+	window->draw(screenCoverRect);
+	window->draw(confirmationBox);
+
+	displayText.setPosition(confirmationBox.getPosition().x + 15, confirmationBox.getPosition().y + 15);
+	displayText.setString(question);
+	window->draw(displayText);
+
+
+	displayText.setString("Press Enter to confirm, Backspace to deny.");
+	displayText.setPosition(displayText.getPosition().x, displayText.getPosition().y + 25);
+	window->draw(displayText);
+}
+
 
 /*
 * <DESCRIPTION>
@@ -169,8 +197,8 @@ string GUIMaster::getStringRepresentation(T enumValue){
 */
 void GUIMaster::activateSleepAnimation(Vector2f screenSize){
 	sleepAnimationActive = true;
-	rectPtr = new RectangleShape(screenSize);
-	rectPtr->setFillColor(Color(0, 0, 0, 0));
+	screenCoverRect.setSize(screenSize);
+	screenCoverRect.setFillColor(Color(0, 0, 0, 0));
 	currentAnimationTime = 0;
 	
 }
@@ -193,7 +221,6 @@ void GUIMaster::sleepAnimation(RenderWindow *window, Time *t){
 	//if animation over it's interupted
 	if (percentAnimated >= 2){
 		sleepAnimationActive = false;
-		delete rectPtr;
 		return;
 	}
 
@@ -209,8 +236,8 @@ void GUIMaster::sleepAnimation(RenderWindow *window, Time *t){
 		percentAnimated = ((sleepAnimationTime / 2.0) + (sleepTime / (sleepAnimationTime / 2.0))) - percentAnimated;
 	}
 
-	rectPtr->setFillColor(Color(0, 0, 0, 255 * percentAnimated));
-	window->draw(*rectPtr);
+	screenCoverRect.setFillColor(Color(0, 0, 0, 255 * percentAnimated));
+	window->draw(screenCoverRect);
 }
 
 
@@ -235,4 +262,11 @@ void GUIMaster::DrawGameOver(RenderWindow *window, View *view){
 	gameOverSprite.setPosition(view->getCenter().x - window->getSize().x/2,
 								view->getCenter().y - window->getSize().y / 2);
 	window->draw(gameOverSprite);
+}
+
+
+void GUIMaster::DrawGameWon(RenderWindow *window, View *view){
+	gameWonSprite.setPosition(view->getCenter().x - window->getSize().x / 2,
+								view->getCenter().y - window->getSize().y / 2);
+	window->draw(gameWonSprite);
 }

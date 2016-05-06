@@ -21,6 +21,8 @@ public:
 				int amountOfDaysLeft);
 
 	void DrawGameOver(RenderWindow *window, View *view);
+	void DrawGameWon(RenderWindow *window, View *view);
+	void DrawConfirmationBox(RenderWindow *window, View *view, string question);
 
 	void setQuickMenu(GameObject *obj);
 	void quickMenuNotTriggerd();
@@ -36,7 +38,9 @@ private:
 	float currentAnimationTime = 0;
 	const float sleepTime = .5;
 	float sleepAnimationTime = 4;
-	RectangleShape *rectPtr = NULL;
+	RectangleShape screenCoverRect;
+
+	RectangleShape confirmationBox;
 
 	Font coolvetica;
 	Text displayText;
@@ -46,6 +50,9 @@ private:
 
 	Sprite gameOverSprite;
 	Texture gameOverTexture;
+
+	Sprite gameWonSprite;
+	Texture gameWonTexture;
 	
 	template <class T>
 	string getStringRepresentation(T);

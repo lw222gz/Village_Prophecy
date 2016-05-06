@@ -54,6 +54,12 @@ void VisualEnemy::setValues(){
 			}
 			break;
 
+		case Executioner:
+			if (!enemyTexture.loadFromFile("Textures/PHExecutioner.png")){
+				throw "TEXTURE LOAD ERROR: Visual enemy texture executioner could not load.";
+			}
+			break;
+
 		default:
 			break;
 	}
@@ -67,7 +73,6 @@ void VisualEnemy::generareMobGroup(){
 	switch (type)
 	{
 		case Skeleton:
-				//TODO:Add enemies to the enemygrou vector
 				srand(time(NULL));
 				amountOfMobs = 1;//rand() % 3 + 1;
 
@@ -86,6 +91,10 @@ void VisualEnemy::generareMobGroup(){
 				Enemy *e = new Enemy(EnemyType::Human_MELEE, enemyGroupLevel);
 				enemyGroup.push_back(e);
 			}
+			break;
+
+		case Executioner:
+			enemyGroup.push_back(new Enemy(EnemyType::Executioner_BOSS, enemyGroupLevel));
 			break;
 
 		default:

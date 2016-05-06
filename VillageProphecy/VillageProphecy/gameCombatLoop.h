@@ -41,6 +41,7 @@ private:
 
 	void ExecuteCombatOption();
 	void ExecuteSkillOption();
+	void ExecuteRandomEnemySkill(Enemy* enemy);
 	void PlayerCanGoBack();
 	void PlayerDealsDamage(vector<Enemy*> *enemies, int damage);
 };

@@ -9,5 +9,6 @@ enum Areas
 	Hostile,
 	Dungeon,
 	Final,
-	No_Area
+	No_Area,
+	Trigger_Final_Area
 };

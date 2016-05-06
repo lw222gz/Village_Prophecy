@@ -5,8 +5,6 @@
 #include "Skill_FireBall.h"
 #include "Skill.h"
 
-
-
 class PlayerStatsManager;
 
 class PlayerSkillManager

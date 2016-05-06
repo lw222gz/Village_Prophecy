@@ -30,7 +30,7 @@ SkillConsumeableStats Skill_FireBall::getStatConsumeType(){
 }
 
 float Skill_FireBall::getConsumeAmount(){
-	return 40;
+	return 15;
 }
 
 void Skill_FireBall::ConsumeSkillStats(){

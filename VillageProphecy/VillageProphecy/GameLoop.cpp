@@ -16,9 +16,9 @@ GameLoop::GameLoop(View *gameView, GUIMaster *guiMaster, InGameMenuGUI *inGameMe
 {
 
 	survivalGameArea = new GameArea(Areas::Survival, Vector2u(3000, 1500));
-	hostileGameArea = new GameArea(Areas::Hostile, Vector2u(4000, 1000));
+	hostileGameArea = new GameArea(Areas::Hostile, Vector2u(2000, 1000));
 	baseGameArea = new GameArea(Areas::Base, Vector2u(1440, 900));
-	finalGameArea = new GameArea(Areas::Final, Vector2u(1000, 1000));
+	finalGameArea = new GameArea(Areas::Final, Vector2u(1500, 250));
 
 	//A game will allways start in the baseGameArea
 	currentGameArea = baseGameArea;
@@ -37,7 +37,7 @@ Player* GameLoop::getPlayerPointer(){
 }
 
 /*
-* <DESCRIPTION> 
+* @RETURNS
 * returns a boolean representing if the game is over.
 */
 bool GameLoop::GameOver(){
@@ -54,6 +54,13 @@ bool GameLoop::switchToCombat(){
 	return playerEnteredCombatPhase;
 }
 
+bool GameLoop::GameWon(){
+	if (currentGameArea->getAreaType() == Areas::Final){
+		return currentGameArea->getAreaEnemies()->size() <= 0;
+	}
+	return false;
+}
+
 vector<Enemy*>* GameLoop::getCombatEnemies(){
 	return currentGameArea->getAreaEnemies()->at(enemyVectorIndex)->getEnemyGroup();
 }
@@ -68,11 +75,32 @@ vector<Enemy*>* GameLoop::getCombatEnemies(){
 * *window: pointer to the game window object.
 */
 void GameLoop::RunGame(RenderWindow *window){
-
 	//gets timer time
 	timeElapsed = timer.getElapsedTime();
 	//resets timer instantly after to reuse getElapsedTime to get the time for the loop iteration
 	timer.restart();
+
+	//if the newArea is to trigger the final area the game will freeze up
+	//to ask the player if he/she wishes to enter the final area.
+	if (newArea == Areas::Trigger_Final_Area){
+		if (handleInput->CheckEnterKeyPressed()){
+			newArea = Areas::Final;
+			EnterNewArea(window, view);
+		}
+		else if (handleInput->CheckBackSpaceKeyPressed()){
+			newArea = Areas::No_Area;
+			//moves the player back
+			//BUGG: This wont work if the path is leading to the east.
+			player.setPlayerPosition(Vector2f(player.getPosition().x + 100, player.getPosition().y));
+		}
+		//if no input is given the freezed game is drawn.
+		else {
+			gui->DrawGame(currentGameArea->getAreaVisualObjects(), window, view, &player, triggerdObject, &timeElapsed, amountOfDaysLeft);
+			gameMenuGUI->DrawGameMenu(window, &player);
+			gui->DrawConfirmationBox(window, view, "Are you ready for the final area?");
+			return;
+		}
+	}
 		
 	//Checks for user input
 	newArea = handleInput->CheckUserMovementInput(&player, &timeElapsed);
@@ -109,37 +137,19 @@ void GameLoop::RunGame(RenderWindow *window){
 			player.savePosition();
 			break;
 			//TODO: ADD ANIMATIOn
-			
+
 		}
-	}
-
-	//TEST CODE!
-	if (lastArea == Areas::Survival){
-		Texture test;
-		if (!test.loadFromFile("Textures/PHTest.png")){
-			throw "Test img did not load correctly.";
-		}
-		Sprite s;
-		s.setTexture(test);
-		s.setPosition(Vector2f(1200, 100));
-
-		window->draw(s);
-
-		s.setPosition(Vector2f(2800, 100));
-		window->draw(s);
-	}
-	//END TEST CODE
-
-		
+	}		
 
 	//Camera movement, changes the values of the view to follow the player
 	//moves camera X-led
 	if (player.getPosition().x >= window->getSize().x / 2 && 
 		player.getPosition().x + window->getSize().x/2 <= currentGameArea->getAreaSize().x){
 
-		view->setCenter((window->getSize().x / 2) + (player.getPosition().x - window->getSize().x / 2), view->getCenter().y);
+		view->setCenter(player.getPosition().x, view->getCenter().y);
 		window->setView(*view);
 	}
+
 	//moves camera Y-led
 	if (player.getPosition().y + player.getSize().y >= window->getSize().y / 2 &&
 		player.getPosition().y + window->getSize().y / 2 - 200 + player.getSize().y <= currentGameArea->getAreaSize().y){
@@ -173,14 +183,21 @@ void GameLoop::EnterNewArea(RenderWindow *window, View *view){
 		case Hostile:
 			currentGameArea = hostileGameArea;
 			break;
+
 		//TODO: write cases
 		case Dungeon:
 			break;
+
+		case Trigger_Final_Area:
+			return;
+
 		case Final:
 			currentGameArea = finalGameArea;
 			break;
+
 		case No_Area:
 			break;
+
 		default:
 			break;
 	}
@@ -190,21 +207,31 @@ void GameLoop::EnterNewArea(RenderWindow *window, View *view){
 	if (x < window->getSize().x / 2){
 		x = window->getSize().x / 2;
 	}
-	//Crash because the final game area has no paths.
-	for (unsigned int i = 0; i < currentGameArea->getAreaPaths().size(); ++i){
-		//gets the path that leads back to the last area to set the player position.
-		if (currentGameArea->getAreaPaths()[i]->getNextArea() == lastArea){
-			player.setPlayerPosition(currentGameArea->getAreaPaths()[i]->getPosition());
-			lastArea = newArea;
 
-			y = currentGameArea->getAreaPaths()[i]->getPosition().y + currentGameArea->getAreaPaths()[i]->getSize().y / 2;
+	if (currentGameArea->getAreaType() != Areas::Final){
+		for (unsigned int i = 0; i < currentGameArea->getAreaPaths().size(); ++i){
+			//gets the path that leads back to the last area to set the player position.
+			if (currentGameArea->getAreaPaths()[i]->getNextArea() == lastArea){
+				player.setPlayerPosition(currentGameArea->getAreaPaths()[i]->getPosition());
+				lastArea = newArea;
 
-			if (currentGameArea->getAreaPaths()[i]->getPosition().x == 0){
-				x = window->getSize().x / 2;
+				y = currentGameArea->getAreaPaths()[i]->getPosition().y + currentGameArea->getAreaPaths()[i]->getSize().y / 2;
+
+				if (currentGameArea->getAreaPaths()[i]->getPosition().x == 0){
+					x = window->getSize().x / 2;
+				}
+				break;
 			}
-			break;
 		}
 	}
+	//temp solution due to final area has no path back.
+	else{
+		player.setPlayerPosition(Vector2f(currentGameArea->getAreaSize().x - 100, currentGameArea->getAreaSize().y / 2));	
+		x = currentGameArea->getAreaSize().x - window->getSize().x / 2;
+		y = 200;
+		
+	}
+	
 	player.setAreaPaths(currentGameArea->getAreaPaths());
 	player.setBorders(currentGameArea->getAreaSize());
 	

@@ -4,11 +4,13 @@
 */
 enum EnemyVisualType{
 	Skeleton,
-	Humans
+	Humans,
+	Executioner
 };
 
 enum EnemyType
 {
 	Skeleton_MELEE,
-	Human_MELEE
+	Human_MELEE,
+	Executioner_BOSS
 };

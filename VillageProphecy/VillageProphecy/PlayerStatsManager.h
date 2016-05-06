@@ -26,7 +26,7 @@ public:
 
 	float getPlayerAttackDamage();
 
-	void playerHitPointsAffected(int amount);
+	void playerHitPointsAffected(float amount);
 	float getPlayerHP();
 	float getMaxPlayerHP();
 	

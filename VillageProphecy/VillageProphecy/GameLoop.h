@@ -20,6 +20,7 @@ public:
 	~GameLoop();
 	void RunGame(RenderWindow *window);
 	bool GameOver();
+	bool GameWon();
 	bool switchToCombat();
 	Player* getPlayerPointer();
 	vector<Enemy*>* getCombatEnemies();
@@ -47,6 +48,7 @@ private:
 	void EnterNewArea(RenderWindow *window, View *view);
 	GameObject *triggerdObject = NULL;
 	void ExecuteObjectTrigger(RenderWindow *window);
+
 	int amountOfDaysLeft = 50;
 };
 

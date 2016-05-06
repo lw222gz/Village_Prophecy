@@ -1,4 +1,5 @@
 #include "GameCombatLoop.h"
+#include "EnemySkill.h"
 
 GameCombatLoop::GameCombatLoop(View *gameView, Player *p, InGameMenuGUI *inGameMenuGUI, HandleInput *inputHandler)
 	: view(gameView), player(p), combatMenuGUI(inGameMenuGUI), handleInput(inputHandler)
@@ -83,7 +84,7 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 		{
 			case Choosing_Action:
 				currentOption = handleInput->CheckUserCombatInput(currentOption);
-				if (handleInput->CheckUserCombatDecision()){
+				if (handleInput->CheckEnterKeyPressed()){
 					ExecuteCombatOption();
 				}
 				combatMenuGUI->DrawCombatOptions(window, currentOption);
@@ -95,7 +96,7 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 				skillChoiceIndex = handleInput->CheckSkillChoiceInput(&timeElapsed, skillChoiceIndex, player->SkillManager()->getPlayerSkills()->size() - 1);
 				
 				//TODO: Add executable command for skills.
-				if (handleInput->CheckUserCombatDecision()){
+				if (handleInput->CheckEnterKeyPressed()){
 					if (player->SkillManager()->getPlayerSkills()->at(skillChoiceIndex)->CanCast()){
 						currentCombatState = Choosing_Skill_Target;
 					}
@@ -112,7 +113,7 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 				targetIndex = handleInput->CheckTargetChoiceInput(timeElapsed, targetIndex, enemies);
 				gui->DrawTargetArrow(window, targetIndex);
 
-				if (handleInput->CheckUserCombatDecision()){
+				if (handleInput->CheckEnterKeyPressed()){
 					PlayerDealsDamage(enemies, (int)player->StatsManager()->getPlayerAttackDamage());									
 				}
 
@@ -123,7 +124,7 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 				targetIndex = handleInput->CheckTargetChoiceInput(timeElapsed, targetIndex, enemies);
 				gui->DrawTargetArrow(window, targetIndex);
 
-				if (handleInput->CheckUserCombatDecision()){
+				if (handleInput->CheckEnterKeyPressed()){
 					player->SkillManager()->getPlayerSkills()->at(skillChoiceIndex)->ConsumeSkillStats();
 					PlayerDealsDamage(enemies, (int)player->SkillManager()->getPlayerSkills()->at(skillChoiceIndex)->getSkillDamage());
 				}
@@ -138,6 +139,7 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 				if (currentEnemyTurnIndex >= enemies->size()){
 					currentCombatState = Choosing_Action;		
 					gui->AddStatusText("Your move!");
+					//call NewEnemyTurn to reset turn values.
 					NewEnemyTurn();
 					currentEnemyTurnIndex = 0;
 					break;
@@ -153,10 +155,15 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 						}
 					}
 					else if(!attackConfirm) {
-						player->StatsManager()->playerHitPointsAffected(-enemies->at(currentEnemyTurnIndex)->getAttackDamage());
-						gui->AddPlayerCombatText(to_string((int)enemies->at(currentEnemyTurnIndex)->getAttackDamage()), player);
-						gui->AddStatusCombatText(enemies->at(currentEnemyTurnIndex)->getEnemyType());
-						attackConfirm = true;
+						//If the enemy has any avalible attacks
+						if (enemies->at(currentEnemyTurnIndex)->getEnemySkills()->size() > 0){
+							ExecuteRandomEnemySkill(enemies->at(currentEnemyTurnIndex));
+							attackConfirm = true;
+						}
+						else{
+							NewEnemyTurn();
+						}
+						
 
 						if (player->StatsManager()->getPlayerHP() <= 0){
 							currentCombatState = Player_Lost;
@@ -235,7 +242,7 @@ void GameCombatLoop::ExecuteCombatOption(){
 				currentCombatState = Choosing_Skill;
 			}
 			else {
-				gui->AddStatusText("You dont know any spells yet.");
+				gui->AddStatusText("You dont know any skills yet.");
 			}
 			
 			break;
@@ -296,4 +303,22 @@ void GameCombatLoop::PlayerCanGoBack(){
 	if (handleInput->CheckResetCombatStateInput()){
 		currentCombatState = Choosing_Action;
 	}
+}
+
+
+void GameCombatLoop::ExecuteRandomEnemySkill(Enemy *enemy){
+	vector<int> usableSkillIndexes;
+	for (int i = 0; i < enemy->getEnemySkills()->size(); ++i){
+		if (enemy->getEnemySkills()->at(i)->CanCast()){
+			usableSkillIndexes.push_back(i);
+		}
+	}
+	srand(time(NULL));
+	int randomIndex = rand() % usableSkillIndexes.size();
+
+
+	player->StatsManager()->playerHitPointsAffected(-enemy->getEnemySkills()->at(randomIndex)->getSkillDamage());
+	gui->AddPlayerCombatText(to_string((int)enemy->getEnemySkills()->at(randomIndex)->getSkillDamage()), player);
+	gui->AddStatusCombatText(enemy->getEnemyType(), enemy->getEnemySkills()->at(randomIndex)->getSkillName());
+	//TODO: add special effects of some attacks
 }

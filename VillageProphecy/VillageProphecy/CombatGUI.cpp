@@ -105,6 +105,8 @@ string CombatGUI::getEnemyName(EnemyType type){
 	case EnemyType::Human_MELEE:
 		return "Human Warrior";
 
+	case EnemyType::Executioner_BOSS:
+		return "Executioner";
 	default:
 		return "No string rep.";
 	}
@@ -180,8 +182,8 @@ void CombatGUI::AddPlayerCombatText(string mess, Player *player){
 * @PARAMS
 * enemyType: EnemyType enum representing the type of enemy that attacked the player.
 */
-void CombatGUI::AddStatusCombatText(EnemyType enemyType){
-	combatMessages.push_back(new GameMessage("An Enemy " + getEnemyName(enemyType) + " Attacked You!", statusMessagePosition, true, 1.5));
+void CombatGUI::AddStatusCombatText(EnemyType enemyType, string attackType){
+	combatMessages.push_back(new GameMessage("An Enemy " + getEnemyName(enemyType) + " used " + attackType + ".", statusMessagePosition, true, 1.5));
 }
 
 /*

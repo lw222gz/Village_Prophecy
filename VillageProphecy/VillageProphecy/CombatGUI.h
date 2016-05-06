@@ -16,7 +16,7 @@ public:
 
 	void AddCombatText(string mess, int targetIndex);
 	void AddPlayerCombatText(string mess, Player *player);
-	void AddStatusCombatText(EnemyType enemyType);
+	void AddStatusCombatText(EnemyType enemyType, string attackType);
 	void AddStatusText(string mess);
 
 	bool isNormalRenderingActive();

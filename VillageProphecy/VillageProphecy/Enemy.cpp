@@ -1,4 +1,7 @@
 #include "Enemy.h"
+#include "EnemySkill_BloodyStrike.h"
+#include "EnemySkill_DecayingStrike.h"
+#include "EnemySkill_NormalAttack.h"
 
 /*
 * <DESCRIPTION>
@@ -10,6 +13,7 @@
 */
 Enemy::Enemy(EnemyType typeOfEnemy, int _level) : type(typeOfEnemy), level(_level)
 {
+	enemySkills.push_back(new EnemySkill_NormalAttack(this));
 	setEnemyValues();
 }
 
@@ -95,6 +99,13 @@ bool Enemy::IsAlive(){
 int Enemy::getXPGrant(){
 	return XPGrant;
 }
+
+
+vector<EnemySkill*> *Enemy::getEnemySkills(){
+	return &enemySkills;
+}
+
+
 /*
 * <DESCRIPTION>
 * Sets values for the enemy object depending on it's type.
@@ -123,6 +134,17 @@ void Enemy::setEnemyValues(){
 			attackDamage = 7;
 			break;
 
+		case Executioner_BOSS:
+			if (!enemyTexture.loadFromFile("Textures/PHExecutioner.png")){
+				throw "TEXTURE LOAD ERROR: Enemy::Executioner_BOSS could not load texture.";
+			}
+			hitPoints = 300;
+			XPGrant = 999;
+			attackDamage = 13;
+			enemySkills.push_back(new EnemySkill_DecayingStrike(this));
+			enemySkills.push_back(new EnemySkill_BloodyStrike(this));
+			break;
+
 		default:
 			throw "SET TEXTURE ERROR: Not a valid enemy type was given.";
 			break;
@@ -132,6 +154,7 @@ void Enemy::setEnemyValues(){
 
 	maxHitPoints = hitPoints;
 	enemySprite.setTexture(enemyTexture);
+
 }
 
 //Adds a level bonus to the current values.
@@ -140,3 +163,4 @@ void Enemy::LevelBonus(){
 	XPGrant += XPGrant * level * levelBonus;
 	attackDamage += attackDamage * level * levelBonus;
 }
+

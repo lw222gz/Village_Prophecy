@@ -31,7 +31,10 @@ void Game::StartGame(){
 				if (gameLoop.GameOver()){
 					currentGameState = GameState::GameOver;
 				}
-				if (gameLoop.switchToCombat()){
+				else if (gameLoop.GameWon()){
+					currentGameState = GameState::GameWon;
+				}
+				else if (gameLoop.switchToCombat()){
 					currentGameState = GameState::Combat;
 					gameCombatLoop.InitiateCombatLoopValues();
 				}
@@ -59,6 +62,11 @@ void Game::StartGame(){
 					currentGameState = GameState::GameOver;
 				}
 				
+				break;
+
+			case GameWon:
+				window.clear(Color::White);
+				gui.DrawGameWon(&window, &view);
 				break;
 
 			default:

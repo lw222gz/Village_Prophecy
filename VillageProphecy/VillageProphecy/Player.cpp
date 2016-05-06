@@ -93,7 +93,8 @@ Inventory* Player::InventoryManager(){
 void Player::Sleep(){
 	//TODO: effects that can occur during sleep
 	statsManager.ResetAP();
-	statsManager.playerStaminaAffected(100);
+	statsManager.playerStaminaAffected(statsManager.getPlayerMAXStamina());
+	statsManager.playerHitPointsAffected(statsManager.getMaxPlayerHP());
 	/*actionPoints = ACTION_POINTS_MAX;
 	playerHitpoints -= 10;
 	playerHungerAffected(-40);

@@ -27,7 +27,7 @@ SkillConsumeableStats Skill_HeavyStrike::getStatConsumeType(){
 }
 
 float Skill_HeavyStrike::getConsumeAmount(){
-	return playerStats->getMaxPlayerHP() / 10;
+	return playerStats->getMaxPlayerHP() * .04;
 }
 
 void Skill_HeavyStrike::ConsumeSkillStats(){

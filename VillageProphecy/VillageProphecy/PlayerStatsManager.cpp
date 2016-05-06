@@ -170,7 +170,7 @@ float PlayerStatsManager::getPlayerMAXStamina(){
 * amount: integer representing the amount of health that is gonna be added to the players
 * current hit points or the amount that is to be removed from the players hitpoints
 */
-void PlayerStatsManager::playerHitPointsAffected(int amount){
+void PlayerStatsManager::playerHitPointsAffected(float amount){
 	playerHitpoints += amount;
 	if (playerHitpoints > MAX_HIT_POINTS){
 		playerHitpoints = MAX_HIT_POINTS;

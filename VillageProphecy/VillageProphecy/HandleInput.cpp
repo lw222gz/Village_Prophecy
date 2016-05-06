@@ -100,7 +100,7 @@ int HandleInput::CheckSkillChoiceInput(Time *t, int currentIndex, int maxIndex){
 * returns boolean, true if the player just pressed enter after it has been released, otherwise false.
 */
 //TODO: add move backward option
-bool HandleInput::CheckUserCombatDecision(){
+bool HandleInput::CheckEnterKeyPressed(){
 
 	if (Keyboard::isKeyPressed(Keyboard::Return)){
 		if (!enterJustPressed){
@@ -114,6 +114,15 @@ bool HandleInput::CheckUserCombatDecision(){
 	}
 	return false;
 }
+
+
+bool HandleInput::CheckBackSpaceKeyPressed(){
+	if (Keyboard::isKeyPressed(Keyboard::BackSpace)){
+		return true;
+	}
+	return false;
+}
+
 
 bool HandleInput::CheckResetCombatStateInput(){
 	if (Keyboard::isKeyPressed(Keyboard::Space)){
