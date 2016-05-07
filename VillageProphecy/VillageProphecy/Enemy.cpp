@@ -12,9 +12,9 @@
 * typeOfEnemy: EnemyType enum value that describes the enemy rewards, stats and how it will act
 */
 Enemy::Enemy(EnemyType typeOfEnemy, int _level) : type(typeOfEnemy), level(_level)
-{
-	enemySkills.push_back(new EnemySkill_NormalAttack(this));
-	setEnemyValues();
+{	
+	setEnemyStats();
+	setEnemySkills();
 }
 
 
@@ -111,7 +111,7 @@ vector<EnemySkill*> *Enemy::getEnemySkills(){
 * Sets values for the enemy object depending on it's type.
 * Values that are being set: HP, damage, XPGrant, texture
 */
-void Enemy::setEnemyValues(){
+void Enemy::setEnemyStats(){
 	switch (type)
 	{
 		case Skeleton_MELEE:
@@ -120,7 +120,7 @@ void Enemy::setEnemyValues(){
 			}
 			hitPoints = 20;
 			XPGrant = 1000;
-			attackDamage = 2;		
+			attackDamage = 2;	
 			break;
 
 		case Human_MELEE:
@@ -140,9 +140,7 @@ void Enemy::setEnemyValues(){
 			}
 			hitPoints = 300;
 			XPGrant = 999;
-			attackDamage = 13;
-			enemySkills.push_back(new EnemySkill_DecayingStrike(this));
-			enemySkills.push_back(new EnemySkill_BloodyStrike(this));
+			attackDamage = 13;	
 			break;
 
 		default:
@@ -150,8 +148,8 @@ void Enemy::setEnemyValues(){
 			break;
 	}
 
+	
 	LevelBonus();
-
 	maxHitPoints = hitPoints;
 	enemySprite.setTexture(enemyTexture);
 
@@ -164,3 +162,22 @@ void Enemy::LevelBonus(){
 	attackDamage += attackDamage * level * levelBonus;
 }
 
+void Enemy::setEnemySkills(){
+	enemySkills.push_back(new EnemySkill_NormalAttack(this));
+
+	switch (type)
+	{
+		case Skeleton_MELEE:
+			enemySkills.push_back(new EnemySkill_DecayingStrike(this));
+			break;
+		case Human_MELEE:
+			break;
+		case Executioner_BOSS:
+			enemySkills.push_back(new EnemySkill_DecayingStrike(this));
+			enemySkills.push_back(new EnemySkill_BloodyStrike(this));
+			break;
+		default:
+			break;
+	}
+	
+}

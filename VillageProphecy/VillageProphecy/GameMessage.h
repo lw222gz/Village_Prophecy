@@ -7,9 +7,8 @@ using namespace sf;
 class GameMessage
 {
 public:
-	GameMessage(string message, Vector2f position) : GameMessage(message, position, false) {};
-	GameMessage(string message, Vector2f position, bool _isMoving) : GameMessage(message, position, _isMoving, 0) {};
-	GameMessage(string message, Vector2f position, bool _isMoving, float _timeToLive);
+	GameMessage(string message, Vector2f position) : GameMessage(message, position) {};
+	GameMessage(string message, Vector2f position, float _timeToLive);
 	~GameMessage();
 
 	void updateMessageTimer(float elapsedTime);

@@ -263,9 +263,6 @@
     <ClInclude Include="EnemySkill_NormalAttack.h">
       <Filter>Header Files\Enemy\EnemySkills</Filter>
     </ClInclude>
-    <ClInclude Include="EnemySkillEffect.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="EnemySkill_BloodyStrike.h">
       <Filter>Header Files\Enemy\EnemySkills</Filter>
     </ClInclude>

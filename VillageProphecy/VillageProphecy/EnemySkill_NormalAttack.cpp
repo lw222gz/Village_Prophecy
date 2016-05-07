@@ -1,8 +1,11 @@
 #include "EnemySkill_NormalAttack.h"
 
+//<summary>
+//Normal attack of an enemy that just deals it's normal attack damage.
 
 EnemySkill_NormalAttack::EnemySkill_NormalAttack(Enemy *e) : enemy(e)
 {
+	effect.consumes = Nothing_Consumed;
 }
 
 
@@ -23,6 +26,15 @@ bool EnemySkill_NormalAttack::CanCast(){
 	return true;
 }
 
-EnemySkillEffect EnemySkill_NormalAttack::Effect(){
-	return Normal_Attack;
+bool EnemySkill_NormalAttack::isDebuff(){
+	return false;
+}
+
+int EnemySkill_NormalAttack::roundsToLast(){
+	return 0;
+}
+
+
+SkillEffect EnemySkill_NormalAttack::getEffect(){
+	return effect;
 }

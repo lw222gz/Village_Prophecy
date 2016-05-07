@@ -158,8 +158,8 @@ void CombatGUI::DrawTargetArrow(RenderWindow *window, int targetIndex){
 * mess: string representing the text value that is being displayed.
 * targetIndex: index of the enemy that is taking damage.
 */
-void CombatGUI::AddCombatText(string mess, int targetIndex){
-	combatMessages.push_back(new GameMessage(mess, enemyPositions[targetIndex], true, .5));
+void CombatGUI::AddEnemyCombatText(string mess, int targetIndex){
+	combatMessages.push_back(new GameMessage(mess, enemyPositions[targetIndex], .5));
 }
 
 /*
@@ -171,7 +171,7 @@ void CombatGUI::AddCombatText(string mess, int targetIndex){
 * player: pointer to the game Player object.
 */
 void CombatGUI::AddPlayerCombatText(string mess, Player *player){
-	combatMessages.push_back(new GameMessage(mess, player->getPosition(), true, .5));
+	combatMessages.push_back(new GameMessage(mess, player->getPosition(), .5));
 	
 }
 
@@ -183,7 +183,7 @@ void CombatGUI::AddPlayerCombatText(string mess, Player *player){
 * enemyType: EnemyType enum representing the type of enemy that attacked the player.
 */
 void CombatGUI::AddStatusCombatText(EnemyType enemyType, string attackType){
-	combatMessages.push_back(new GameMessage("An Enemy " + getEnemyName(enemyType) + " used " + attackType + ".", statusMessagePosition, true, 1.5));
+	combatMessages.push_back(new GameMessage("An Enemy " + getEnemyName(enemyType) + " used " + attackType + ".", statusMessagePosition, 1.5));
 }
 
 /*
@@ -194,7 +194,7 @@ void CombatGUI::AddStatusCombatText(EnemyType enemyType, string attackType){
 * mess: string representing the message to be displayed.
 */
 void CombatGUI::AddStatusText(string mess){
-	combatMessages.push_back(new GameMessage(mess, statusMessagePosition, true, 1.5));
+	combatMessages.push_back(new GameMessage(mess, statusMessagePosition + Vector2f(0, 25), 1.5));
 }
 
 
@@ -221,9 +221,9 @@ void CombatGUI::DrawCombatText(RenderWindow *window, Time *t){
 		}
 		//transformation.translate(enemyPositions[0]);//combatMessages[i]->getMessage().getPosition());
 		//transformation.translate(-100, 20);//combatMessages[i]->getLifeTimePercent() * 50
-		if (combatMessages[i]->IsMoving()){
-			combatMessages[i]->addToCurrentPosition(Vector2f(0, combatMessages[i]->getTextSpeed() * t->asSeconds()));
-		}
+		
+		combatMessages[i]->addToCurrentPosition(Vector2f(0, combatMessages[i]->getTextSpeed() * t->asSeconds()));
+		
 		
 		window->draw(combatMessages[i]->getMessage(), transformation);
 	}

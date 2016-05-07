@@ -6,5 +6,6 @@ enum SkillConsumeableStats
 {
 	Health,
 	Stamina,
-	Hunger
+	Hunger,
+	Nothing_Consumed
 };

@@ -25,7 +25,8 @@ public:
 
 
 private:
-	void setEnemyValues();
+	void setEnemyStats();
+	void setEnemySkills();
 	EnemyType type;
 	Sprite enemySprite;
 	Texture enemyTexture;

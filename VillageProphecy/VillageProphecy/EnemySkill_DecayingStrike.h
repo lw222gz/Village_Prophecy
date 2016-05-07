@@ -13,10 +13,13 @@ public:
 
 	string getSkillName();
 	float getSkillDamage();
-	EnemySkillEffect Effect();
+	SkillEffect getEffect();
 	bool CanCast();
+	int roundsToLast();
+	bool isDebuff();
 
 private:
 	Enemy *enemy = NULL;
+	SkillEffect effect;
 };
 

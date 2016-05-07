@@ -1,4 +1,5 @@
 #include "InGameMenuGUI.h"
+#include <math.h>
 
 /*
 * <DESCRIPTION>
@@ -322,7 +323,7 @@ void InGameMenuGUI::DrawPlayerStats(RenderWindow *window, Player *player){
 	displayText.setString("HP: ");
 	transformation.translate(-40, 5);
 	window->draw(displayText, transformation);
-	displayText.setString(to_string((int)player->StatsManager()->getPlayerHP()) + "/" + to_string((int)player->StatsManager()->getMaxPlayerHP()));
+	displayText.setString(to_string((int)(ceil(player->StatsManager()->getPlayerHP()))) + "/" + to_string((int)player->StatsManager()->getMaxPlayerHP()));
 	transformation.translate(300, 0);
 	window->draw(displayText, transformation);
 

@@ -8,6 +8,7 @@ enum CombatState
 	Choosing_Skill,
 	Choosing_Skill_Target,
 	Choosing_Target,
+	Player_Debuff_Tick,
 	Enemy_Turn,
 	Combat_Over,
 	Combat_Phase_Over,

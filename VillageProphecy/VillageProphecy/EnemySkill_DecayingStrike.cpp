@@ -1,7 +1,13 @@
 #include "EnemySkill_DecayingStrike.h"
 
+//<summary>
+//A strike that deals abit lower damage then normal attack but drains the players stamina
+
 EnemySkill_DecayingStrike::EnemySkill_DecayingStrike(Enemy *e) : enemy(e)
 {
+	effect.consumes = Stamina;
+	effect.amountConsumed = 10;
+	effect.damageDescription = "Drained";
 }
 
 
@@ -15,13 +21,21 @@ string EnemySkill_DecayingStrike::getSkillName(){
 }
 
 float EnemySkill_DecayingStrike::getSkillDamage(){
-	return enemy->getAttackDamage();
+	return enemy->getAttackDamage() * .8;
 }
 
-EnemySkillEffect EnemySkill_DecayingStrike::Effect(){
-	return Decaying_Strike;
+SkillEffect EnemySkill_DecayingStrike::getEffect(){
+	return effect;
+}
+
+int EnemySkill_DecayingStrike::roundsToLast(){
+	return 0;
 }
 
 bool EnemySkill_DecayingStrike::CanCast(){
 	return true;
+}
+
+bool EnemySkill_DecayingStrike::isDebuff(){
+	return false;
 }

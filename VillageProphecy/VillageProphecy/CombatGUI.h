@@ -14,7 +14,7 @@ public:
 	void DrawTargetArrow(RenderWindow *window, int targetIndex);
 	void EnemyAttackAnimation(Enemy *enemy, float currentTurnTime, float maxTurnTime);
 
-	void AddCombatText(string mess, int targetIndex);
+	void AddEnemyCombatText(string mess, int targetIndex);
 	void AddPlayerCombatText(string mess, Player *player);
 	void AddStatusCombatText(EnemyType enemyType, string attackType);
 	void AddStatusText(string mess);

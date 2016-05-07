@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "CombatOptions.h"
+#include <math.h>
 
 class InGameMenuGUI
 {

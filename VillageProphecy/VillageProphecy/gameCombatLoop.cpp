@@ -46,6 +46,7 @@ void GameCombatLoop::InitiateCombatLoopValues(){
 	phaseSwitchPause = 0;
 	gui->ResetMessages();
 	hasDisplayedPlayerDied = false;	
+	playerDebuffs.clear();
 }
 
 /*
@@ -137,8 +138,7 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 			case Enemy_Turn:
 				//If all enemies have had their turns then it goes back to the player
 				if (currentEnemyTurnIndex >= enemies->size()){
-					currentCombatState = Choosing_Action;		
-					gui->AddStatusText("Your move!");
+					currentCombatState = Player_Debuff_Tick;		
 					//call NewEnemyTurn to reset turn values.
 					NewEnemyTurn();
 					currentEnemyTurnIndex = 0;
@@ -190,7 +190,7 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 			case Player_Lost:
 				phaseSwitchPause += timeElapsed.asSeconds();
 
-				//TODO: -optimize- hasDisplayedPlayerDied is a quick fix.
+				//TODO: -optimize- hasDisplayedPlayerDied is a quick fix to avoid "You Died" being spammed.
 				if (!hasDisplayedPlayerDied && phaseSwitchPause >= .5){
 					gui->AddStatusText("You died.");
 					hasDisplayedPlayerDied = true;
@@ -200,6 +200,54 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 				}
 				break;
 
+
+
+			case Player_Debuff_Tick:
+				//if the player has no debuffs the combat state switches instantly
+				if (playerDebuffs.size() <= 0){
+					gui->AddStatusText("Your move!");
+					currentCombatState = Choosing_Action;
+					break;
+				}
+
+				debuffTickTimer += timeElapsed.asSeconds();
+				if (!debuffPhaseOver && debuffTickTimer >= .25){
+
+					ExecuteEnemySkillEffect(playerDebuffs[debuffTickIndex].effect);
+					playerDebuffs[debuffTickIndex].roundsToLast -= 1;
+					//if the debuff durotation is over then it will be removed.
+					if (playerDebuffs[debuffTickIndex].roundsToLast <= 0){
+						//since the element is removed the debuffTickIndex is not increased.
+						delete &playerDebuffs[debuffTickIndex];
+						playerDebuffs.erase(playerDebuffs.begin() + debuffTickIndex);						
+					}
+					else{
+						debuffTickIndex += 1;
+					}
+					
+					//If there still are more debuffs that need to have their effect the timer
+					//is reset for the next debuff.
+					if (debuffTickIndex < playerDebuffs.size()){
+						debuffTickTimer = 0;
+					}
+					//else the Player_Debuff_Tick phase is over.
+					else {
+						debuffTickTimer = 0;
+						debuffTickIndex = 0;
+						debuffPhaseOver = true;
+					}
+				}
+				//if this phase is complete and another .25 seconds has passed 
+				//the phase shift happens
+				else if (debuffTickTimer >= .25){
+					gui->AddStatusText("Your move!");
+					debuffPhaseOver = false;
+					currentCombatState = Choosing_Action;
+					debuffTickTimer = 0;
+				}
+				
+				//currentCombatState = Choosing_Action;
+				break;
 			default:
 				break;
 		}
@@ -269,7 +317,7 @@ void GameCombatLoop::PlayerDealsDamage(vector<Enemy*> *enemies, int damage){
 	currentEnemyTurnTime = 0;
 
 	enemies->at(targetIndex)->TakeDamage(damage);
-	gui->AddCombatText(to_string(damage), targetIndex);
+	gui->AddEnemyCombatText(to_string(damage), targetIndex);
 
 	//If the enemy died a new target index is set.
 	if (!enemies->at(targetIndex)->IsAlive()){
@@ -305,7 +353,7 @@ void GameCombatLoop::PlayerCanGoBack(){
 	}
 }
 
-
+//executes a enemy skill
 void GameCombatLoop::ExecuteRandomEnemySkill(Enemy *enemy){
 	vector<int> usableSkillIndexes;
 	for (int i = 0; i < enemy->getEnemySkills()->size(); ++i){
@@ -316,9 +364,75 @@ void GameCombatLoop::ExecuteRandomEnemySkill(Enemy *enemy){
 	srand(time(NULL));
 	int randomIndex = rand() % usableSkillIndexes.size();
 
+	PlayerTakesDamage(enemy->getEnemySkills()->at(randomIndex)->getSkillDamage(),
+					enemy->getEnemyType(),
+					enemy->getEnemySkills()->at(randomIndex)->getSkillName());
 
-	player->StatsManager()->playerHitPointsAffected(-enemy->getEnemySkills()->at(randomIndex)->getSkillDamage());
-	gui->AddPlayerCombatText(to_string((int)enemy->getEnemySkills()->at(randomIndex)->getSkillDamage()), player);
-	gui->AddStatusCombatText(enemy->getEnemyType(), enemy->getEnemySkills()->at(randomIndex)->getSkillName());
-	//TODO: add special effects of some attacks
+	//if the enemy skill is debuff orientated 
+	if (enemy->getEnemySkills()->at(randomIndex)->isDebuff()){
+		//Add debuff to the player or if the player is allready effected by 
+		//the debuff it's durotation is reset.
+
+		for (int i = 0; i < playerDebuffs.size(); ++i){
+			//if the player if allready affected by this debuff then it will be refreshed and the 
+			//the function will end.
+			if (playerDebuffs[i].name == enemy->getEnemySkills()->at(randomIndex)->getSkillName()){
+				//refreshes the durotation.
+				playerDebuffs[i].roundsToLast = enemy->getEnemySkills()->at(randomIndex)->roundsToLast();
+				return;
+			}
+		}
+		//If the return is never called in the loop, the player is not affected
+		//by this debuff and it gets added to the debuff list.
+		Debuff debuff;
+		debuff.effect = enemy->getEnemySkills()->at(randomIndex)->getEffect();
+		debuff.roundsToLast = enemy->getEnemySkills()->at(randomIndex)->roundsToLast();
+		debuff.name = enemy->getEnemySkills()->at(randomIndex)->getSkillName();
+		playerDebuffs.push_back(debuff);
+
+		
+	}
+	//Else just executes the skill special effect
+	else{
+		ExecuteEnemySkillEffect(enemy->getEnemySkills()->at(randomIndex)->getEffect());
+	}
+	//Displays text of the enemy attack
+	
+}
+
+//TODO: add status text dispaly when called.
+//executes a skill effect
+void GameCombatLoop::ExecuteEnemySkillEffect(SkillEffect skillEffect){
+
+	switch (skillEffect.consumes)
+	{
+		case Health:
+			player->StatsManager()->playerHitPointsAffected(-skillEffect.amountConsumed);
+			gui->AddStatusText("Player " + skillEffect.damageDescription + " for " + to_string(skillEffect.amountConsumed) + " Damage.");
+			gui->AddPlayerCombatText(to_string(skillEffect.amountConsumed), player);
+			break;
+
+		case Stamina:
+			player->StatsManager()->playerStaminaAffected(-skillEffect.amountConsumed);
+			gui->AddStatusText("Player Stamina is " + skillEffect.damageDescription + " by " + to_string(skillEffect.amountConsumed) + " Points.");
+			break;
+
+		case Hunger:
+			player->StatsManager()->playerHungerAffected(-skillEffect.amountConsumed);
+			gui->AddStatusText("Player Hunger is " + skillEffect.damageDescription + " by " + to_string(skillEffect.amountConsumed) + " Points.");
+			break;
+
+		
+		case Nothing_Consumed:
+			return;
+		default:
+			throw "Stat to consume is not defined.";
+	}
+}
+
+//deals damage to the player and calls gui method to display damage numbers
+void GameCombatLoop::PlayerTakesDamage(float amount, EnemyType enemyType, string attackName){
+	player->StatsManager()->playerHitPointsAffected(-amount);
+	gui->AddPlayerCombatText(to_string(amount), player);
+	gui->AddStatusCombatText(enemyType, attackName);
 }

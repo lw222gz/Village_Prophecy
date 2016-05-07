@@ -115,7 +115,6 @@
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemySkill.h" />
-    <ClInclude Include="EnemySkillEffect.h" />
     <ClInclude Include="EnemySkill_BloodyStrike.h" />
     <ClInclude Include="EnemySkill_DecayingStrike.h" />
     <ClInclude Include="EnemySkill_NormalAttack.h" />
