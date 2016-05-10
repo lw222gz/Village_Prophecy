@@ -20,12 +20,15 @@ void Game::StartGame(){
 	
 	window.setView(view);
 	
-	while (window.isOpen()){
+	while (window.isOpen()){	
 		//Clear window		
 		switch (currentGameState)
 		{
 			case GameState::Play:
+				//TODO: draw background.
 				window.clear(Color::White);
+				gui.DrawGameGrassBackground(&window, gameLoop.getCurrentGameArea());
+
 				gameLoop.RunGame(&window);
 			
 				if (gameLoop.GameOver()){
@@ -47,9 +50,13 @@ void Game::StartGame(){
 				break;
 
 			case GameState::Combat:
+				//TODO: draw background.
+
 				if (gameCombatLoop.isNormalRenderingActive()){
 					window.clear(Color::White);
 				}
+				gui.DrawGameCombatGrassBackground(&window, &view);
+
 				gameCombatLoop.runCombatLoop(&window, gameLoop.getCombatEnemies());
 				
 				if (gameCombatLoop.IsCombatOver()){

@@ -13,7 +13,7 @@
 */
 InGameMenuGUI::InGameMenuGUI(View *gameView) : view(gameView)
 {
-	if (!optionPointerTexture.loadFromFile("Textures/PHOptionPointer.png")){
+	if (!optionPointerTexture.loadFromFile("Textures/OptionPointer.png")){
 		throw "TEXTURE LOAD ERROR: Option poitner texture did not load correctly.";
 	}
 	optionPointerSprite.setTexture(optionPointerTexture);

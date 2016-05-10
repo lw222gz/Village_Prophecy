@@ -17,7 +17,7 @@ CombatGUI::CombatGUI(View *gameView)
 		throw "FONT LOAD ERROR: could not load coolvetica.ttf correctly.";
 	}
 
-	if (!targetArrowTexture.loadFromFile("Textures/PHTargetArrow.png")){
+	if (!targetArrowTexture.loadFromFile("Textures/TargetPointer.png")){
 		throw "TEXTURE LOAD ERROR: Could not load target arrow texture.";
 	}
 	targetArrowSprite.setTexture(targetArrowTexture);
@@ -56,6 +56,7 @@ CombatGUI::~CombatGUI()
 void CombatGUI::DrawCombatPhase(RenderWindow *window, Time *t, Player *p, vector<Enemy*> *enemies){
 
 	ResetTransformation(window);
+
 	window->draw(p->getSprite(), transformation);
 
 	for (int i = 0; i < enemies->size(); ++i){

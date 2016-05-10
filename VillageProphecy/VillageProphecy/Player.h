@@ -30,6 +30,9 @@ public:
 	void savePosition();
 	void setToSavedPosition();
 
+	void ReflectSprite();
+	void ResetReflectSprite();
+
 	Inventory* InventoryManager();
 	PlayerSkillManager* SkillManager();
 	PlayerStatsManager* StatsManager();

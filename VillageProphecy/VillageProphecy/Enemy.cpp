@@ -115,7 +115,7 @@ void Enemy::setEnemyStats(){
 	switch (type)
 	{
 		case Skeleton_MELEE:
-			if (!enemyTexture.loadFromFile("Textures/PHEnemy.png")){
+			if (!enemyTexture.loadFromFile("Textures/Skeleton.png")){
 				throw "TEXTURE LOAD ERROR: Enemy::Skeleton could not load texture.";
 			}
 			hitPoints = 20;
@@ -125,7 +125,7 @@ void Enemy::setEnemyStats(){
 
 		case Human_MELEE:
 			//TODO: add own texture
-			if (!enemyTexture.loadFromFile("Textures/PHHumanEnemy.png")){
+			if (!enemyTexture.loadFromFile("Textures/HumanSoldier.png")){
 				throw "TEXTURE LOAD ERROR: Enemy::Skeleton could not load texture.";
 			}
 			
@@ -135,7 +135,7 @@ void Enemy::setEnemyStats(){
 			break;
 
 		case Executioner_BOSS:
-			if (!enemyTexture.loadFromFile("Textures/PHExecutioner.png")){
+			if (!enemyTexture.loadFromFile("Textures/HumanExecutioner.png")){
 				throw "TEXTURE LOAD ERROR: Enemy::Executioner_BOSS could not load texture.";
 			}
 			hitPoints = 300;

@@ -1,15 +1,28 @@
-﻿Build started 2016-05-07 18:27:57.
+﻿Build started 2016-05-10 19:56:25.
      1>Project "C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\VillageProphecy\VillageProphecy.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GameCombatLoop.cpp
-         GameCombatLoop.cpp
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gamecombatloop.cpp(140): warning C4018: '>=' : signed/unsigned mismatch
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gamecombatloop.cpp(230): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gamecombatloop.cpp(319): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gamecombatloop.cpp(325): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gamecombatloop.cpp(359): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gamecombatloop.cpp(364): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gamecombatloop.cpp(376): warning C4018: '<' : signed/unsigned mismatch
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GUIMaster.cpp Game.cpp GameLoop.cpp Source.cpp
+         Game.cpp
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\game.cpp(18): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+         GUIMaster.cpp
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(60): warning C4244: 'initializing' : conversion from 'const float' to 'int', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(62): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(64): warning C4244: 'initializing' : conversion from 'const float' to 'int', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(66): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(68): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(77): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(77): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(78): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(78): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(80): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(103): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(133): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(270): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(273): warning C4244: 'argument' : conversion from 'float' to 'sf::Uint8', possible loss of data
+         Generating Code...
+         Skipping... (no relevant changes detected)
+         Source.cpp
+         GameLoop.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.exe" /INCREMENTAL /NOLOGO /LIBPATH:"D:\SFML-2.3.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-main-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.lib" /MACHINE:X86 Debug\CombatGUI.obj
          Debug\Enemy.obj
@@ -42,4 +55,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.52
+Time Elapsed 00:00:05.89

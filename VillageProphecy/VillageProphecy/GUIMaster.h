@@ -2,6 +2,7 @@
 //#include "IDrawAble.h"
 //#include "Player.h"
 #include "GameObject.h"
+#include "GameArea.h"
 //#include <SFML/Graphics.hpp>
 
 using namespace sf;
@@ -20,6 +21,8 @@ public:
 				Time *t,
 				int amountOfDaysLeft);
 
+	void DrawGameCombatGrassBackground(RenderWindow *window, View *view);
+	void DrawGameGrassBackground(RenderWindow *window, GameArea *area);
 	void DrawGameOver(RenderWindow *window, View *view);
 	void DrawGameWon(RenderWindow *window, View *view);
 	void DrawConfirmationBox(RenderWindow *window, View *view, string question);
@@ -53,6 +56,9 @@ private:
 
 	Sprite gameWonSprite;
 	Texture gameWonTexture;
+
+	Sprite GrassBackgroundSprite;
+	Texture GrassBackgroundTexture;
 	
 	template <class T>
 	string getStringRepresentation(T);

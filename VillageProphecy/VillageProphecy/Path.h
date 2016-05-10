@@ -9,7 +9,6 @@ using namespace sf;
 class Path : public IDrawAble
 {
 public:
-	Path(Areas area, Direction dir);
 	Path(Areas area, Direction dir, Vector2f entrance);
 	~Path();
 	Vector2f getPosition();

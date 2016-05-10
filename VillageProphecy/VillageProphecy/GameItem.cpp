@@ -10,12 +10,6 @@
 */
 GameItem::GameItem(GameObjectType objectType) : itemType(objectType)
 {
-	if (!emptySlotTexture.loadFromFile("Textures/PHInventorySpot.png")){
-		throw "TEXTURE LOAD ERROR: InventorySpot texture did not load correctly.";
-	}
-	if (!woodSlotTexture.loadFromFile("Textures/PHWoodSlotTexture.png")){
-		throw "TEXTURE LOAD ERROR: Wood slot texture did not load correctly.";
-	}
 	setItemSprite();
 }
 
@@ -29,7 +23,7 @@ GameItem::~GameItem()
 * returns the item sprite
 */
 Sprite GameItem::getSprite(){
-	return itemSprite;
+	return SlotSprite;
 }
 
 /*
@@ -94,12 +88,18 @@ void GameItem::reduceStackAmount(int amount){
 void GameItem::setItemSprite(){
 	switch (itemType){
 		case GameObjectType::None:
-			itemSprite.setTexture(emptySlotTexture);
+			if (!SlotTexture.loadFromFile("Textures/EmptyInventorySlot.png")){
+				throw "TEXTURE LOAD ERROR: InventorySpot texture did not load correctly.";
+			}
+			
 			stackAble = false;
 			break;
 
 		case GameObjectType::Tree:
-			itemSprite.setTexture(woodSlotTexture);
+			if (!SlotTexture.loadFromFile("Textures/WoodSlotTexture.png")){
+				throw "TEXTURE LOAD ERROR: Wood slot texture did not load correctly.";
+			}
+			
 			stackAble = true;
 			break;
 
@@ -107,4 +107,6 @@ void GameItem::setItemSprite(){
 			throw "GAME ITEM ERROR: Game item type is not a vaild inventory type.";
 			break;
 	}
+
+	SlotSprite.setTexture(SlotTexture);
 }

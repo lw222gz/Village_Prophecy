@@ -44,9 +44,14 @@ void GameCombatLoop::InitiateCombatLoopValues(){
 	currentEnemyTurnIndex = 0;
 	currentEnemyTurnTime = 0;
 	phaseSwitchPause = 0;
+	//removes any old combat messages
 	gui->ResetMessages();
+	//boolean blocking spam of "You Died!" message.
 	hasDisplayedPlayerDied = false;	
+	//clears any debuffs form previous battle 
 	playerDebuffs.clear();
+	//sets so the player faces the enemies
+	player->ResetReflectSprite();
 }
 
 /*

@@ -1,26 +1,5 @@
 #include "Path.h"
 
-//TODO: optimize contrsuctros
-/*
-* <DESCRIPTION>
-* Constructor for the Path class.
-* Will randomize the position for the path.
-*
-* @PARAMS
-* area: Areas enum that represents to what game area the path will lead to.
-* dir: Direction enum that represents what direction the path heads towards.
-*/
-Path::Path(Areas area, Direction dir) : leadsTo(area), direction(dir){
-	//Loads path texture
-	if (!pathTexture.loadFromFile("Textures/PHRoad.png")){
-		throw "Error loading Path texture.";
-	}
-	pathSprite.setTexture(pathTexture);
-
-	//TODO: generate random position
-	pathSprite.setPosition(120, 120);
-}
-
 Path::~Path()
 {
 }
@@ -37,7 +16,7 @@ Path::~Path()
 */
 Path::Path(Areas area, Direction dir, Vector2f position) : leadsTo(area), direction(dir){
 	//Loads path texture
-	if (!pathTexture.loadFromFile("Textures/PHRoad.png")){
+	if (!pathTexture.loadFromFile("Textures/Path.png")){
 		throw "Error loading Path texture.";
 	}
 	pathSprite.setTexture(pathTexture);
@@ -54,6 +33,13 @@ Path::Path(Areas area, Direction dir, Vector2f position) : leadsTo(area), direct
 	else if (dir == Direction::South){
 		position = Vector2f(position.x - pathTexture.getSize().x / 2, position.y - pathTexture.getSize().y);
 	}
+
+	if (dir == West){
+		//reflects the texture
+		pathSprite.setOrigin(pathSprite.getLocalBounds().width, 0);
+		pathSprite.setScale(-1.f, 1.f);
+	}
+	
 
 	pathSprite.setPosition(position);
 }

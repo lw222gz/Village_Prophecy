@@ -11,7 +11,7 @@ Player::Player()
 	//default position
 	playerSprite.setPosition(Vector2f(1000, 450));
 
-	if (!playerTexture.loadFromFile("Textures/PHPlayer.png")){
+	if (!playerTexture.loadFromFile("Textures/Player.png")){
 		throw "Player textures could not load";
 	}
 	playerSprite.setTexture(playerTexture);
@@ -134,6 +134,20 @@ PlayerSkillManager* Player::SkillManager(){
 	return &skillManager;
 }
 
+//reflects the sprite
+void Player::ReflectSprite(){
+	
+	playerSprite.setOrigin(playerSprite.getLocalBounds().width, 0);
+	playerSprite.setScale(-1.f, 1.f);
+}
+
+//resets the sprite to face it's default way.
+void Player::ResetReflectSprite(){
+	
+	playerSprite.setOrigin(0, 0);
+	playerSprite.setScale(1.f, 1.f);
+}
+
 /*
 * <DESCRIPTION>
 * Updates the players position depending on user input
@@ -193,7 +207,8 @@ Areas Player::playerMove(MoveDirection dir, Time *t){
 					// Player is at the edge of the border thus the player move distance is set to 0
 					distanceX = 0;
 				}
-			
+
+				ReflectSprite();
 				break;
 
 		case MoveDirection::Right:
@@ -213,6 +228,8 @@ Areas Player::playerMove(MoveDirection dir, Time *t){
 					//Player is at the edge of the border thus the player move distance is set to 0
 					distanceX = 0;
 				}
+
+				ResetReflectSprite();
 				break;
 
 			default:

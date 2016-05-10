@@ -85,14 +85,14 @@ void GameObject::setObjectSprite(){
 	switch (type){
 
 		case GameObjectType::Tree:
-			if (!objectTexture.loadFromFile("Textures/PHWoodObject.png")){
+			if (!objectTexture.loadFromFile("Textures/WoodObject.png")){
 				throw "Game object Wood textures did not load correctly.";
 			}
 			triggerType = TriggerType::Harvest;
 			break;
 
 		case GameObjectType::Fireplace:
-			if (!objectTexture.loadFromFile("Textures/PHFirePlace.png")){
+			if (!objectTexture.loadFromFile("Textures/FirePlace.png")){
 				throw "TEXTURE LOAD ERROR: Fire place texture did not load correctly";
 			}
 			triggerType = TriggerType::Build;
@@ -103,7 +103,7 @@ void GameObject::setObjectSprite(){
 
 
 		case GameObjectType::Bed:
-			if (!objectTexture.loadFromFile("Textures/PHBed.png")){
+			if (!objectTexture.loadFromFile("Textures/Bed.png")){
 				throw "TEXTURE LOAD ERROR: Bed texture did not load correctly.";
 			}
 			triggerType = TriggerType::Interactable;

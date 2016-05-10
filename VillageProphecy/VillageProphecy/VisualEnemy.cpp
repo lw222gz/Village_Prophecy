@@ -41,7 +41,7 @@ void VisualEnemy::setValues(){
 	switch (type)
 	{
 		case Skeleton:
-			if (!enemyTexture.loadFromFile("Textures/PHEnemy.png")){
+			if (!enemyTexture.loadFromFile("Textures/Skeleton.png")){
 				throw "TEXTURE LOAD ERROR: Visual enemy texture Skeleton could not load.";
 			}
 			break;
@@ -49,13 +49,13 @@ void VisualEnemy::setValues(){
 
 		case Humans:
 			//TODO: add own texture
-			if (!enemyTexture.loadFromFile("Textures/PHHumanEnemy.png")){
+			if (!enemyTexture.loadFromFile("Textures/HumanSoldier.png")){
 				throw "TEXTURE LOAD ERROR: Visual enemy texture Skeleton could not load.";
 			}
 			break;
 
 		case Executioner:
-			if (!enemyTexture.loadFromFile("Textures/PHExecutioner.png")){
+			if (!enemyTexture.loadFromFile("Textures/HumanExecutioner.png")){
 				throw "TEXTURE LOAD ERROR: Visual enemy texture executioner could not load.";
 			}
 			break;

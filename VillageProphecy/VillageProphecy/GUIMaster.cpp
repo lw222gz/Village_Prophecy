@@ -14,7 +14,7 @@ GUIMaster::GUIMaster()
 	gameOverSprite.setTexture(gameOverTexture);
 	
 
-	if (!quickMenuTexture.loadFromFile("Textures/PHQuickMenu.png")){
+	if (!quickMenuTexture.loadFromFile("Textures/QuickMenu.png")){
 		throw "TEXTURE LOAD ERROR: quickMenu texture did not load correctly.";
 	}
 	quickMenuSprite.setTexture(quickMenuTexture);
@@ -26,6 +26,11 @@ GUIMaster::GUIMaster()
 		throw "TEXTURE LOAD ERROR: won game texture could not load correctly.";
 	}
 	gameWonSprite.setTexture(gameWonTexture);	
+
+	if (!GrassBackgroundTexture.loadFromFile("Textures/Grass.png")){
+		throw "TEXTURE LOAD ERROR: Grass background texture did not load correctly.";
+	}
+	GrassBackgroundSprite.setTexture(GrassBackgroundTexture);
 
 	if (!coolvetica.loadFromFile("Textures/coolvetica.ttf")){
 		throw "FONT LOAD ERROR: could not load coolvetica.ttf correctly.";
@@ -48,6 +53,35 @@ GUIMaster::~GUIMaster()
 {
 }
 
+
+//draws a combat background with grass
+void GUIMaster::DrawGameCombatGrassBackground(RenderWindow *window, View *view){
+
+	for (int y = view->getCenter().y - (window->getSize().y / 2); 
+		y < view->getCenter().y - (window->getSize().y / 2) + window->getSize().y; 
+		y += GrassBackgroundSprite.getLocalBounds().height){
+
+		for (int x = view->getCenter().x - (window->getSize().x / 2);
+			x < view->getCenter().x - (window->getSize().x / 2) + window->getSize().x;
+			x += GrassBackgroundSprite.getLocalBounds().width){
+
+			GrassBackgroundSprite.setPosition(x, y);
+			window->draw(GrassBackgroundSprite);
+		}
+	}
+
+}
+
+//draws background for the current area with grass
+void GUIMaster::DrawGameGrassBackground(RenderWindow *window, GameArea *area){
+	for (int y = 0; y < area->getAreaSize().y; y += GrassBackgroundSprite.getLocalBounds().height){
+		for (int x = 0; x < area->getAreaSize().x; x += GrassBackgroundSprite.getLocalBounds().width){
+
+			GrassBackgroundSprite.setPosition(x, y);
+			window->draw(GrassBackgroundSprite);
+		}
+	}
+}
 
 /*
 * <DESCRIPTION>

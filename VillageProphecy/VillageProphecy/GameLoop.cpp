@@ -32,6 +32,11 @@ GameLoop::~GameLoop()
 {
 }
 
+
+GameArea *GameLoop::getCurrentGameArea(){
+	return currentGameArea;
+}
+
 Player* GameLoop::getPlayerPointer(){
 	return &player;
 }
@@ -45,6 +50,7 @@ bool GameLoop::GameOver(){
 }
 
 void GameLoop::CombatOver(){
+	
 	playerEnteredCombatPhase = false;
 	timer.restart();
 	currentGameArea->removeAreaEnemy(currentGameArea->getAreaEnemies()->at(enemyVectorIndex));

@@ -25,6 +25,7 @@ public:
 	Player* getPlayerPointer();
 	vector<Enemy*>* getCombatEnemies();
 	void CombatOver();
+	GameArea *getCurrentGameArea();
 
 private:
 	InGameMenuGUI *gameMenuGUI;

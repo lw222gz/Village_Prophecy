@@ -18,11 +18,9 @@ private:
 	bool stackAble = false;
 	int stackAmount = 1;
 	GameObjectType itemType;
-	Sprite itemSprite;
-	//TODO: check the problem that occured when the texture is static
-	//It crashed the game
-	Texture emptySlotTexture;
-	Texture woodSlotTexture;
+	
+	Texture SlotTexture;
+	Sprite SlotSprite;
 	void setItemSprite();
 
 };
