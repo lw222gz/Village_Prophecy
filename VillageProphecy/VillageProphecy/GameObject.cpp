@@ -129,4 +129,27 @@ void GameObject::completeConstruction(){
 	delete materialList;
 	objectSprite.setColor(Color(255, 255, 255, 255));
 	triggerType = TriggerType::No_Action;
+
+	if (type == Fireplace){
+		triggerType = TriggerType::Set_On_Fire;
+	}
+}
+
+//sets a gameobject on fire.
+void GameObject::setOnFire(){	
+	switch (type)
+	{
+		case Fireplace:		
+			if (!objectTexture.loadFromFile("Textures/BurningFirePlace.png")){
+				throw "TEXTURE LOAD ERROR: Burning fireplace texture did not load correctly.";
+			}
+			objectSprite.setTexture(objectTexture);
+			type = Burning_Fireplace;
+			triggerType = No_Action;
+			break;
+
+		default:
+			throw "This GameObject cant be set on fire.";
+			break;
+	}
 }

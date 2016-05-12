@@ -120,7 +120,7 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 				gui->DrawTargetArrow(window, targetIndex);
 
 				if (handleInput->CheckEnterKeyPressed()){
-					PlayerDealsDamage(enemies, (int)player->StatsManager()->getPlayerAttackDamage());									
+					PlayerDealsDamage(enemies, player->StatsManager()->getPlayerAttackDamage());									
 				}
 
 				PlayerCanGoBack();
@@ -132,7 +132,7 @@ void GameCombatLoop::runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies
 
 				if (handleInput->CheckEnterKeyPressed()){
 					player->SkillManager()->getPlayerSkills()->at(skillChoiceIndex)->ConsumeSkillStats();
-					PlayerDealsDamage(enemies, (int)player->SkillManager()->getPlayerSkills()->at(skillChoiceIndex)->getSkillDamage());
+					PlayerDealsDamage(enemies, player->SkillManager()->getPlayerSkills()->at(skillChoiceIndex)->getSkillDamage());
 				}
 
 				PlayerCanGoBack();
@@ -436,8 +436,9 @@ void GameCombatLoop::ExecuteEnemySkillEffect(SkillEffect skillEffect){
 }
 
 //deals damage to the player and calls gui method to display damage numbers
-void GameCombatLoop::PlayerTakesDamage(float amount, EnemyType enemyType, string attackName){
+void GameCombatLoop::PlayerTakesDamage(int amount, EnemyType enemyType, string attackName){
 	player->StatsManager()->playerHitPointsAffected(-amount);
+	//TODO: remove trailing zeroes.
 	gui->AddPlayerCombatText(to_string(amount), player);
 	gui->AddStatusCombatText(enemyType, attackName);
 }

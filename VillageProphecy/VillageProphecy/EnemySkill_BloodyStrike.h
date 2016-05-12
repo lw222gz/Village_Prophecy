@@ -14,7 +14,7 @@ public:
 	~EnemySkill_BloodyStrike();
 
 	string getSkillName();
-	float getSkillDamage();
+	int getSkillDamage();
 	bool CanCast();
 	SkillEffect getEffect();
 	int roundsToLast();

@@ -2,9 +2,6 @@
 #include "Player.h"
 #include "CombatOptions.h"
 #include "Enemy.h"
-//#include "MoveDirection.h"
-//#include "GameAreas.h"
-//#include <SFML/Graphics.hpp>
 
 using namespace sf;
 
@@ -27,6 +24,7 @@ private:
 	Areas area = Areas::No_Area;
 	bool controlsEnabled = true;
 	bool enterJustPressed = false;
+	bool rKeyJustPressed = false;
 	float pauseTime = 0;
 	float currentPauseTime = 0;
 

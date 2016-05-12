@@ -221,8 +221,15 @@ Areas HandleInput::CheckUserMovementInput(Player *player, Time *t){
 * returns boolean, true if the player has pressed the R-key, otherwise false.
 */
 bool HandleInput::CheckQuickMenuInput(){
-	if (controlsEnabled && Keyboard::isKeyPressed(Keyboard::R)){
-		return true;
+	if (Keyboard::isKeyPressed(Keyboard::R)){
+		if (!rKeyJustPressed){
+			rKeyJustPressed = true;
+			return true;
+		}
+	}
+	else
+	{
+		rKeyJustPressed = false;
 	}
 	return false;
 }

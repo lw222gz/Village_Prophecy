@@ -315,7 +315,7 @@ void InGameMenuGUI::DrawPlayerStats(RenderWindow *window, Player *player){
 	transformation.translate(80, 20);
 	window->draw(behindHPBar, transformation);
 
-	hpBar.setSize(Vector2f(250 * (player->StatsManager()->getPlayerHP() / player->StatsManager()->getMaxPlayerHP()), 40));
+	hpBar.setSize(Vector2f(250 * ((float)player->StatsManager()->getPlayerHP() / (float)player->StatsManager()->getMaxPlayerHP()), 40));
 	window->draw(hpBar, transformation);
 
 	//HP bar text

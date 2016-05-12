@@ -42,7 +42,7 @@ void PlayerStatsManager::GainEXPPoints(int amount){
 	}
 }
 
-float PlayerStatsManager::getPlayerAttackDamage(){
+int PlayerStatsManager::getPlayerAttackDamage(){
 	return playerAttackDamage;
 }
 
@@ -102,7 +102,7 @@ int PlayerStatsManager::getMaxActionsPoints(){
 * @RETURNS
 * returns the players hit points.
 */
-float PlayerStatsManager::getPlayerHP(){
+int PlayerStatsManager::getPlayerHP(){
 	return playerHitpoints;
 }
 
@@ -110,7 +110,7 @@ float PlayerStatsManager::getPlayerHP(){
 * @RETURNS
 * returns the players hit point cap.
 */
-float PlayerStatsManager::getMaxPlayerHP(){
+int PlayerStatsManager::getMaxPlayerHP(){
 	return MAX_HIT_POINTS;
 }
 
@@ -118,7 +118,7 @@ float PlayerStatsManager::getMaxPlayerHP(){
 * @RETURNS
 * returns the amount of hunger points the player has
 */
-float PlayerStatsManager::getPlayerHunger(){
+int PlayerStatsManager::getPlayerHunger(){
 	return currentHunger;
 }
 
@@ -126,7 +126,7 @@ float PlayerStatsManager::getPlayerHunger(){
 * @RETURNS
 * returns the amount of mood points the player has
 */
-float PlayerStatsManager::getPlayerMood(){
+int PlayerStatsManager::getPlayerMood(){
 	return currentMood;
 }
 
@@ -134,7 +134,7 @@ float PlayerStatsManager::getPlayerMood(){
 * @RETURNS
 * returns the amount of stamina points the player has
 */
-float PlayerStatsManager::getPlayerStamina(){
+int PlayerStatsManager::getPlayerStamina(){
 	return currentStamina;
 }
 
@@ -142,7 +142,7 @@ float PlayerStatsManager::getPlayerStamina(){
 * @RETURNS
 * returnst the hunger point cap.
 */
-float PlayerStatsManager::getPlayerMAXHunger(){
+int PlayerStatsManager::getPlayerMAXHunger(){
 	return MAX_HUNGER_POINTS;
 }
 
@@ -150,7 +150,7 @@ float PlayerStatsManager::getPlayerMAXHunger(){
 * @RETURNS
 * returns the mood points cap.
 */
-float PlayerStatsManager::getPlayerMAXMood(){
+int PlayerStatsManager::getPlayerMAXMood(){
 	return MAX_MOOD_POINTS;
 }
 
@@ -158,7 +158,7 @@ float PlayerStatsManager::getPlayerMAXMood(){
 * @RETURNS
 * returnshe stamin point cap
 */
-float PlayerStatsManager::getPlayerMAXStamina(){
+int PlayerStatsManager::getPlayerMAXStamina(){
 	return MAX_STAMINA_POINTS;
 }
 
@@ -170,7 +170,7 @@ float PlayerStatsManager::getPlayerMAXStamina(){
 * amount: integer representing the amount of health that is gonna be added to the players
 * current hit points or the amount that is to be removed from the players hitpoints
 */
-void PlayerStatsManager::playerHitPointsAffected(float amount){
+void PlayerStatsManager::playerHitPointsAffected(int amount){
 	playerHitpoints += amount;
 	if (playerHitpoints > MAX_HIT_POINTS){
 		playerHitpoints = MAX_HIT_POINTS;
@@ -188,7 +188,7 @@ void PlayerStatsManager::playerHitPointsAffected(float amount){
 * @PARAMS
 * amount: integer representing the amount to be removed or added to the players hunger points
 */
-void PlayerStatsManager::playerHungerAffected(float amount){
+void PlayerStatsManager::playerHungerAffected(int amount){
 	currentHunger += amount;
 	if (currentHunger > MAX_HUNGER_POINTS){
 		currentHunger = MAX_HUNGER_POINTS;
@@ -205,7 +205,7 @@ void PlayerStatsManager::playerHungerAffected(float amount){
 * @PARAMS
 * amount: integer representing the amount to be removed or added to the players mood points
 */
-void PlayerStatsManager::playerMoodAffected(float amount){
+void PlayerStatsManager::playerMoodAffected(int amount){
 	currentMood += amount;
 	if (currentMood > MAX_MOOD_POINTS){
 		currentMood = MAX_MOOD_POINTS;
@@ -222,7 +222,7 @@ void PlayerStatsManager::playerMoodAffected(float amount){
 * @PARAMS
 * amount: integer representing the amount to be removed or added to the players stamina points
 */
-void PlayerStatsManager::playerStaminaAffected(float amount){
+void PlayerStatsManager::playerStaminaAffected(int amount){
 	currentStamina += amount;
 	if (currentStamina > MAX_STAMINA_POINTS){
 		currentStamina = MAX_STAMINA_POINTS;

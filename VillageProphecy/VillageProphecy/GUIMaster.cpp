@@ -73,7 +73,7 @@ void GUIMaster::DrawGameCombatGrassBackground(RenderWindow *window, View *view){
 }
 
 //draws background for the current area with grass
-void GUIMaster::DrawGameGrassBackground(RenderWindow *window, GameArea *area){
+void GUIMaster::DrawGameGrassBackground(RenderWindow *window, IGameArea *area){
 	for (int y = 0; y < area->getAreaSize().y; y += GrassBackgroundSprite.getLocalBounds().height){
 		for (int x = 0; x < area->getAreaSize().x; x += GrassBackgroundSprite.getLocalBounds().width){
 
@@ -95,7 +95,9 @@ void GUIMaster::DrawGameGrassBackground(RenderWindow *window, GameArea *area){
 * t: pointer to a Time object representing the time spent in the current iteration of the loop.
 * amountOfDaysLeft: integer representing the amount of days left before gameover.
 */
-void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, View *gameView, Player *player, GameObject *triggerdObj, Time *t, int amountOfDaysLeft){
+void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, View *gameView, 
+						Player *player, GameObject *triggerdObj, Time *t, int amountOfDaysLeft){
+
 	//Optimize: Remove the need of reversing the vector
 	//reverses the vector, thus items added first gets draw over items added after.
 	sort(gameObjects.rbegin(), gameObjects.rend());
@@ -109,9 +111,9 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, V
 		//sets the position for the quick menu
 		quickMenuSprite.setPosition(player->getPosition().x + (player->getSize().x / 2) - quickMenuTexture.getSize().x / 2,
 									player->getPosition().y - quickMenuTexture.getSize().y - 20);
-		
+		//draws quickmenu
 		window->draw(quickMenuSprite);
-		
+		//draw text in quickmenu
 		displayText.setString("Press 'R' to");
 		displayText.setPosition(player->getPosition().x - 20,
 			player->getPosition().y - quickMenuTexture.getSize().y);
@@ -122,7 +124,7 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, V
 								player->getPosition().y - quickMenuTexture.getSize().y + 20);
 		window->draw(displayText);
 
-		//If the object is constructable then the list of required items to construct is drawn.
+		//draws requirements for objects that can be constructed.
 		if (triggerdObj->getTriggerType() == TriggerType::Build){
 			//Draw out required items for the construction
 			displayText.setString("Requires:");
@@ -138,6 +140,19 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, V
 										player->getPosition().y - quickMenuTexture.getSize().y + 60 + i*20);
 				window->draw(displayText);
 			}
+		}
+
+		//draws requirements for objects that can be set on fire
+		else if (triggerdObj->getTriggerType() == Set_On_Fire){
+			displayText.setString("Requires:");
+			displayText.setPosition(player->getPosition().x - 20,
+									player->getPosition().y - quickMenuTexture.getSize().y + 40);
+			window->draw(displayText);
+
+			displayText.setString("Skill: Fireball");
+			displayText.setPosition(player->getPosition().x - 20,
+									player->getPosition().y - quickMenuTexture.getSize().y + 60);
+			window->draw(displayText);
 		}
 	}
 
@@ -155,6 +170,18 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, V
 	displayText.setPosition(gameView->getCenter().x - window->getSize().x/2,
 							gameView->getCenter().y - window->getSize().y/2);
 	window->draw(displayText);
+
+
+	//draw alert messages
+	for (int i = 0; i < gameAlerts.size(); ++i){
+
+		gameAlerts[i]->DrawMessage(window, t->asSeconds());
+		//removes a message if it's lifetime has expierd.
+		if (gameAlerts[i]->getLifeTimePercent() >= 1){
+			delete gameAlerts[i];
+			gameAlerts.erase(gameAlerts.begin() + i);
+		}
+	}
 }
 
 
@@ -184,6 +211,9 @@ string GUIMaster::getStringRepresentation(T enumValue){
 
 	case TriggerType::Build:
 		return "Construct";
+
+	case TriggerType::Set_On_Fire:
+		return "Ignite";
 
 	case GameObjectType::Tree:
 		return "Wood";
@@ -229,12 +259,15 @@ void GUIMaster::DrawConfirmationBox(RenderWindow *window, View *view, string que
 * @PARAMS
 * screenSize: a Vector2f representing the size of the game window.
 */
-void GUIMaster::activateSleepAnimation(Vector2f screenSize){
+void GUIMaster::activateSleepAnimation(Vector2f screenSize, bool hasFire){
+	sleepMessage = "You slept through the night. \n";
+	if (!hasFire){
+		sleepMessage += ("You had not fire to warm your body during the cold night. Health lost. \n");
+	}
 	sleepAnimationActive = true;
 	screenCoverRect.setSize(screenSize);
 	screenCoverRect.setFillColor(Color(0, 0, 0, 0));
-	currentAnimationTime = 0;
-	
+	currentAnimationTime = 0;	
 }
 
 
@@ -248,30 +281,33 @@ void GUIMaster::activateSleepAnimation(Vector2f screenSize){
 */
 void GUIMaster::sleepAnimation(RenderWindow *window, Time *t){
 
+	window->draw(screenCoverRect);
 	currentAnimationTime += t->asSeconds();
-	//The precentAnimated will go up to 2 to easier handle the fade in and the fade out.
-	float percentAnimated = currentAnimationTime / (sleepAnimationTime / 2);
 
-	//if animation over it's interupted
-	if (percentAnimated >= 2){
+	//fade in time has to be lower than sleepTime
+	if (currentAnimationTime <= sleepFadeTime){
+		screenCoverRect.setFillColor(Color(0, 0, 0, 255 * currentAnimationTime / sleepFadeTime));
+	}
+	//sleepTime has to be lower than sleepFadeBackTime
+	else if (currentAnimationTime <= sleepTime){
+
+		screenCoverRect.setFillColor(Color(0, 0, 0, 255));
+		displayText.setColor(Color::White);
+
+		displayText.setString(sleepMessage);
+		window->draw(displayText);
+
+		displayText.setColor(Color::Black);
+		
+	}
+	//when animation time passes the sleepFadeBackTime the animation är över.
+	else if (currentAnimationTime < sleepFadeBackTime){
+		screenCoverRect.setFillColor(Color(0, 0, 0, 255 * (1 - (currentAnimationTime - sleepTime) / (currentAnimationTime - sleepFadeTime))));
+	}
+	else {
 		sleepAnimationActive = false;
 		return;
-	}
-
-	//Keeps the screen black for sleepTime(amount of seconds) to have a better sleep animation effect
-	if (currentAnimationTime > sleepAnimationTime / 2 &&
-		currentAnimationTime < sleepAnimationTime / 2 + sleepTime){
-		//Keeps the screen black for sleepTime amount of seconds
-		percentAnimated = 1;
-	}
-	else if (percentAnimated > 1){
-		//Reverts the fade after the sleepTime animation
-		//BUGG: Animation buggs out whenever the sleepAnimationTime is not an even number
-		percentAnimated = ((sleepAnimationTime / 2.0) + (sleepTime / (sleepAnimationTime / 2.0))) - percentAnimated;
-	}
-
-	screenCoverRect.setFillColor(Color(0, 0, 0, 255 * percentAnimated));
-	window->draw(screenCoverRect);
+	}	
 }
 
 
@@ -280,7 +316,7 @@ void GUIMaster::sleepAnimation(RenderWindow *window, Time *t){
 * returns the amount of seconds the sleep animation will take up.
 */
 float GUIMaster::getSleepAnimationTime(){
-	return sleepAnimationTime;
+	return sleepFadeBackTime;
 }
 
 
@@ -303,4 +339,9 @@ void GUIMaster::DrawGameWon(RenderWindow *window, View *view){
 	gameWonSprite.setPosition(view->getCenter().x - window->getSize().x / 2,
 								view->getCenter().y - window->getSize().y / 2);
 	window->draw(gameWonSprite);
+}
+
+//adds a game alert message
+void GUIMaster::AddGameAlert(string mess, Vector2f position){
+	gameAlerts.push_back(new GameMessage(mess, position, 1.25, 16));
 }

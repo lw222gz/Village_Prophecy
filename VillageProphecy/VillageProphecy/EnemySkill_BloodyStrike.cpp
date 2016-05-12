@@ -6,7 +6,7 @@
 EnemySkill_BloodyStrike::EnemySkill_BloodyStrike(Enemy *e) : enemy(e)
 {
 	effect.consumes = Health;
-	effect.amountConsumed = enemy->getAttackDamage() * .3;
+	effect.amountConsumed = (int)round((float)enemy->getAttackDamage() * .3f);
 	effect.damageDescription = "Bleeds";
 }
 
@@ -21,7 +21,7 @@ string EnemySkill_BloodyStrike::getSkillName(){
 	return "Bloody Strike";
 }
 
-float EnemySkill_BloodyStrike::getSkillDamage(){
+int EnemySkill_BloodyStrike::getSkillDamage(){
 	return 0;
 }
 

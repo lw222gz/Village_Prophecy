@@ -18,7 +18,7 @@ string Skill_HeavyStrike::getSkillName(){
 	return "Heavy Strike";
 }
 
-float Skill_HeavyStrike::getSkillDamage(){
+int Skill_HeavyStrike::getSkillDamage(){
 	return playerStats->getPlayerAttackDamage() * 2;
 }
 
@@ -26,7 +26,7 @@ SkillConsumeableStats Skill_HeavyStrike::getStatConsumeType(){
 	return SkillConsumeableStats::Health;
 }
 
-float Skill_HeavyStrike::getConsumeAmount(){
+int Skill_HeavyStrike::getConsumeAmount(){
 	return playerStats->getMaxPlayerHP() * .04;
 }
 

@@ -1,16 +1,24 @@
 #pragma once
 #include "Player.h"
-//Inventory
 #include "HandleInput.h"
 #include "GUIMaster.h"
 #include "InGameMenuGUI.h"
-#include "GameArea.h"
-//#include "GameObject.h"
-//#include "TriggerType.h"
-//#include <SFML/Graphics.hpp>
+#include "GameAreas.h"
+
+#include "SurvivalGameArea.h"
+#include "HostileGameArea.h"
+#include "FinalGameArea.h"
+#include "BaseGameArea.h"
+#include "IGameArea.h"
 
 using namespace sf;
 using namespace std;
+
+class IGameArea;
+class BaseGameArea;
+class SurvivalGameArea;
+class HostileGameArea;
+class FinalGameArea;
 
 
 class GameLoop
@@ -25,7 +33,10 @@ public:
 	Player* getPlayerPointer();
 	vector<Enemy*>* getCombatEnemies();
 	void CombatOver();
-	GameArea *getCurrentGameArea();
+
+	IGameArea *getCurrentGameArea();
+
+	
 
 private:
 	InGameMenuGUI *gameMenuGUI;
@@ -39,16 +50,20 @@ private:
 	vector<IDrawAble*> gameObjects;
 	GUIMaster *gui = NULL;
 	View *view = NULL;
-	Areas newArea = Areas::No_Area;
-	Areas lastArea = Areas::No_Area;
-	GameArea *currentGameArea = NULL;
-	GameArea *baseGameArea = NULL;
-	GameArea *survivalGameArea = NULL;
-	GameArea *hostileGameArea = NULL;
-	GameArea *finalGameArea = NULL;
+
+	Areas newArea = Areas::Base;
+	Areas lastArea = Areas::Base;	
+	BaseGameArea *baseGameArea = NULL;
+	SurvivalGameArea *survivalGameArea = NULL;
+	HostileGameArea *hostileGameArea = NULL;
+	FinalGameArea *finalGameArea = NULL;
+	IGameArea *currentGameArea = NULL;
+
 	void EnterNewArea(RenderWindow *window, View *view);
 	GameObject *triggerdObject = NULL;
 	void ExecuteObjectTrigger(RenderWindow *window);
+
+	
 
 	int amountOfDaysLeft = 50;
 };

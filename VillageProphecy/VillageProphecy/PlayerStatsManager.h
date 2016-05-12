@@ -24,23 +24,23 @@ public:
 	Sprite getAPSprite();
 	Sprite getConsumedAPSprite();
 
-	float getPlayerAttackDamage();
+	int getPlayerAttackDamage();
 
-	void playerHitPointsAffected(float amount);
-	float getPlayerHP();
-	float getMaxPlayerHP();
+	void playerHitPointsAffected(int amount);
+	int getPlayerHP();
+	int getMaxPlayerHP();
 	
-	void playerHungerAffected(float amount);
-	float getPlayerHunger();
-	float getPlayerMAXHunger();
+	void playerHungerAffected(int amount);
+	int getPlayerHunger();
+	int getPlayerMAXHunger();
 
-	void playerMoodAffected(float amount);
-	float getPlayerMood();
-	float getPlayerMAXMood();
+	void playerMoodAffected(int amount);
+	int getPlayerMood();
+	int getPlayerMAXMood();
 	
-	void playerStaminaAffected(float amount);
-	float getPlayerStamina();
-	float getPlayerMAXStamina();
+	void playerStaminaAffected(int amount);
+	int getPlayerStamina();
+	int getPlayerMAXStamina();
 
 	int getTotalExp();
 	int getNextLevelExp();
@@ -60,18 +60,18 @@ private:
 	LevelEXPRequirement currentLevel = LEVEL_0;
 	LevelEXPRequirement ExperiencePointsToLevel = LevelEXPRequirement::LEVEL_1;
 
-	float playerAttackDamage = 10;
+	int playerAttackDamage = 10;
 
-	float MAX_HIT_POINTS = 100;
-	float playerHitpoints = MAX_HIT_POINTS;
+	int MAX_HIT_POINTS = 100;
+	int playerHitpoints = MAX_HIT_POINTS;
 
-	const float MAX_HUNGER_POINTS = 100;
-	const float MAX_MOOD_POINTS = 100;
-	const float MAX_STAMINA_POINTS = 100;
+	const int MAX_HUNGER_POINTS = 100;
+	const int MAX_MOOD_POINTS = 100;
+	const int MAX_STAMINA_POINTS = 100;
 
-	float currentHunger = MAX_HUNGER_POINTS;
-	float currentMood = MAX_MOOD_POINTS;
-	float currentStamina = 10;
+	int currentHunger = MAX_HUNGER_POINTS;
+	int currentMood = MAX_MOOD_POINTS;
+	int currentStamina = 10;
 
 
 	void PlayerLevelUp();

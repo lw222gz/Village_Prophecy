@@ -20,7 +20,7 @@ string EnemySkill_DecayingStrike::getSkillName(){
 	return "Decaying Strike";
 }
 
-float EnemySkill_DecayingStrike::getSkillDamage(){
+int EnemySkill_DecayingStrike::getSkillDamage(){
 	return enemy->getAttackDamage() * .8;
 }
 

@@ -2,10 +2,12 @@
 #include <vector>
 #include "LevelEXPRequirement.h"
 #include "Skill_HeavyStrike.h"
-#include "Skill_FireBall.h"
-#include "Skill.h"
+
+//#include "IPlayerSkill.h"
 
 class PlayerStatsManager;
+class IPlayerSkill;
+class Skill_FireBall;
 
 class PlayerSkillManager
 {
@@ -13,10 +15,14 @@ public:
 	PlayerSkillManager();
 	~PlayerSkillManager();
 
-	vector<Skill*>* getPlayerSkills();
+	vector<IPlayerSkill*> *getPlayerSkills();
 	void LearnSkill(LevelEXPRequirement playerLevel, PlayerStatsManager *playerStats);
+	bool hasPlayerLearnedFireball();
+	bool canSetObjectOnFire();
 
 private:
-	vector<Skill*> playerSkills;
+	vector<IPlayerSkill*> playerSkills;
+	bool playerHasLearnedFireball = false;
+	Skill_FireBall *fireballSkill = NULL;
 };
 

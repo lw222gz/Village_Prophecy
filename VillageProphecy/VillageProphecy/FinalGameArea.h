@@ -1,32 +1,23 @@
 #pragma once
-//#include "Path.h"
-//#include "GameAreas.h"
-//#include "Direction.h"
-//#include "Player.h"
-#include "GameObject.h"
-#include "VisualEnemy.h"
-//#include <SFML/Graphics.hpp>
+#include "IGameArea.h"
 
-using namespace sf;
-using namespace std;
-
-class GameArea
+class FinalGameArea : public IGameArea
 {
 public:
-	GameArea(Areas area, Vector2u size);
-	~GameArea();
+	FinalGameArea(Vector2u size);
+	~FinalGameArea();
+
 	Areas getAreaType();
 	vector<IDrawAble*> getAreaVisualObjects();
 	vector<GameObject*> getAreaObjects();
 	vector<Path*> getAreaPaths();
+	vector<VisualEnemy*>* getAreaEnemies();
 	Vector2u getAreaSize();
 	void removeAreaObject(GameObject *obj);
 	void removeAreaEnemy(VisualEnemy *enemy);
 
-	vector<VisualEnemy*>* getAreaEnemies();
-
-
 private:
+	void generateGameArea();
 	vector<VisualEnemy*> enemies;
 	vector<IDrawAble*> areaVisualObjects;
 	Vector2u areaSize;
@@ -34,6 +25,5 @@ private:
 	Vector2f entryPoint;
 	vector<GameObject*> areaObjects;
 	vector<Path*> areaPaths;
-	void generateGameArea();
 };
 

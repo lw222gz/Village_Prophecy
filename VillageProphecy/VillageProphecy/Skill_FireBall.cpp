@@ -21,7 +21,7 @@ string Skill_FireBall::getSkillDescripion(){
 	return "Words of power are whipsered into your mind. You don't understand them but they slip out of your tongue and devestation is brought upon your enemies.";
 }
 
-float Skill_FireBall::getSkillDamage(){
+int Skill_FireBall::getSkillDamage(){
 	return playerStats->getPlayerAttackDamage() * 3;
 }
 
@@ -29,7 +29,7 @@ SkillConsumeableStats Skill_FireBall::getStatConsumeType(){
 	return SkillConsumeableStats::Stamina;
 }
 
-float Skill_FireBall::getConsumeAmount(){
+int Skill_FireBall::getConsumeAmount(){
 	return 15;
 }
 

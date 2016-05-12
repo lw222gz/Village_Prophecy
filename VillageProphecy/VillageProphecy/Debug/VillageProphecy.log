@@ -1,42 +1,43 @@
-﻿Build started 2016-05-10 19:56:25.
+﻿Build started 2016-05-12 20:15:47.
      1>Project "C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\VillageProphecy\VillageProphecy.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GUIMaster.cpp Game.cpp GameLoop.cpp Source.cpp
-         Game.cpp
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\game.cpp(18): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
-         GUIMaster.cpp
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(60): warning C4244: 'initializing' : conversion from 'const float' to 'int', possible loss of data
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(62): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(64): warning C4244: 'initializing' : conversion from 'const float' to 'int', possible loss of data
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(66): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(68): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(77): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(77): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(78): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(78): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(80): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(103): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(133): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(270): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\guimaster.cpp(273): warning C4244: 'argument' : conversion from 'float' to 'sf::Uint8', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt BaseGameArea.cpp CombatGUI.cpp GUIMaster.cpp Game.cpp GameCombatLoop.cpp GameLoop.cpp GameObject.cpp HandleInput.cpp InGameMenuGUI.cpp Inventory.cpp MaterialList.cpp Player.cpp PlayerSkillManager.cpp PlayerStatsManager.cpp Skill_FireBall.cpp Skill_HeavyStrike.cpp Source.cpp SurvivalGameArea.cpp
+         PlayerSkillManager.cpp
          Generating Code...
          Skipping... (no relevant changes detected)
+         SurvivalGameArea.cpp
          Source.cpp
+         Skill_HeavyStrike.cpp
+         PlayerStatsManager.cpp
+         Player.cpp
+         MaterialList.cpp
+         Inventory.cpp
+         InGameMenuGUI.cpp
+         HandleInput.cpp
+         GameObject.cpp
          GameLoop.cpp
+         GameCombatLoop.cpp
+         Game.cpp
+         GUIMaster.cpp
+         CombatGUI.cpp
+         BaseGameArea.cpp
+         Skill_FireBall.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.exe" /INCREMENTAL /NOLOGO /LIBPATH:"D:\SFML-2.3.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-main-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.lib" /MACHINE:X86 Debug\CombatGUI.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.exe" /INCREMENTAL /NOLOGO /LIBPATH:"D:\SFML-2.3.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-main-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.lib" /MACHINE:X86 Debug\BaseGameArea.obj
+         Debug\CombatGUI.obj
          Debug\Enemy.obj
          Debug\EnemySkill_BloodyStrike.obj
          Debug\EnemySkill_DecayingStrike.obj
          Debug\EnemySkill_NormalAttack.obj
+         Debug\FinalGameArea.obj
          Debug\Game.obj
-         Debug\GameArea.obj
          Debug\GameCombatLoop.obj
          Debug\GameItem.obj
          Debug\GameLoop.obj
          Debug\GameObject.obj
          Debug\GUIMaster.obj
          Debug\HandleInput.obj
+         Debug\HostileGameArea.obj
          Debug\InGameMenuGUI.obj
          Debug\Inventory.obj
          Debug\Material.obj
@@ -49,10 +50,12 @@
          Debug\Skill_FireBall.obj
          Debug\Skill_HeavyStrike.obj
          Debug\Source.obj
+         Debug\SurvivalGameArea.obj
          Debug\VisualEnemy.obj
+     1>sfml-main-d.lib(MainWin32.cpp.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'sfml-main-d.lib(MainWin32.cpp.obj)' or at 'C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\vc120.pdb'; linking object as if no debug info
          VillageProphecy.vcxproj -> C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.exe
      1>Done Building Project "C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\VillageProphecy\VillageProphecy.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:05.89
+Time Elapsed 00:00:05.13

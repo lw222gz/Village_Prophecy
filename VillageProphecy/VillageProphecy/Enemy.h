@@ -14,12 +14,12 @@ public:
 	~Enemy();
 	Sprite getSprite();
 	EnemyType getEnemyType();
-	float getHitPoints();
-	float getMaxHitPoints();
-	void TakeDamage(float amount);
+	int getHitPoints();
+	int getMaxHitPoints();
+	void TakeDamage(int amount);
 	bool IsAlive();
-	float getAttackDamage();
-	void setPosition(float x, float y);
+	int getAttackDamage();
+	void setPosition(int x, int y);
 	int getXPGrant();
 	vector<EnemySkill*> *getEnemySkills();
 
@@ -30,15 +30,15 @@ private:
 	EnemyType type;
 	Sprite enemySprite;
 	Texture enemyTexture;
-	float hitPoints = 100;
-	float maxHitPoints = hitPoints;
-	float attackDamage = 0;
+	int hitPoints = 100;
+	int maxHitPoints = hitPoints;
+	int attackDamage = 0;
 	int XPGrant = 0;
 	int level = 0;
 
 	vector<EnemySkill*> enemySkills;
 
 	void LevelBonus();
-	const float levelBonus = .25;
+	const double levelBonus = .25;
 };
 

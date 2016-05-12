@@ -24,7 +24,10 @@ public:
 	GameObjectType getObjectType();
 
 	MaterialList* MaterialListManager();
+
+	//TODO: Refactor and break up gameobjects to diffrent classes.
 	void completeConstruction();
+	void setOnFire();
 
 private:
 	TriggerType triggerType = TriggerType::No_Action;

@@ -72,7 +72,7 @@ void CombatGUI::DrawCombatPhase(RenderWindow *window, Time *t, Player *p, vector
 			enemyHpBehindBar.setSize(Vector2f(enemies->at(i)->getSprite().getTexture()->getSize().x, 10));
 
 			enemyHpBar.setSize(Vector2f(
-				enemies->at(i)->getSprite().getTexture()->getSize().x * (enemies->at(i)->getHitPoints() / enemies->at(i)->getMaxHitPoints())
+				enemies->at(i)->getSprite().getTexture()->getSize().x * ((float)enemies->at(i)->getHitPoints() / (float)enemies->at(i)->getMaxHitPoints())
 				, 10));
 
 			window->draw(enemyHpBehindBar, transformation);
@@ -160,7 +160,9 @@ void CombatGUI::DrawTargetArrow(RenderWindow *window, int targetIndex){
 * targetIndex: index of the enemy that is taking damage.
 */
 void CombatGUI::AddEnemyCombatText(string mess, int targetIndex){
-	combatMessages.push_back(new GameMessage(mess, enemyPositions[targetIndex], .5));
+	combatMessages.push_back(new GameMessage(mess, 
+		enemyPositions[targetIndex] - Vector2f(0, 50),
+		.5));
 }
 
 /*
@@ -172,7 +174,9 @@ void CombatGUI::AddEnemyCombatText(string mess, int targetIndex){
 * player: pointer to the game Player object.
 */
 void CombatGUI::AddPlayerCombatText(string mess, Player *player){
-	combatMessages.push_back(new GameMessage(mess, player->getPosition(), .5));
+	combatMessages.push_back(new GameMessage(mess, 
+		player->getPosition() - Vector2f(0, 50),
+		.75));
 	
 }
 
@@ -184,7 +188,9 @@ void CombatGUI::AddPlayerCombatText(string mess, Player *player){
 * enemyType: EnemyType enum representing the type of enemy that attacked the player.
 */
 void CombatGUI::AddStatusCombatText(EnemyType enemyType, string attackType){
-	combatMessages.push_back(new GameMessage("An Enemy " + getEnemyName(enemyType) + " used " + attackType + ".", statusMessagePosition, 1.5));
+	combatMessages.push_back(new GameMessage("An Enemy " + getEnemyName(enemyType) + " used " + attackType + ".", 
+		statusMessagePosition,
+		1.5));
 }
 
 /*
@@ -195,7 +201,10 @@ void CombatGUI::AddStatusCombatText(EnemyType enemyType, string attackType){
 * mess: string representing the message to be displayed.
 */
 void CombatGUI::AddStatusText(string mess){
-	combatMessages.push_back(new GameMessage(mess, statusMessagePosition + Vector2f(0, 25), 1.5));
+	
+	combatMessages.push_back(new GameMessage(mess, 
+		statusMessagePosition + Vector2f(0, 25),
+		1.5));
 }
 
 
@@ -208,25 +217,18 @@ void CombatGUI::AddStatusText(string mess){
 * t: pointer to Time object contaning the amount of time spent in the current iteration of the game loop
 */
 void CombatGUI::DrawCombatText(RenderWindow *window, Time *t){
-	for (int i = 0; i < combatMessages.size(); ++i){
-		ResetTransformation(window);
-		transformation.translate(0, -50);
+	ResetTransformation(window);
 
-		combatMessages[i]->updateMessageTimer(t->asSeconds());
+	for (int i = 0; i < combatMessages.size(); ++i){
+		
+		combatMessages[i]->DrawMessage(window, t->asSeconds(), transformation);
+
 		//if the message life time is over then it will be removed and the next
 		//loop iteration will begin.
 		if (combatMessages[i]->getLifeTimePercent() >= 1){
 			delete combatMessages[i];  
 			combatMessages.erase(combatMessages.begin() + i);
-			continue;
 		}
-		//transformation.translate(enemyPositions[0]);//combatMessages[i]->getMessage().getPosition());
-		//transformation.translate(-100, 20);//combatMessages[i]->getLifeTimePercent() * 50
-		
-		combatMessages[i]->addToCurrentPosition(Vector2f(0, combatMessages[i]->getTextSpeed() * t->asSeconds()));
-		
-		
-		window->draw(combatMessages[i]->getMessage(), transformation);
 	}
 }
 

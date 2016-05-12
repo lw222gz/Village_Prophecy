@@ -14,8 +14,8 @@
 * @RETURNS
 *
 */
-GameMessage::GameMessage(string message, Vector2f position, float _timeToLive)
-	: timeToLive(_timeToLive)
+GameMessage::GameMessage(string message, Vector2f position, float _timeToLive, int characterSize)
+	: timeToLive(_timeToLive), startPosition(position)
 {
 	text.setString(message);
 	text.setPosition(position);
@@ -26,29 +26,13 @@ GameMessage::GameMessage(string message, Vector2f position, float _timeToLive)
 
 	//Text settings
 	text.setFont(coolvetica);
-	text.setCharacterSize(24);
+	text.setCharacterSize(characterSize);
 	text.setColor(Color::Black);
 }
 
 
 GameMessage::~GameMessage()
 {
-}
-
-/*
-* @RETURNS
-* returns boolean, true if the message should be moving, false if it's static in position
-*/
-bool GameMessage::IsMoving(){
-	return isMoving;
-}
-
-/*
-* @RETURNS
-* returns the pixel speed per second for a message.
-*/
-float GameMessage::getTextSpeed(){
-	return -70;
 }
 
 /*
@@ -98,4 +82,18 @@ void GameMessage::setPosition(Vector2f position){
 */
 void GameMessage::addToCurrentPosition(Vector2f amount){
 	text.setPosition(text.getPosition().x + amount.x, text.getPosition().y + amount.y);
+}
+
+
+void GameMessage::DrawMessage(RenderWindow *window, float elapsedTime){
+	Transform trans;
+	DrawMessage(window, elapsedTime, trans);
+}
+
+void GameMessage::DrawMessage(RenderWindow *window, float elapsedTime, Transform transformation){
+	updateMessageTimer(elapsedTime);
+
+	text.setPosition(startPosition.x, startPosition.y + timeExisted * textSpeed);
+
+	window->draw(text, transformation);
 }

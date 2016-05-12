@@ -27,7 +27,7 @@ Enemy::~Enemy()
 * @RETURNS
 * returns the amount of damage the enemy deal on a normal attack
 */
-float Enemy::getAttackDamage(){
+int Enemy::getAttackDamage(){
 	return attackDamage;
 }
 
@@ -37,10 +37,10 @@ float Enemy::getAttackDamage(){
 * This is used for position animation as the default position is controlled by a Transformation object
 *
 * @PARAMS
-* x: float value of the X cord to be set.
-* y: float value of the Y cord to be set.
+* x: int value of the X cord to be set.
+* y: int value of the Y cord to be set.
 */
-void Enemy::setPosition(float x, float y){
+void Enemy::setPosition(int x, int y){
 	enemySprite.setPosition(x, y);
 }
 
@@ -64,7 +64,7 @@ EnemyType Enemy::getEnemyType(){
 * @RETURNS
 * returnst the enemy remaning HP
 */
-float Enemy::getHitPoints(){
+int Enemy::getHitPoints(){
 	return hitPoints;
 }
 
@@ -72,7 +72,7 @@ float Enemy::getHitPoints(){
 * @RETURNS
 * returns the max HP of the enemy
 */
-float Enemy::getMaxHitPoints(){
+int Enemy::getMaxHitPoints(){
 	return maxHitPoints;
 }
 
@@ -81,9 +81,9 @@ float Enemy::getMaxHitPoints(){
 * Deals damage to the Enemy object.
 *
 * @PARAMS
-* amount: float value that represent the amount of damage the enemy is about to take.
+* amount: int value that represent the amount of damage the enemy is about to take.
 */
-void Enemy::TakeDamage(float amount){
+void Enemy::TakeDamage(int amount){
 	hitPoints -= amount;
 }
 

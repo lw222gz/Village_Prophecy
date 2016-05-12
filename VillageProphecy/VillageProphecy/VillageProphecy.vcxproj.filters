@@ -67,6 +67,12 @@
     <Filter Include="Header Files\Enemy\EnemySkills">
       <UniqueIdentifier>{d8b2c032-b902-46df-933e-cb42923b0e1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameFields\GameAreas">
+      <UniqueIdentifier>{5b212405-70c2-4150-9a2d-b7c33a9264f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Fields\GameAreas">
+      <UniqueIdentifier>{23308cc7-012d-447e-8979-6aa385442e9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -85,9 +91,6 @@
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="Path.cpp">
-      <Filter>Source Files\Game Fields</Filter>
-    </ClCompile>
-    <ClCompile Include="GameArea.cpp">
       <Filter>Source Files\Game Fields</Filter>
     </ClCompile>
     <ClCompile Include="Inventory.cpp">
@@ -147,6 +150,18 @@
     <ClCompile Include="EnemySkill_BloodyStrike.cpp">
       <Filter>Source Files\Enemy\EnemySkills</Filter>
     </ClCompile>
+    <ClCompile Include="BaseGameArea.cpp">
+      <Filter>Source Files\Game Fields\GameAreas</Filter>
+    </ClCompile>
+    <ClCompile Include="FinalGameArea.cpp">
+      <Filter>Source Files\Game Fields\GameAreas</Filter>
+    </ClCompile>
+    <ClCompile Include="HostileGameArea.cpp">
+      <Filter>Source Files\Game Fields\GameAreas</Filter>
+    </ClCompile>
+    <ClCompile Include="SurvivalGameArea.cpp">
+      <Filter>Source Files\Game Fields\GameAreas</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IDrawAble.h">
@@ -175,9 +190,6 @@
     </ClInclude>
     <ClInclude Include="HandleInput.h">
       <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="GameArea.h">
-      <Filter>Header Files\GameFields</Filter>
     </ClInclude>
     <ClInclude Include="Inventory.h">
       <Filter>Header Files\Player</Filter>
@@ -248,9 +260,6 @@
     <ClInclude Include="SkillConsumeableStats.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Skill.h">
-      <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="Skill_FireBall.h">
       <Filter>Header Files\Player\Skills</Filter>
     </ClInclude>
@@ -265,6 +274,24 @@
     </ClInclude>
     <ClInclude Include="EnemySkill_BloodyStrike.h">
       <Filter>Header Files\Enemy\EnemySkills</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameArea.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="SurvivalGameArea.h">
+      <Filter>Header Files\GameFields\GameAreas</Filter>
+    </ClInclude>
+    <ClInclude Include="HostileGameArea.h">
+      <Filter>Header Files\GameFields\GameAreas</Filter>
+    </ClInclude>
+    <ClInclude Include="FinalGameArea.h">
+      <Filter>Header Files\GameFields\GameAreas</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseGameArea.h">
+      <Filter>Header Files\GameFields\GameAreas</Filter>
+    </ClInclude>
+    <ClInclude Include="IPlayerSkill.h">
+      <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

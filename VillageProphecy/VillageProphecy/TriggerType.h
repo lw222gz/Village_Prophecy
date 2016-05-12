@@ -8,5 +8,6 @@ enum TriggerType
 	Harvest,
 	Build,
 	Interactable,
+	Set_On_Fire,
 	No_Action
 };

@@ -12,7 +12,7 @@ public:
 	~EnemySkill_NormalAttack();
 
 	string getSkillName();
-	float getSkillDamage();
+	int getSkillDamage();
 	bool CanCast();
 	SkillEffect getEffect();
 	int roundsToLast();

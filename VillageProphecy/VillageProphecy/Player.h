@@ -26,7 +26,8 @@ public:
 	Sprite getSprite();
 	void setPlayerPosition(Vector2f pos);
 	void setAreaPaths(vector<Path*> areaPaths);	
-	void Sleep();
+	//TODO: add parameter bool hasFire
+	void Sleep(bool hasBurningFirePlace);
 	void savePosition();
 	void setToSavedPosition();
 

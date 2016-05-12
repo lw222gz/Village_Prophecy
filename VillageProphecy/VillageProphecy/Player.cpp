@@ -90,11 +90,18 @@ Inventory* Player::InventoryManager(){
 }
 
 //TODO: create function
-void Player::Sleep(){
+void Player::Sleep(bool hasBurningFirePlace){
 	//TODO: effects that can occur during sleep
 	statsManager.ResetAP();
-	statsManager.playerStaminaAffected(statsManager.getPlayerMAXStamina());
-	statsManager.playerHitPointsAffected(statsManager.getMaxPlayerHP());
+	statsManager.playerStaminaAffected(40);
+	
+
+	if (!hasBurningFirePlace){
+		statsManager.playerHitPointsAffected(-(statsManager.getMaxPlayerHP() * .1));
+	}
+	else {
+		statsManager.playerHitPointsAffected(statsManager.getMaxPlayerHP() * .5);
+	}
 	/*actionPoints = ACTION_POINTS_MAX;
 	playerHitpoints -= 10;
 	playerHungerAffected(-40);

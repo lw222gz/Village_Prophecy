@@ -1,5 +1,6 @@
 #include "GameLoop.h"
 
+
 /*
 * <DESCRIPTION> 
 * Constructor for gameloop
@@ -14,17 +15,18 @@
 GameLoop::GameLoop(View *gameView, GUIMaster *guiMaster, InGameMenuGUI *inGameMenuGUI, HandleInput *inputHandler)
 	: view(gameView), gui(guiMaster), gameMenuGUI(inGameMenuGUI), handleInput(inputHandler)
 {
-
-	survivalGameArea = new GameArea(Areas::Survival, Vector2u(3000, 1500));
-	hostileGameArea = new GameArea(Areas::Hostile, Vector2u(2000, 1000));
-	baseGameArea = new GameArea(Areas::Base, Vector2u(1440, 900));
-	finalGameArea = new GameArea(Areas::Final, Vector2u(1500, 250));
-
 	//A game will allways start in the baseGameArea
+	//currentGameArea = baseGameArea;
+
+	baseGameArea = new BaseGameArea(Vector2u(1440, 900));
+	survivalGameArea = new SurvivalGameArea(Vector2u(2000, 1500));
+	hostileGameArea = new HostileGameArea(Vector2u(2000, 1000));
+	finalGameArea = new FinalGameArea(Vector2u(1500, 250));
 	currentGameArea = baseGameArea;
-	lastArea = Areas::Base;
-	player.setAreaPaths(currentGameArea->getAreaPaths());
-	player.setBorders(currentGameArea->getAreaSize());
+	
+	lastArea = Base;
+	player.setAreaPaths(baseGameArea->getAreaPaths());
+	player.setBorders(baseGameArea->getAreaSize());
 }
 
 
@@ -32,8 +34,7 @@ GameLoop::~GameLoop()
 {
 }
 
-
-GameArea *GameLoop::getCurrentGameArea(){
+IGameArea *GameLoop::getCurrentGameArea(){	
 	return currentGameArea;
 }
 
@@ -50,10 +51,9 @@ bool GameLoop::GameOver(){
 }
 
 void GameLoop::CombatOver(){
-	
 	playerEnteredCombatPhase = false;
 	timer.restart();
-	currentGameArea->removeAreaEnemy(currentGameArea->getAreaEnemies()->at(enemyVectorIndex));
+	getCurrentGameArea()->removeAreaEnemy(currentGameArea->getAreaEnemies()->at(enemyVectorIndex));
 }
 
 bool GameLoop::switchToCombat(){
@@ -129,8 +129,8 @@ void GameLoop::RunGame(RenderWindow *window){
 	for (int i = 0; i < currentGameArea->getAreaObjects().size(); ++i){
 		//if a player is near an interactable game object a quick menu will be displayed
 		if(currentGameArea->getAreaObjects()[i]->isTriggerd(&player)){
+
 			triggerdObject = currentGameArea->getAreaObjects()[i];
-			//gui.setQuickMenu(currentGameArea->getAreaObjects()[i]);
 			break;
 		}
 	}	
@@ -142,8 +142,6 @@ void GameLoop::RunGame(RenderWindow *window){
 			enemyVectorIndex = i;
 			player.savePosition();
 			break;
-			//TODO: ADD ANIMATIOn
-
 		}
 	}		
 
@@ -190,16 +188,16 @@ void GameLoop::EnterNewArea(RenderWindow *window, View *view){
 			currentGameArea = hostileGameArea;
 			break;
 
+		case Final:
+			currentGameArea = finalGameArea;
+			break;
+
 		//TODO: write cases
 		case Dungeon:
 			break;
 
 		case Trigger_Final_Area:
 			return;
-
-		case Final:
-			currentGameArea = finalGameArea;
-			break;
 
 		case No_Area:
 			break;
@@ -271,40 +269,59 @@ void GameLoop::ExecuteObjectTrigger(RenderWindow *window){
 				currentGameArea->removeAreaObject(triggerdObject);
 				player.StatsManager()->ConsumeActionPoints(1);
 			}
-			//TODO: add ingame error displaying that the player does not have sufficient AP
+			else {
+				gui->AddGameAlert("You do not have sufficient Action Points.", player.getPosition() + Vector2f(player.getSize().x, 0));
+			}		
 			break;
 
 		case TriggerType::Build: 
-			triggerdObject->MaterialListManager()->addItemsToConstruction(&player);
+			if (player.StatsManager()->getRemaningActionPoints() > 0){
+				triggerdObject->MaterialListManager()->addItemsToConstruction(&player);
 
-			if (triggerdObject->MaterialListManager()->getMaterialList().size() <= 0){
-				triggerdObject->completeConstruction();
+				if (triggerdObject->MaterialListManager()->getMaterialList().size() <= 0){
+					triggerdObject->completeConstruction();
+				}
 			}
-			//TODO: build trigger for construction
+			else {
+				gui->AddGameAlert("You do not have sufficient Action Points.", player.getPosition() + Vector2f(player.getSize().x, 0));
+			}
 			break;
 
 
 		case TriggerType::Interactable:
 			switch (triggerdObject->getObjectType())
 			{
-			case GameObjectType::Bed:				
-				gui->activateSleepAnimation(Vector2f(window->getSize().x, window->getSize().y));
-				handleInput->DisableControls(gui->getSleepAnimationTime());
-				player.Sleep();
-				amountOfDaysLeft -= 1;
-				//TODO: give the player a notice on the last day to warn them that the game is about to be over.
+				case GameObjectType::Bed:				
+					gui->activateSleepAnimation(Vector2f(window->getSize().x, window->getSize().y), baseGameArea->playerHasBurningFirePlace());
+					handleInput->DisableControls(gui->getSleepAnimationTime());
+					player.Sleep(baseGameArea->playerHasBurningFirePlace());
+					amountOfDaysLeft -= 1;
+					//TODO: give the player a notice on the last day to warn them that the game is about to be over.
 
-				//if there is 0 days left then the game is over.
-				if (amountOfDaysLeft <= 0){
-					isGameOver = true;
-				}
-				break; 
+					//if there is 0 days left then the game is over.
+					if (amountOfDaysLeft <= 0){
+						isGameOver = true;
+					}
+					break; 
 
-			default:
-				throw "Object type is not interactable.";
-				break;
+				default:
+					throw "Object type is not interactable.";
+					break;
 			}
 			break;
+
+
+		case TriggerType::Set_On_Fire:
+			if (player.SkillManager()->hasPlayerLearnedFireball() &&
+				player.SkillManager()->canSetObjectOnFire()){
+
+				triggerdObject->setOnFire();
+			}
+			else{
+				gui->AddGameAlert("You have not yet learned the skill Hadouk...I mean Fireball.", player.getPosition() + Vector2f(player.getSize().x, 0));
+			}
+			break;
+
 		case TriggerType::No_Action:
 			//Nothing happens
 			break;

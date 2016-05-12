@@ -1,4 +1,5 @@
 #include "PlayerSkillManager.h"
+#include "Skill_FireBall.h"
 
 
 PlayerSkillManager::PlayerSkillManager()
@@ -11,8 +12,21 @@ PlayerSkillManager::~PlayerSkillManager()
 {
 }
 
+bool PlayerSkillManager::hasPlayerLearnedFireball(){
+	return playerHasLearnedFireball;
+}
 
-vector<Skill*>* PlayerSkillManager::getPlayerSkills(){
+//returns true if the player can set an object on fire, otherwise false.
+bool PlayerSkillManager::canSetObjectOnFire(){
+	if (fireballSkill->CanCast()){
+
+		fireballSkill->ConsumeSkillStats();
+		return true;
+	}
+	return false;
+}
+
+vector<IPlayerSkill*>* PlayerSkillManager::getPlayerSkills(){
 	return &playerSkills;
 }
 
@@ -26,12 +40,16 @@ void PlayerSkillManager::LearnSkill(LevelEXPRequirement playerLevel, PlayerStats
 			break;
 
 		case LEVEL_3:
-			//Add fireball
-			playerSkills.push_back(new Skill_FireBall(playerStats));
+			//TODO: optimize
+			//since fireball can have effects outside of combat it needs to be abel to be called
+			//at any point
+			fireballSkill = new Skill_FireBall(playerStats);
+			playerSkills.push_back(fireballSkill);
+			playerHasLearnedFireball = true;
 			break;
 
 		case LEVEL_5:
-			//LEARN CLEAVE
+			//TODO: learn cleave
 			break;
 
 		case LEVEL_MAX:

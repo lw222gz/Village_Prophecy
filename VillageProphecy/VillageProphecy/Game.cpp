@@ -50,12 +50,12 @@ void Game::StartGame(){
 				break;
 
 			case GameState::Combat:
-				//TODO: draw background.
-
+				//The game freezes the screen and when the transission animation has covered the 
+				//screen normal rendering is resumed.
 				if (gameCombatLoop.isNormalRenderingActive()){
 					window.clear(Color::White);
+					gui.DrawGameCombatGrassBackground(&window, &view);
 				}
-				gui.DrawGameCombatGrassBackground(&window, &view);
 
 				gameCombatLoop.runCombatLoop(&window, gameLoop.getCombatEnemies());
 				

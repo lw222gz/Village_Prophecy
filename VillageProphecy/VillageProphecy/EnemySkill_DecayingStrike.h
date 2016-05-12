@@ -12,7 +12,7 @@ public:
 	~EnemySkill_DecayingStrike();
 
 	string getSkillName();
-	float getSkillDamage();
+	int getSkillDamage();
 	SkillEffect getEffect();
 	bool CanCast();
 	int roundsToLast();

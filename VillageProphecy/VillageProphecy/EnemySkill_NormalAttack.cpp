@@ -18,7 +18,7 @@ string EnemySkill_NormalAttack::getSkillName(){
 	return "Normal Attack";
 }
 
-float EnemySkill_NormalAttack::getSkillDamage(){
+int EnemySkill_NormalAttack::getSkillDamage(){
 	return enemy->getAttackDamage();
 }
 

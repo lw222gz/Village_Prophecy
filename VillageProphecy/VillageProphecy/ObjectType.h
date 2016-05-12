@@ -6,6 +6,7 @@ enum GameObjectType
 {
 	Tree = 300,
 	Fireplace,
+	Burning_Fireplace,
 	Bed,
 	None
 };

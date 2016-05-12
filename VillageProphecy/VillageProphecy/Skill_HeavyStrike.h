@@ -1,12 +1,12 @@
 #pragma once
-#include "Skill.h"
+#include "IPlayerSkill.h"
 #include "PlayerStatsManager.h"
 
 //forward decleration
 class Skill;
 class PlayerStatsManager;
 
-class Skill_HeavyStrike : public Skill
+class Skill_HeavyStrike : public IPlayerSkill
 {
 public:
 	Skill_HeavyStrike(PlayerStatsManager *playerStats);
@@ -14,9 +14,9 @@ public:
 
 	string getSkillName();
 	string getSkillDescripion();
-	float getSkillDamage();
+	int getSkillDamage();
 	SkillConsumeableStats getStatConsumeType();
-	float getConsumeAmount();
+	int getConsumeAmount();
 	void ConsumeSkillStats();
 	bool CanCast();
 	

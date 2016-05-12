@@ -3,7 +3,9 @@
 #include "InGameMenuGUI.h"
 #include "HandleInput.h"
 #include "EnemySkill.h"
-
+#include <math.h>
+#include <stdio.h>
+#include <cstdio>
 
 class GameCombatLoop
 {
@@ -46,7 +48,7 @@ private:
 	void ExecuteEnemySkillEffect(SkillEffect skillEffect);
 	void PlayerCanGoBack();
 	void PlayerDealsDamage(vector<Enemy*> *enemies, int damage);
-	void PlayerTakesDamage(float amount, EnemyType enemyType, string attackName);
+	void PlayerTakesDamage(int amount, EnemyType enemyType, string attackName);
 
 	float debuffTickTimer = 0;
 	int debuffTickIndex = 0;

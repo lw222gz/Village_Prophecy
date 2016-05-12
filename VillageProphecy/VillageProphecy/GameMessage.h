@@ -7,24 +7,28 @@ using namespace sf;
 class GameMessage
 {
 public:
-	GameMessage(string message, Vector2f position) : GameMessage(message, position) {};
-	GameMessage(string message, Vector2f position, float _timeToLive);
+	GameMessage(string message, Vector2f position) : GameMessage(message, position, 0, 24) {};
+	GameMessage(string message, Vector2f position, float _timeToLive, int characterSize = 24);
 	~GameMessage();
 
-	void updateMessageTimer(float elapsedTime);
+	
 	float getLifeTimePercent();
 	Text getMessage();
 	void setPosition(Vector2f position);
 	void addToCurrentPosition(Vector2f amount);
-	float getTextSpeed();
-	bool IsMoving();
 
+	void DrawMessage(RenderWindow *window, float elapsedTime);
+	void DrawMessage(RenderWindow *window, float elapsedTime, Transform transformation);
 
 private:
 	Text text;
 	Font coolvetica;
+	Vector2f startPosition;
+	//speed of the per second.
+	float textSpeed = -70;
 	float timeExisted = 0;
-	bool isMoving = false;
 	const float timeToLive = 0;
+
+	void updateMessageTimer(float elapsedTime);
 };
 
