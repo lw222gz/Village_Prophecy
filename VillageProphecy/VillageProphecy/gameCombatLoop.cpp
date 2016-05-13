@@ -366,7 +366,7 @@ void GameCombatLoop::ExecuteRandomEnemySkill(Enemy *enemy){
 			usableSkillIndexes.push_back(i);
 		}
 	}
-	srand(time(NULL));
+
 	int randomIndex = rand() % usableSkillIndexes.size();
 
 	PlayerTakesDamage(enemy->getEnemySkills()->at(randomIndex)->getSkillDamage(),

@@ -101,7 +101,7 @@ void GameLoop::RunGame(RenderWindow *window){
 		}
 		//if no input is given the freezed game is drawn.
 		else {
-			gui->DrawGame(currentGameArea->getAreaVisualObjects(), window, view, &player, triggerdObject, &timeElapsed, amountOfDaysLeft);
+			gui->DrawGame(currentGameArea->getAreaVisualObjects(), currentGameArea->getAreaEnemies(),window, view, &player, triggerdObject, &timeElapsed, amountOfDaysLeft);
 			gameMenuGUI->DrawGameMenu(window, &player);
 			gui->DrawConfirmationBox(window, view, "Are you ready for the final area?");
 			return;
@@ -163,7 +163,7 @@ void GameLoop::RunGame(RenderWindow *window){
 	}
 
 	//draw the game
-	gui->DrawGame(currentGameArea->getAreaVisualObjects(), window, view, &player, triggerdObject, &timeElapsed, amountOfDaysLeft);
+	gui->DrawGame(currentGameArea->getAreaVisualObjects(), currentGameArea->getAreaEnemies(), window, view, &player, triggerdObject, &timeElapsed, amountOfDaysLeft);
 	gameMenuGUI->DrawGameMenu(window, &player);
 }
 
@@ -228,9 +228,9 @@ void GameLoop::EnterNewArea(RenderWindow *window, View *view){
 			}
 		}
 	}
-	//temp solution due to final area has no path back.
+	//TODO: fix this temp solution due to final area has no path back.
 	else{
-		player.setPlayerPosition(Vector2f(currentGameArea->getAreaSize().x - 100, currentGameArea->getAreaSize().y / 2));	
+		player.setPlayerPosition(Vector2f(currentGameArea->getAreaSize().x - 100, currentGameArea->getAreaSize().y / 2 - 15));	
 		x = currentGameArea->getAreaSize().x - window->getSize().x / 2;
 		y = 200;
 		
@@ -295,8 +295,11 @@ void GameLoop::ExecuteObjectTrigger(RenderWindow *window){
 					gui->activateSleepAnimation(Vector2f(window->getSize().x, window->getSize().y), baseGameArea->playerHasBurningFirePlace());
 					handleInput->DisableControls(gui->getSleepAnimationTime());
 					player.Sleep(baseGameArea->playerHasBurningFirePlace());
-					amountOfDaysLeft -= 1;
+					amountOfDaysLeft -= 1;			
 					//TODO: give the player a notice on the last day to warn them that the game is about to be over.
+					
+					hostileGameArea->RespawnEnemies(amountOfDaysLeft);
+					survivalGameArea->RespawnResources(amountOfDaysLeft);
 
 					//if there is 0 days left then the game is over.
 					if (amountOfDaysLeft <= 0){

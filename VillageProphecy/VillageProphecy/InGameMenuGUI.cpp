@@ -339,7 +339,7 @@ void InGameMenuGUI::DrawPlayerStats(RenderWindow *window, Player *player){
 	displayText.setPosition(0, 0);
 
 	//Hunger bar
-	statBar.setSize(Vector2f(150 * (player->StatsManager()->getPlayerHunger() / player->StatsManager()->getPlayerMAXHunger()), 10));
+	statBar.setSize(Vector2f(150 * ((float)player->StatsManager()->getPlayerHunger() / (float)player->StatsManager()->getPlayerMAXHunger()), 10));
 	window->draw(behindStatBar, transformation);
 	window->draw(statBar, transformation);
 
@@ -351,7 +351,7 @@ void InGameMenuGUI::DrawPlayerStats(RenderWindow *window, Player *player){
 	transformation.translate(0, 30);
 
 	//Mood bar	
-	statBar.setSize(Vector2f(150 * (player->StatsManager()->getPlayerMood() / player->StatsManager()->getPlayerMAXMood()), 10));
+	statBar.setSize(Vector2f(150 * ((float)player->StatsManager()->getPlayerMood() / (float)player->StatsManager()->getPlayerMAXMood()), 10));
 	window->draw(behindStatBar, transformation);
 	window->draw(statBar, transformation);
 
@@ -363,7 +363,7 @@ void InGameMenuGUI::DrawPlayerStats(RenderWindow *window, Player *player){
 	transformation.translate(0, 30);
 
 	//Stamina bar	
-	statBar.setSize(Vector2f(150 * (player->StatsManager()->getPlayerStamina() / player->StatsManager()->getPlayerMAXStamina()), 10));
+	statBar.setSize(Vector2f(150 * ((float)player->StatsManager()->getPlayerStamina() / (float)player->StatsManager()->getPlayerMAXStamina()), 10));
 	window->draw(behindStatBar, transformation);
 	window->draw(statBar, transformation);
 

@@ -4,7 +4,8 @@
 //A visual enemy is an enemy that is in the game world. If the player collides
 //with this enemy the combat phase initiates and the player meets the enemies in this
 //objects enemyGroup
-VisualEnemy::VisualEnemy(EnemyVisualType visualType, Vector2f pos, int level) : type(visualType), enemyGroupLevel(level)
+VisualEnemy::VisualEnemy(EnemyVisualType visualType, Vector2f pos, int level) 
+	: type(visualType), enemyGroupLevel(level)
 {
 	enemySprite.setPosition(pos);
 	setValues();
@@ -13,6 +14,15 @@ VisualEnemy::VisualEnemy(EnemyVisualType visualType, Vector2f pos, int level) : 
 
 VisualEnemy::~VisualEnemy()
 {
+}
+
+EnemyVisualType VisualEnemy::getType(){
+	return type;
+}
+
+//returns enemy level
+int VisualEnemy::getEnemyLevel(){
+	return enemyGroupLevel;
 }
 
 Sprite VisualEnemy::getSprite(){
@@ -73,7 +83,6 @@ void VisualEnemy::generareMobGroup(){
 	switch (type)
 	{
 		case Skeleton:
-				srand(time(NULL));
 				amountOfMobs = 1;//rand() % 3 + 1;
 
 				for (int i = 0; i < amountOfMobs; ++i){
@@ -84,7 +93,6 @@ void VisualEnemy::generareMobGroup(){
 			
 			
 		case Humans:
-			srand(time(NULL));
 			amountOfMobs = 1;//rand() % 3 + 1;
 
 			for (int i = 0; i < amountOfMobs; ++i){

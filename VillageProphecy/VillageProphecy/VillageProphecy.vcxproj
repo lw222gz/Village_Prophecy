@@ -96,6 +96,7 @@
     <ClCompile Include="GUIMaster.cpp" />
     <ClCompile Include="HandleInput.cpp" />
     <ClCompile Include="HostileGameArea.cpp" />
+    <ClCompile Include="IGameArea.cpp" />
     <ClCompile Include="InGameMenuGUI.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Material.cpp" />

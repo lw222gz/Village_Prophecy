@@ -1,27 +1,11 @@
-﻿Build started 2016-05-12 20:15:47.
+﻿Build started 2016-05-13 18:26:22.
      1>Project "C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\VillageProphecy\VillageProphecy.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt BaseGameArea.cpp CombatGUI.cpp GUIMaster.cpp Game.cpp GameCombatLoop.cpp GameLoop.cpp GameObject.cpp HandleInput.cpp InGameMenuGUI.cpp Inventory.cpp MaterialList.cpp Player.cpp PlayerSkillManager.cpp PlayerStatsManager.cpp Skill_FireBall.cpp Skill_HeavyStrike.cpp Source.cpp SurvivalGameArea.cpp
-         PlayerSkillManager.cpp
-         Generating Code...
-         Skipping... (no relevant changes detected)
-         SurvivalGameArea.cpp
-         Source.cpp
-         Skill_HeavyStrike.cpp
-         PlayerStatsManager.cpp
-         Player.cpp
-         MaterialList.cpp
-         Inventory.cpp
-         InGameMenuGUI.cpp
-         HandleInput.cpp
-         GameObject.cpp
-         GameLoop.cpp
-         GameCombatLoop.cpp
-         Game.cpp
-         GUIMaster.cpp
-         CombatGUI.cpp
-         BaseGameArea.cpp
-         Skill_FireBall.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt HostileGameArea.cpp
+         HostileGameArea.cpp
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\hostilegamearea.cpp(46): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\hostilegamearea.cpp(53): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\hostilegamearea.cpp(121): warning C4018: '>=' : signed/unsigned mismatch
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.exe" /INCREMENTAL /NOLOGO /LIBPATH:"D:\SFML-2.3.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-main-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.lib" /MACHINE:X86 Debug\BaseGameArea.obj
          Debug\CombatGUI.obj
@@ -38,6 +22,7 @@
          Debug\GUIMaster.obj
          Debug\HandleInput.obj
          Debug\HostileGameArea.obj
+         Debug\IGameArea.obj
          Debug\InGameMenuGUI.obj
          Debug\Inventory.obj
          Debug\Material.obj
@@ -52,10 +37,9 @@
          Debug\Source.obj
          Debug\SurvivalGameArea.obj
          Debug\VisualEnemy.obj
-     1>sfml-main-d.lib(MainWin32.cpp.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'sfml-main-d.lib(MainWin32.cpp.obj)' or at 'C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\vc120.pdb'; linking object as if no debug info
          VillageProphecy.vcxproj -> C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.exe
      1>Done Building Project "C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\VillageProphecy\VillageProphecy.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:05.13
+Time Elapsed 00:00:03.30

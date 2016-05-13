@@ -14,6 +14,9 @@ public:
 	bool collideWithPlayer(Vector2f playerPos, Vector2u playerSize);
 	vector<Enemy*>* getEnemyGroup();
 
+	int getEnemyLevel();
+	EnemyVisualType getType();
+
 private:
 	Sprite enemySprite;
 	Texture enemyTexture;

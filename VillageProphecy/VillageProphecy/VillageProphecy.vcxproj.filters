@@ -162,6 +162,9 @@
     <ClCompile Include="SurvivalGameArea.cpp">
       <Filter>Source Files\Game Fields\GameAreas</Filter>
     </ClCompile>
+    <ClCompile Include="IGameArea.cpp">
+      <Filter>Source Files\Game Fields</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IDrawAble.h">

@@ -95,7 +95,7 @@ void GUIMaster::DrawGameGrassBackground(RenderWindow *window, IGameArea *area){
 * t: pointer to a Time object representing the time spent in the current iteration of the loop.
 * amountOfDaysLeft: integer representing the amount of days left before gameover.
 */
-void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, View *gameView, 
+void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, vector<VisualEnemy*> *areaEnemies, RenderWindow *window, View *gameView,
 						Player *player, GameObject *triggerdObj, Time *t, int amountOfDaysLeft){
 
 	//Optimize: Remove the need of reversing the vector
@@ -105,6 +105,14 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, V
 	for (int i = 0; i < gameObjects.size(); ++i){
 		window->draw(gameObjects[i]->getSprite());
 	}	
+
+	//draw enemies, their names and levels
+	for (int i = 0; i < areaEnemies->size(); ++i){
+		window->draw(areaEnemies->at(i)->getSprite());
+		displayText.setString("Lv " + to_string(areaEnemies->at(i)->getEnemyLevel()) + " " + getStringRepresentation(areaEnemies->at(i)->getType()));
+		displayText.setPosition(areaEnemies->at(i)->getSprite().getPosition() - Vector2f(0, 25));
+		window->draw(displayText);
+	}
 
 	//If triggerdObj isent null a quick menu should be displayed.
 	if (triggerdObj != NULL && triggerdObj->getTriggerType() != TriggerType::No_Action){
@@ -156,22 +164,6 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, V
 		}
 	}
 
-	//lastly draw the player sprite to make sure that the player is allways visible.
-	window->draw(player->getSprite());
-
-	
-	//Draw animation
-	if (sleepAnimationActive){
-		sleepAnimation(window, t);	
-	}
-
-	//draw amount of days left.
-	displayText.setString("Amount of days left: " + to_string(amountOfDaysLeft));
-	displayText.setPosition(gameView->getCenter().x - window->getSize().x/2,
-							gameView->getCenter().y - window->getSize().y/2);
-	window->draw(displayText);
-
-
 	//draw alert messages
 	for (int i = 0; i < gameAlerts.size(); ++i){
 
@@ -182,6 +174,23 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, RenderWindow *window, V
 			gameAlerts.erase(gameAlerts.begin() + i);
 		}
 	}
+
+
+
+	//lastly draw the player sprite to make sure that the player is allways visible.
+	//ANYTHING BELOW THIS POINT HAS PRIORITY OVER THE PLAYER IN THE DRAW ORDER.
+	window->draw(player->getSprite());
+
+	//Draw animation
+	if (sleepAnimationActive){
+		sleepAnimation(window, t);
+	}
+
+	//draw amount of days left.
+	displayText.setString("Amount of days left: " + to_string(amountOfDaysLeft));
+	displayText.setPosition(gameView->getCenter().x - window->getSize().x/2,
+							gameView->getCenter().y - window->getSize().y/2);
+	window->draw(displayText);
 }
 
 
@@ -200,32 +209,41 @@ template <class T>
 string GUIMaster::getStringRepresentation(T enumValue){
 	switch (enumValue)
 	{
-	case TriggerType::Loot:
-		return "Loot";
+		case TriggerType::Loot:
+			return "Loot";
 
-	case TriggerType::Harvest:
-		return "Harvest";
+		case TriggerType::Harvest:
+			return "Harvest";
 
-	case TriggerType::Interactable:
-		return "Go To";
+		case TriggerType::Interactable:
+			return "Go To";
 
-	case TriggerType::Build:
-		return "Construct";
+		case TriggerType::Build:
+			return "Construct";
 
-	case TriggerType::Set_On_Fire:
-		return "Ignite";
+		case TriggerType::Set_On_Fire:
+			return "Ignite";
 
-	case GameObjectType::Tree:
-		return "Wood";
+		case GameObjectType::Tree:
+			return "Wood";
 
-	case GameObjectType::Fireplace:
-		return "Fireplace";
+		case GameObjectType::Fireplace:
+			return "Fireplace";
 
-	case GameObjectType::Bed:
-		return "Sleep";
+		case GameObjectType::Bed:
+			return "Sleep";
 
-	default:
-		return "No string rep";
+		case EnemyVisualType::Skeleton:
+			return "Skeleton";
+
+		case EnemyVisualType::Humans:
+			return "Human"; 
+
+		case EnemyVisualType::Executioner:
+			return "Executioner";
+
+		default:
+			return "No string rep";
 	}
 
 }
@@ -262,8 +280,9 @@ void GUIMaster::DrawConfirmationBox(RenderWindow *window, View *view, string que
 void GUIMaster::activateSleepAnimation(Vector2f screenSize, bool hasFire){
 	sleepMessage = "You slept through the night. \n";
 	if (!hasFire){
-		sleepMessage += ("You had not fire to warm your body during the cold night. Health lost. \n");
+		sleepMessage += "You had no fire to warm your body during the cold night. Health lost. \n";
 	}
+
 	sleepAnimationActive = true;
 	screenCoverRect.setSize(screenSize);
 	screenCoverRect.setFillColor(Color(0, 0, 0, 0));

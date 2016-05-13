@@ -21,8 +21,8 @@ public:
 	int getAttackDamage();
 	void setPosition(int x, int y);
 	int getXPGrant();
+	
 	vector<EnemySkill*> *getEnemySkills();
-
 
 private:
 	void setEnemyStats();

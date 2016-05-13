@@ -13,6 +13,7 @@ public:
 	GUIMaster();
 	~GUIMaster();
 	void DrawGame(vector<IDrawAble*> gameObjects, 
+				vector<VisualEnemy*> *areaEnemies,
 				RenderWindow *window, 
 				View *gameView, 
 				Player *player,

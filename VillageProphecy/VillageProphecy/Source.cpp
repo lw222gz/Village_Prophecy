@@ -13,6 +13,7 @@
 *
 */
 int main(){
+	srand(time(NULL));
 	Game game;
 	game.StartGame();
 

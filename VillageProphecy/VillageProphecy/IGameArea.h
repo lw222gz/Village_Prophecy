@@ -21,5 +21,8 @@ public:
 	virtual void removeAreaObject(GameObject *obj) = 0;
 	virtual void removeAreaEnemy(VisualEnemy *enemy) = 0;
 	virtual void generateGameArea() = 0;
+
+protected:
+	Vector2f getRandomCords(int areaWidth, int areaHeight, float textureWidth, float textureHeight);
 	
 };

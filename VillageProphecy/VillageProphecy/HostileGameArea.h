@@ -16,6 +16,8 @@ public:
 	void removeAreaObject(GameObject *obj);
 	void removeAreaEnemy(VisualEnemy *enemy);
 
+	void RespawnEnemies(int daysLeft);
+
 private:
 	void generateGameArea();
 	vector<VisualEnemy*> enemies;
@@ -25,5 +27,14 @@ private:
 	Vector2f entryPoint;
 	vector<GameObject*> areaObjects;
 	vector<Path*> areaPaths;
+
+	Path *path = NULL;
+	VisualEnemy *enemy = NULL;
+
+	void SpawnEnemies(int amount);
+
+	int maxAmountOfEnemies = 10;
+	int enemyMinLevels = 1;
+	int enemyMaxLevels = 3;	
 };
 
