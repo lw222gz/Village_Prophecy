@@ -1,7 +1,7 @@
 #pragma once
-#include "GameObject.h"
 #include "IGameArea.h"
 #include "GameMessage.h"
+#include "TextureLoader.h"
 
 
 using namespace sf;
@@ -10,14 +10,14 @@ using namespace std;
 class GUIMaster
 {
 public:
-	GUIMaster();
+	GUIMaster(TextureLoader *textures);
 	~GUIMaster();
 	void DrawGame(vector<IDrawAble*> gameObjects, 
 				vector<VisualEnemy*> *areaEnemies,
 				RenderWindow *window, 
 				View *gameView, 
 				Player *player,
-				GameObject *triggerdObj,
+				IGameObject *triggerdObj,
 				Time *t,
 				int amountOfDaysLeft);
 
@@ -38,6 +38,7 @@ public:
 	float getSleepAnimationTime();
 
 private:
+	TextureLoader *textures;
 	bool sleepAnimationActive = false;
 	float currentAnimationTime = 0;
 	const float sleepFadeTime = 2;
@@ -48,20 +49,12 @@ private:
 
 	RectangleShape confirmationBox;
 
-	Font coolvetica;
 	Text displayText;
 
 	Sprite quickMenuSprite;
-	Texture quickMenuTexture;
-
 	Sprite gameOverSprite;
-	Texture gameOverTexture;
-
 	Sprite gameWonSprite;
-	Texture gameWonTexture;
-
 	Sprite GrassBackgroundSprite;
-	Texture GrassBackgroundTexture;
 
 	vector<GameMessage*> gameAlerts;
 	

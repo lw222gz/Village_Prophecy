@@ -1,10 +1,22 @@
 #include "GameCombatLoop.h"
 #include "EnemySkill.h"
 
-GameCombatLoop::GameCombatLoop(View *gameView, Player *p, InGameMenuGUI *inGameMenuGUI, HandleInput *inputHandler)
+/*
+* <DESCRIPTION>
+* Constructo for the GameCombatLoop class
+* initiates base values and initiates the CombatGUI class.
+*
+* @PARAMS
+* *gameView: pointer to the game view object
+* *p: pointer to the Player object
+* *inGameMenuGUI: pointer to the InGameMenuGUI object
+* *inputHandler: pointer to the HandleInput object.
+* *_textures: pointer to the TextureLoader object.
+*/
+GameCombatLoop::GameCombatLoop(View *gameView, Player *p, InGameMenuGUI *inGameMenuGUI, HandleInput *inputHandler, TextureLoader *textures)
 	: view(gameView), player(p), combatMenuGUI(inGameMenuGUI), handleInput(inputHandler)
 {
-	gui = new CombatGUI(view);
+	gui = new CombatGUI(view, textures);
 }
 
 
@@ -21,6 +33,10 @@ bool GameCombatLoop::IsCombatOver(){
 }
 
 
+/*
+* @RETURNS
+* returns boolean representing if the player has lost the game or not, true if the player has lost otherwise false.
+*/
 bool GameCombatLoop::IsGameOver(){
 	return (currentCombatState == CombatState::Game_Over);
 }
@@ -51,7 +67,7 @@ void GameCombatLoop::InitiateCombatLoopValues(){
 	//clears any debuffs form previous battle 
 	playerDebuffs.clear();
 	//sets so the player faces the enemies
-	player->ResetReflectSprite();
+	player->ResetPlayerReflectSprite();
 }
 
 /*
@@ -316,7 +332,15 @@ void GameCombatLoop::ExecuteCombatOption(){
 	}
 }
 
-
+/*
+* <DESCRIPTION>
+* Called when the player deals damage to an enemy,
+* calls functions to display the visual damage numbers and deals the damage to the enemy object
+*
+* @PARAMS
+* *enemies: pointer to the vecotr of Enemy objects the player is batteling
+* damage: integer representing the amount of damage the player deals.
+*/
 void GameCombatLoop::PlayerDealsDamage(vector<Enemy*> *enemies, int damage){
 	currentCombatState = CombatState::Enemy_Turn;
 	currentEnemyTurnTime = 0;
@@ -349,8 +373,11 @@ void GameCombatLoop::PlayerDealsDamage(vector<Enemy*> *enemies, int damage){
 
 }
 
-//Any combat state that is where the player is in control this method should be called
-//to see if the player want to go back to the base of choosing an action
+/*
+* <DESCRIPTION>
+* When this method is called the combat loop the player can return to the
+* Choosing_Action state mainly so the player can go back and do a diffrent choice.
+*/
 void GameCombatLoop::PlayerCanGoBack(){
 	//space key to go back 
 	if (handleInput->CheckResetCombatStateInput()){
@@ -358,7 +385,15 @@ void GameCombatLoop::PlayerCanGoBack(){
 	}
 }
 
-//executes a enemy skill
+/*
+* <DESCRIPTION>
+* Picks a random index in the enemy skill vector and 
+* deals the skill damage to the player.
+* If the skill executed is debuff orientated the debuff is added to the player.
+*
+* @PARAMS
+* *enemy: pointer to the enemy object that is executing a skill.
+*/
 void GameCombatLoop::ExecuteRandomEnemySkill(Enemy *enemy){
 	vector<int> usableSkillIndexes;
 	for (int i = 0; i < enemy->getEnemySkills()->size(); ++i){
@@ -405,8 +440,13 @@ void GameCombatLoop::ExecuteRandomEnemySkill(Enemy *enemy){
 	
 }
 
-//TODO: add status text dispaly when called.
-//executes a skill effect
+/*
+* <DESCRIPTION>
+* Executes the skill effect of an enemy skill.
+*
+* @PARAMS
+* skillEffect: SkillEffect struct from the skill class pointer in the enemy skills vector.
+*/
 void GameCombatLoop::ExecuteEnemySkillEffect(SkillEffect skillEffect){
 
 	switch (skillEffect.consumes)
@@ -435,7 +475,16 @@ void GameCombatLoop::ExecuteEnemySkillEffect(SkillEffect skillEffect){
 	}
 }
 
-//deals damage to the player and calls gui method to display damage numbers
+/*
+* <DESCRIPTION>
+* Deals damage to the player 
+* and calls methods to display damage numbers and text representing the attack.
+*
+* @PARAMS
+* amount: integer representing the amount of damage taken
+* enemyType: EnemyType enum value of the type of enemy that attacked.
+* attackName: string representation of the attack name the enemy used.
+*/
 void GameCombatLoop::PlayerTakesDamage(int amount, EnemyType enemyType, string attackName){
 	player->StatsManager()->playerHitPointsAffected(-amount);
 	//TODO: remove trailing zeroes.

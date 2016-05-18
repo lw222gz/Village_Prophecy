@@ -11,9 +11,10 @@
 * @PARAMS
 * typeOfEnemy: EnemyType enum value that describes the enemy rewards, stats and how it will act
 */
-Enemy::Enemy(EnemyType typeOfEnemy, int _level) : type(typeOfEnemy), level(_level)
-{	
-	setEnemyStats();
+Enemy::Enemy(EnemyType typeOfEnemy, int _level, Texture *enemyTexture) : type(typeOfEnemy), level(_level)
+{
+	enemySprite.setTexture(*enemyTexture);
+	setEnemyStats();	
 	setEnemySkills();
 }
 
@@ -95,12 +96,18 @@ bool Enemy::IsAlive(){
 	return hitPoints > 0;
 }
 
-
+/*
+* @RETURNS
+* returns integer representing the amount of experience points this enemy grants.
+*/
 int Enemy::getXPGrant(){
 	return XPGrant;
 }
 
-
+/*
+* @RETURNS
+* returns a pointer to this enemy skill vector.
+*/
 vector<EnemySkill*> *Enemy::getEnemySkills(){
 	return &enemySkills;
 }
@@ -114,30 +121,20 @@ vector<EnemySkill*> *Enemy::getEnemySkills(){
 void Enemy::setEnemyStats(){
 	switch (type)
 	{
-		case Skeleton_MELEE:
-			if (!enemyTexture.loadFromFile("Textures/Skeleton.png")){
-				throw "TEXTURE LOAD ERROR: Enemy::Skeleton could not load texture.";
-			}
+		//SET TEXTURES
+		case Skeleton_MELEE:			
 			hitPoints = 20;
 			XPGrant = 1000;
 			attackDamage = 4;	
 			break;
 
 		case Human_MELEE:
-			//TODO: add own texture
-			if (!enemyTexture.loadFromFile("Textures/HumanSoldier.png")){
-				throw "TEXTURE LOAD ERROR: Enemy::Skeleton could not load texture.";
-			}
-			
 			hitPoints = 75;
 			XPGrant = 100;
 			attackDamage = 7;
 			break;
 
-		case Executioner_BOSS:
-			if (!enemyTexture.loadFromFile("Textures/HumanExecutioner.png")){
-				throw "TEXTURE LOAD ERROR: Enemy::Executioner_BOSS could not load texture.";
-			}
+		case Executioner_BOSS:			
 			hitPoints = 300;
 			XPGrant = 999;
 			attackDamage = 13;	
@@ -151,18 +148,24 @@ void Enemy::setEnemyStats(){
 	
 	LevelBonus();
 	maxHitPoints = hitPoints;
-	enemySprite.setTexture(enemyTexture);
-
 }
 
-//Adds a level bonus to the current values.
+/*
+* <DESCRIPTION>
+* Adds level bonus stats to the enemy
+*/
 void Enemy::LevelBonus(){
 	hitPoints += hitPoints * level * levelBonus;
 	XPGrant += XPGrant * level * levelBonus;
 	attackDamage += attackDamage * level * levelBonus;
 }
 
+/*
+* <DESCRIPTION>
+* Sets the skills of this enemy. The skills the enemy knows is based on the type of the enemy.
+*/
 void Enemy::setEnemySkills(){
+	//all enemies have the normal attack skill
 	enemySkills.push_back(new EnemySkill_NormalAttack(this));
 
 	switch (type)
@@ -170,14 +173,16 @@ void Enemy::setEnemySkills(){
 		case Skeleton_MELEE:
 			enemySkills.push_back(new EnemySkill_DecayingStrike(this));
 			break;
+
 		case Human_MELEE:
 			break;
+
 		case Executioner_BOSS:
 			enemySkills.push_back(new EnemySkill_DecayingStrike(this));
 			enemySkills.push_back(new EnemySkill_BloodyStrike(this));
 			break;
+
 		default:
 			break;
 	}
-	
 }

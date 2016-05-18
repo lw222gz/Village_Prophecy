@@ -1,7 +1,7 @@
 #include "EnemySkill_BloodyStrike.h"
 
 //<summary> 
-//A Debuff attack that deals damage over a couple of rounds.
+//An attack that deals no initial damage but deals damage to the target each round for 5 rounds.
 
 EnemySkill_BloodyStrike::EnemySkill_BloodyStrike(Enemy *e) : enemy(e)
 {

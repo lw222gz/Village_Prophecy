@@ -5,39 +5,24 @@
 * GUIMaster constructor.
 * Initiates all general textures and fonts.
 */
-GUIMaster::GUIMaster()
+GUIMaster::GUIMaster(TextureLoader *_textures) 
+	: textures(_textures)
 {
 	//loads and sets textures
-	if (!gameOverTexture.loadFromFile("Textures/PHGameOver.png")){
-		throw "TEXTURE LOAD ERROR: Game over Texture did not load correctly";
-	}
-	gameOverSprite.setTexture(gameOverTexture);
+	//TODO: set textures
+	gameOverSprite.setTexture(*textures->getGameOverTexture());
 	
-
-	if (!quickMenuTexture.loadFromFile("Textures/QuickMenu.png")){
-		throw "TEXTURE LOAD ERROR: quickMenu texture did not load correctly.";
-	}
-	quickMenuSprite.setTexture(quickMenuTexture);
+	quickMenuSprite.setTexture(*textures->getQuickMenuTexture());
 	//makes the quick menu semi transparent
 	quickMenuSprite.setColor(Color(255, 255, 255, 128));
 
-
-	if (!gameWonTexture.loadFromFile("Textures/PHGameWon.png")){
-		throw "TEXTURE LOAD ERROR: won game texture could not load correctly.";
-	}
-	gameWonSprite.setTexture(gameWonTexture);	
-
-	if (!GrassBackgroundTexture.loadFromFile("Textures/Grass.png")){
-		throw "TEXTURE LOAD ERROR: Grass background texture did not load correctly.";
-	}
-	GrassBackgroundSprite.setTexture(GrassBackgroundTexture);
-
-	if (!coolvetica.loadFromFile("Textures/coolvetica.ttf")){
-		throw "FONT LOAD ERROR: could not load coolvetica.ttf correctly.";
-	}
+	
+	gameWonSprite.setTexture(*textures->getGameWonTexture());	
+	
+	GrassBackgroundSprite.setTexture(*textures->getBackground_GrassTexture());
 
 	//Text settings
-	displayText.setFont(coolvetica);
+	displayText.setFont(*textures->getCoolvecticaFont());
 	displayText.setCharacterSize(16);
 	displayText.setColor(Color::Black);
 	//displayText.setStyle(Text::Bold);
@@ -54,7 +39,14 @@ GUIMaster::~GUIMaster()
 }
 
 
-//draws a combat background with grass
+/*
+* <DESCRIPTION>
+* Draws a grass background for the combat phase of the game.
+*
+* @PARAMS
+* window: pointer to the game window object
+* view: pointer to the game View objec.t
+*/
 void GUIMaster::DrawGameCombatGrassBackground(RenderWindow *window, View *view){
 
 	for (int y = view->getCenter().y - (window->getSize().y / 2); 
@@ -72,7 +64,14 @@ void GUIMaster::DrawGameCombatGrassBackground(RenderWindow *window, View *view){
 
 }
 
-//draws background for the current area with grass
+/*
+* <DESCRIPTION>
+* Draws the game grass background
+*
+* @PARAMS
+* window: pointer to the game window object
+* area: pointer to the current game area object.
+*/
 void GUIMaster::DrawGameGrassBackground(RenderWindow *window, IGameArea *area){
 	for (int y = 0; y < area->getAreaSize().y; y += GrassBackgroundSprite.getLocalBounds().height){
 		for (int x = 0; x < area->getAreaSize().x; x += GrassBackgroundSprite.getLocalBounds().width){
@@ -96,7 +95,7 @@ void GUIMaster::DrawGameGrassBackground(RenderWindow *window, IGameArea *area){
 * amountOfDaysLeft: integer representing the amount of days left before gameover.
 */
 void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, vector<VisualEnemy*> *areaEnemies, RenderWindow *window, View *gameView,
-						Player *player, GameObject *triggerdObj, Time *t, int amountOfDaysLeft){
+						Player *player, IGameObject *triggerdObj, Time *t, int amountOfDaysLeft){
 
 	//Optimize: Remove the need of reversing the vector
 	//reverses the vector, thus items added first gets draw over items added after.
@@ -117,19 +116,19 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, vector<VisualEnemy*> *a
 	//If triggerdObj isent null a quick menu should be displayed.
 	if (triggerdObj != NULL && triggerdObj->getTriggerType() != TriggerType::No_Action){
 		//sets the position for the quick menu
-		quickMenuSprite.setPosition(player->getPosition().x + (player->getSize().x / 2) - quickMenuTexture.getSize().x / 2,
-									player->getPosition().y - quickMenuTexture.getSize().y - 20);
+		quickMenuSprite.setPosition(player->getPosition().x + (player->getSize().x / 2) - quickMenuSprite.getTexture()->getSize().x / 2,
+									player->getPosition().y - quickMenuSprite.getTexture()->getSize().y - 20);
 		//draws quickmenu
 		window->draw(quickMenuSprite);
 		//draw text in quickmenu
 		displayText.setString("Press 'R' to");
 		displayText.setPosition(player->getPosition().x - 20,
-			player->getPosition().y - quickMenuTexture.getSize().y);
+			player->getPosition().y - quickMenuSprite.getTexture()->getSize().y);
 		window->draw(displayText);
 
 		displayText.setString(getStringRepresentation(triggerdObj->getTriggerType()) + " " + getStringRepresentation(triggerdObj->getObjectType()));
 		displayText.setPosition(player->getPosition().x - 20,
-								player->getPosition().y - quickMenuTexture.getSize().y + 20);
+								player->getPosition().y - quickMenuSprite.getTexture()->getSize().y + 20);
 		window->draw(displayText);
 
 		//draws requirements for objects that can be constructed.
@@ -137,7 +136,7 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, vector<VisualEnemy*> *a
 			//Draw out required items for the construction
 			displayText.setString("Requires:");
 			displayText.setPosition(player->getPosition().x - 20,
-				player->getPosition().y - quickMenuTexture.getSize().y + 40);
+				player->getPosition().y - quickMenuSprite.getTexture()->getSize().y + 40);
 			window->draw(displayText);
 			
 			for (int i = 0; i < triggerdObj->MaterialListManager()->getMaterialList().size(); ++i){
@@ -145,7 +144,7 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, vector<VisualEnemy*> *a
 				displayText.setString(to_string(triggerdObj->MaterialListManager()->getMaterialList()[i]->getAmountRequired()) + " " +
 										getStringRepresentation(triggerdObj->MaterialListManager()->getMaterialList()[i]->getMaterialType()));
 				displayText.setPosition(player->getPosition().x - 20,
-										player->getPosition().y - quickMenuTexture.getSize().y + 60 + i*20);
+					player->getPosition().y - quickMenuSprite.getTexture()->getSize().y + 60 + i * 20);
 				window->draw(displayText);
 			}
 		}
@@ -154,12 +153,12 @@ void GUIMaster::DrawGame(vector<IDrawAble*> gameObjects, vector<VisualEnemy*> *a
 		else if (triggerdObj->getTriggerType() == Set_On_Fire){
 			displayText.setString("Requires:");
 			displayText.setPosition(player->getPosition().x - 20,
-									player->getPosition().y - quickMenuTexture.getSize().y + 40);
+									player->getPosition().y - quickMenuSprite.getTexture()->getSize().y + 40);
 			window->draw(displayText);
 
 			displayText.setString("Skill: Fireball");
 			displayText.setPosition(player->getPosition().x - 20,
-									player->getPosition().y - quickMenuTexture.getSize().y + 60);
+									player->getPosition().y - quickMenuSprite.getTexture()->getSize().y + 60);
 			window->draw(displayText);
 		}
 	}
@@ -248,7 +247,16 @@ string GUIMaster::getStringRepresentation(T enumValue){
 
 }
 
-//Draws a confirmation box
+/*
+* <DESCRIPTION>
+* Draws a confirmation box, this is used when the player is about to do something
+* that cant be reversed. 
+*
+* @PARAMS
+* window: pointer to the game window object.
+* view: pointer to the game view object.
+* question: string representation of the statement the player must confirm or deny.
+*/
 void GUIMaster::DrawConfirmationBox(RenderWindow *window, View *view, string question){
 	confirmationBox.setPosition(view->getCenter().x - confirmationBox.getSize().x / 2, view->getCenter().y - window->getSize().y / 3);
 
@@ -353,14 +361,28 @@ void GUIMaster::DrawGameOver(RenderWindow *window, View *view){
 	window->draw(gameOverSprite);
 }
 
-
+/*
+* <DESCRIPTION>
+* Draws a game won display.
+*
+* @PARAMS
+* window: pointer to the game window object.
+* view: pointer to the game view object.
+*/
 void GUIMaster::DrawGameWon(RenderWindow *window, View *view){
 	gameWonSprite.setPosition(view->getCenter().x - window->getSize().x / 2,
 								view->getCenter().y - window->getSize().y / 2);
 	window->draw(gameWonSprite);
 }
 
-//adds a game alert message
+/*
+* <DESCRIPTION>
+* Adds a GameAlert message. This is used on giving the player an error or waring alert.
+*
+* @PARAMS
+* mess: string representation of the message to display.
+* position: a Vector2f position that the message will spawn on.
+*/
 void GUIMaster::AddGameAlert(string mess, Vector2f position){
-	gameAlerts.push_back(new GameMessage(mess, position, 1.25, 16));
+	gameAlerts.push_back(new GameMessage(mess, position, 1.25, textures->getCoolvecticaFont(), 16));
 }

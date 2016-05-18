@@ -4,14 +4,18 @@
 * <DESCRIPTION>
 * Inventory class constructor.
 * Initiates the inventory with empty slots.
+*
+* @PARAMS
+* _textures: pointer to the TextureLoader class that contains all the textures
 */
-Inventory::Inventory() 
+Inventory::Inventory(TextureLoader *_textures)
+	: textures(_textures)
 {
 	//set amount of inventory spots
 	inventoryItems.reserve(6);
 	//TODO: Create empty inventory spots.
 	for (int i = 0; i < 6; i++){
-		inventoryItems.push_back(new GameItem(GameObjectType::None));
+		inventoryItems.push_back(new GameItem(GameObjectType::None, textures));
 	}
 }
 
@@ -80,5 +84,5 @@ void Inventory::removeInventoryItem(int index){
 	delete inventoryItems[index];
 
 	//makes the inventory spot empty
-	inventoryItems[index] = new GameItem(GameObjectType::None);
+	inventoryItems[index] = new GameItem(GameObjectType::None, textures);
 }

@@ -67,7 +67,18 @@ int HandleInput::CheckTargetChoiceInput(Time t, int currentIndex, vector<Enemy*>
 }
 
 
-//checks input for changing index of skill choice.
+/*
+* <DESCRIPTION>
+* Handles the switching between the skill choice index.
+*
+* @PARAMS
+* t: time object contaning the amount of time passed this iteration of the loop.
+* currentIndex: integer representing the current index of skill choice.
+* maxIndex: integer representing the max index of skill choices.
+*
+* @RETURNS
+* reutrns currentIndex with possible changed value
+*/
 int HandleInput::CheckSkillChoiceInput(Time *t, int currentIndex, int maxIndex){
 	if (controlsEnabled){
 		if (Keyboard::isKeyPressed(Keyboard::W)){
@@ -115,7 +126,10 @@ bool HandleInput::CheckEnterKeyPressed(){
 	return false;
 }
 
-
+/*
+* @RETURNS
+* returns true if the player has pressed the backspace button.
+*/
 bool HandleInput::CheckBackSpaceKeyPressed(){
 	if (Keyboard::isKeyPressed(Keyboard::BackSpace)){
 		return true;
@@ -123,7 +137,10 @@ bool HandleInput::CheckBackSpaceKeyPressed(){
 	return false;
 }
 
-
+/*
+* @RETURNS
+* returns true if the player has pressed the space button.
+*/
 bool HandleInput::CheckResetCombatStateInput(){
 	if (Keyboard::isKeyPressed(Keyboard::Space)){
 		return true;

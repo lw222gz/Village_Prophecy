@@ -9,15 +9,9 @@
 PlayerStatsManager::PlayerStatsManager(PlayerSkillManager *_skillManager) : skillManager(_skillManager)
 {
 	currentLevel = LEVEL_0;
-
-	if (!APTexture.loadFromFile("Textures/PHActionPoint.png")){
-		throw "TEXTURE LOAD ERROR: Action point texture did not load correctly.";
-	}
+	
 	APSprite.setTexture(APTexture);
-
-	if (!consumedAPTexture.loadFromFile("Textures/PHConsumedActionPoint.png")){
-		throw "TEXTURE LOAD ERROR: Consumed Action point texture did not load correctly.";
-	}
+	
 	consumedAPSprite.setTexture(consumedAPTexture);
 }
 

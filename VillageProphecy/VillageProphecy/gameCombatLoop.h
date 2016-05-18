@@ -10,7 +10,7 @@
 class GameCombatLoop
 {
 public:
-	GameCombatLoop(View *gameView, Player *p, InGameMenuGUI *inGameMenuGUI, HandleInput *inputHandler);
+	GameCombatLoop(View *gameView, Player *p, InGameMenuGUI *inGameMenuGUI, HandleInput *inputHandler, TextureLoader *textures);
 	~GameCombatLoop();
 	void runCombatLoop(RenderWindow *window, vector<Enemy*> *enemies);
 	void InitiateCombatLoopValues();

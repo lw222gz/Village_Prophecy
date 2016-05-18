@@ -4,6 +4,7 @@
 #include "GameCombatLoop.h"
 #include "InGameMenuGUI.h"
 
+
 #pragma once
 class Game
 {
@@ -13,13 +14,14 @@ public:
 	void StartGame();
 
 private:	
+	TextureLoader gameTextures;
 	View view;
 	GameState currentGameState = GameState::Play;
-	GUIMaster gui;
+	GUIMaster gui = GUIMaster(&gameTextures);
 	HandleInput handleInput;
-	InGameMenuGUI inGameMenuGUI = InGameMenuGUI(&view);
-	GameLoop gameLoop = GameLoop(&view, &gui, &inGameMenuGUI, &handleInput);
-	GameCombatLoop gameCombatLoop = GameCombatLoop(&view, gameLoop.getPlayerPointer(), &inGameMenuGUI, &handleInput);
+	InGameMenuGUI inGameMenuGUI = InGameMenuGUI(&view, &gameTextures);
+	GameLoop gameLoop = GameLoop(&view, &gui, &inGameMenuGUI, &handleInput, &gameTextures);
+	GameCombatLoop gameCombatLoop = GameCombatLoop(&view, gameLoop.getPlayerPointer(), &inGameMenuGUI, &handleInput, &gameTextures);
 	
 	float windowHeight = 900;
 	float windowWidth = 1440;

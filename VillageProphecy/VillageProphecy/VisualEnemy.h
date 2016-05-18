@@ -1,5 +1,6 @@
 #pragma once
 #include "Enemy.h"
+#include "TextureLoader.h"
 
 //<Summary>
 //A visual enemy is one enemy the player can collide into, when combat then starts
@@ -8,7 +9,7 @@
 class VisualEnemy : public IDrawAble
 {
 public:
-	VisualEnemy(EnemyVisualType visualType, Vector2f pos, int level);
+	VisualEnemy(EnemyVisualType visualType, Vector2f pos, int level, TextureLoader *_textures);
 	~VisualEnemy();
 	Sprite getSprite();
 	bool collideWithPlayer(Vector2f playerPos, Vector2u playerSize);
@@ -18,6 +19,8 @@ public:
 	EnemyVisualType getType();
 
 private:
+	TextureLoader *textures;
+
 	Sprite enemySprite;
 	Texture enemyTexture;
 	EnemyVisualType type;

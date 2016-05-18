@@ -8,7 +8,8 @@
 * @PARAMS
 * objectType: GameObjectType enum value representing the kind of item that is being created.
 */
-GameItem::GameItem(GameObjectType objectType) : itemType(objectType)
+GameItem::GameItem(GameObjectType objectType, TextureLoader *_textures) 
+	: itemType(objectType), textures(_textures)
 {
 	setItemSprite();
 }
@@ -87,19 +88,13 @@ void GameItem::reduceStackAmount(int amount){
 */
 void GameItem::setItemSprite(){
 	switch (itemType){
-		case GameObjectType::None:
-			if (!SlotTexture.loadFromFile("Textures/EmptyInventorySlot.png")){
-				throw "TEXTURE LOAD ERROR: InventorySpot texture did not load correctly.";
-			}
-			
+		case GameObjectType::None:		
+			SlotTexture = *textures->getEmptyInventorySlotTexture();
 			stackAble = false;
 			break;
 
-		case GameObjectType::Tree:
-			if (!SlotTexture.loadFromFile("Textures/WoodSlotTexture.png")){
-				throw "TEXTURE LOAD ERROR: Wood slot texture did not load correctly.";
-			}
-			
+		case GameObjectType::Tree:		
+			SlotTexture = *textures->getWoodSlotTexture();
 			stackAble = true;
 			break;
 

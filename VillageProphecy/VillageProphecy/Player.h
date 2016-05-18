@@ -17,7 +17,7 @@ class Inventory; //forward decleration
 class Player : public IDrawAble
 {
 public:	
-	Player();
+	Player(TextureLoader *_textures);
 	~Player();	
 	Areas playerMove(MoveDirection dir, Time *t);
 	void setBorders(Vector2u size);
@@ -26,23 +26,23 @@ public:
 	Sprite getSprite();
 	void setPlayerPosition(Vector2f pos);
 	void setAreaPaths(vector<Path*> areaPaths);	
-	//TODO: add parameter bool hasFire
+
 	void Sleep(bool hasBurningFirePlace);
 	void savePosition();
 	void setToSavedPosition();
 
-	void ReflectSprite();
-	void ResetReflectSprite();
+	void ReflectPlayerSprite();
+	void ResetPlayerReflectSprite();
 
-	Inventory* InventoryManager();
-	PlayerSkillManager* SkillManager();
-	PlayerStatsManager* StatsManager();
+	Inventory *InventoryManager();
+	PlayerSkillManager *SkillManager();
+	PlayerStatsManager *StatsManager();
 
 private:
+	TextureLoader *textures;
 	//pixel speed of player per second
 	float speed = 300.0;
-	//also hold the value for the player size
-	Texture playerTexture;
+
 	//Also hold the value for the players position
 	Sprite playerSprite;
 	Vector2f playerCombatPosition = Vector2f(500.0,500.0);

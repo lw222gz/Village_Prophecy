@@ -6,18 +6,14 @@
 * Initiates the players position, loads the player texture and initiates the players inventory.
 * Also loads the AP textures.
 */
-Player::Player()
+Player::Player(TextureLoader *_textures)
+	: textures(_textures)
 {
 	//default position
 	playerSprite.setPosition(Vector2f(1000, 450));
-
-	if (!playerTexture.loadFromFile("Textures/Player.png")){
-		throw "Player textures could not load";
-	}
-	playerSprite.setTexture(playerTexture);
-
+	playerSprite.setTexture(*textures->getPlayerTexture());
 	//defines inventory
-	inventory = new Inventory();
+	inventory = new Inventory(textures);
 }
 
 Player::~Player()
@@ -37,7 +33,7 @@ Vector2f Player::getPosition(){
 * returns a Vector2u representing the size of the player
 */
 Vector2u Player::getSize(){
-	return playerTexture.getSize();
+	return playerSprite.getTexture()->getSize();
 }
 
 /*
@@ -89,7 +85,13 @@ Inventory* Player::InventoryManager(){
 	return inventory;
 }
 
-//TODO: create function
+/*
+* <DESCRIPTION>
+* Executes any events that could occur for the player whilst he/she sleeps.
+*
+* @PARAMS
+* hasBurningFirePlace: boolean representing if the player has a burning fireplace at the sleep spot, true if the player has one, otherwise false.
+*/
 void Player::Sleep(bool hasBurningFirePlace){
 	//TODO: effects that can occur during sleep
 	statsManager.ResetAP();
@@ -141,18 +143,22 @@ PlayerSkillManager* Player::SkillManager(){
 	return &skillManager;
 }
 
-//reflects the sprite
-void Player::ReflectSprite(){
-	
-	playerSprite.setOrigin(playerSprite.getLocalBounds().width, 0);
-	playerSprite.setScale(-1.f, 1.f);
+/*
+* <DESCRIPTION>
+* Reflects the player sprite face direction, this method is required due 
+* to other scripts should be able to switch the player facing direction
+*/
+void Player::ReflectPlayerSprite(){
+	ReflectSprite(&playerSprite);
 }
 
-//resets the sprite to face it's default way.
-void Player::ResetReflectSprite(){
-	
-	playerSprite.setOrigin(0, 0);
-	playerSprite.setScale(1.f, 1.f);
+/*
+* <DESCRIPTION>
+* Resets the player sprite to face it's default direciton, this method is 
+* required due to other scripts should be able to switch the player facing direction 
+*/
+void Player::ResetPlayerReflectSprite(){
+	ResetReflectSprite(&playerSprite);
 }
 
 /*
@@ -189,7 +195,7 @@ Areas Player::playerMove(MoveDirection dir, Time *t){
 		case MoveDirection::Down:
 				distanceY = -(movedDistance);
 				//add height
-				if (playerSprite.getPosition().y - distanceY >= borders.y - playerTexture.getSize().y){
+				if (playerSprite.getPosition().y - distanceY >= borders.y - getSize().y){
 					//TODO: add path collision
 
 					// Player is at the edge of the border thus the player move distance is set to 0
@@ -203,7 +209,7 @@ Areas Player::playerMove(MoveDirection dir, Time *t){
 				if (playerSprite.getPosition().x - distanceX <= 0){
 
 					for (unsigned int i = 0; i < avaliblePaths.size(); i++){
-						if (playerSprite.getPosition().y + playerTexture.getSize().y >= avaliblePaths[i]->getPosition().y &&
+						if (playerSprite.getPosition().y + getSize().y >= avaliblePaths[i]->getPosition().y &&
 							playerSprite.getPosition().y <= avaliblePaths[i]->getPosition().y + avaliblePaths[i]->getSize().y &&
 							playerSprite.getPosition().x >= avaliblePaths[i]->getPosition().x &&
 							playerSprite.getPosition().x <= avaliblePaths[i]->getPosition().x + avaliblePaths[i]->getSize().x){
@@ -215,15 +221,15 @@ Areas Player::playerMove(MoveDirection dir, Time *t){
 					distanceX = 0;
 				}
 
-				ReflectSprite();
+				ReflectPlayerSprite();
 				break;
 
 		case MoveDirection::Right:
 				distanceX = -(movedDistance);
-				if (playerSprite.getPosition().x - distanceX >= borders.x - playerTexture.getSize().x){
+				if (playerSprite.getPosition().x - distanceX >= borders.x - getSize().x){
 
 					for (unsigned int i = 0; i < avaliblePaths.size(); i++){
-						if (playerSprite.getPosition().y + playerTexture.getSize().y >= avaliblePaths[i]->getPosition().y &&
+						if (playerSprite.getPosition().y + getSize().y >= avaliblePaths[i]->getPosition().y &&
 							playerSprite.getPosition().y <= avaliblePaths[i]->getPosition().y + avaliblePaths[i]->getSize().y &&
 							playerSprite.getPosition().x >= avaliblePaths[i]->getPosition().x &&
 							playerSprite.getPosition().x <= avaliblePaths[i]->getPosition().x + avaliblePaths[i]->getSize().x){
@@ -236,7 +242,7 @@ Areas Player::playerMove(MoveDirection dir, Time *t){
 					distanceX = 0;
 				}
 
-				ResetReflectSprite();
+				ResetPlayerReflectSprite();
 				break;
 
 			default:

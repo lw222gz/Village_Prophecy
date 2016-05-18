@@ -2,30 +2,24 @@
 
 /*
 * <DESCRIPTION>
-* Third constructor for the GameMessage class.
-* Sets timeToLive and isMoving values
-* Loads font and sets base values for the text.
+* Constructor for the GameMessage class.
+* Sets base values.
 *
 * @PARAMS
 * message: string message that the GameMessage will display.
 * position: Vector2f contaning the position for the GameMessage
-* _isMoving: boolean, true if the text should move upwards, false if it's position should be static
 * _timeToLive: float value representing the amount of seconds the text should be displayed.
-* @RETURNS
-*
+* font: Font object that decides the font for the text.
+* characterSize: size of the characters for the text, this is by default 24.
 */
-GameMessage::GameMessage(string message, Vector2f position, float _timeToLive, int characterSize)
+GameMessage::GameMessage(string message, Vector2f position, float _timeToLive, Font *font, int characterSize)
 	: timeToLive(_timeToLive), startPosition(position)
 {
 	text.setString(message);
 	text.setPosition(position);
-
-	if (!coolvetica.loadFromFile("Textures/coolvetica.ttf")){
-		throw "FONT LOAD ERROR: could not load coolvetica.ttf correctly.";
-	}
-
+	
 	//Text settings
-	text.setFont(coolvetica);
+	text.setFont(*font);
 	text.setCharacterSize(characterSize);
 	text.setColor(Color::Black);
 }
@@ -84,12 +78,33 @@ void GameMessage::addToCurrentPosition(Vector2f amount){
 	text.setPosition(text.getPosition().x + amount.x, text.getPosition().y + amount.y);
 }
 
-
+/*
+* <DESCRIPTION>
+* Calls DrawMessage(RenderWindow *window, float elapsedTime, Transform transformation)
+* with an empty Transform object.
+*
+* @PARAMS
+* window: pointer to the game window object
+* elapsedTime: float value representing the amount of seconds passed during
+* this iteration of the game loop.
+*/
 void GameMessage::DrawMessage(RenderWindow *window, float elapsedTime){
 	Transform trans;
 	DrawMessage(window, elapsedTime, trans);
 }
 
+/*
+* <DESCRIPTION>
+* Draws this GameMessage object.
+*
+* @PARAMS
+* window: pointer to the game window object
+* elapsedTime: float value representing the amount of seconds passed during
+* this iteration of the game loop.
+*
+* transformation: Transform oject that can contain any set position that should be added or 
+* removed to the text current position.
+*/
 void GameMessage::DrawMessage(RenderWindow *window, float elapsedTime, Transform transformation){
 	updateMessageTimer(elapsedTime);
 

@@ -92,11 +92,15 @@
     <ClCompile Include="GameCombatLoop.cpp" />
     <ClCompile Include="GameItem.cpp" />
     <ClCompile Include="GameLoop.cpp" />
-    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObject_Bed.cpp" />
+    <ClCompile Include="GameObject_FirePlace.cpp" />
+    <ClCompile Include="GameObject_Tree.cpp" />
     <ClCompile Include="GUIMaster.cpp" />
     <ClCompile Include="HandleInput.cpp" />
     <ClCompile Include="HostileGameArea.cpp" />
+    <ClCompile Include="IDrawAble.cpp" />
     <ClCompile Include="IGameArea.cpp" />
+    <ClCompile Include="IGameObject.cpp" />
     <ClCompile Include="InGameMenuGUI.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -110,6 +114,7 @@
     <ClCompile Include="Skill_HeavyStrike.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="SurvivalGameArea.cpp" />
+    <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="VisualEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -130,13 +135,16 @@
     <ClInclude Include="GameCombatLoop.h" />
     <ClInclude Include="GameItem.h" />
     <ClInclude Include="GameLoop.h" />
-    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObject_Bed.h" />
+    <ClInclude Include="GameObject_FirePlace.h" />
+    <ClInclude Include="GameObject_Tree.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GUIMaster.h" />
     <ClInclude Include="HandleInput.h" />
     <ClInclude Include="HostileGameArea.h" />
     <ClInclude Include="IDrawAble.h" />
     <ClInclude Include="IGameArea.h" />
+    <ClInclude Include="IGameObject.h" />
     <ClInclude Include="InGameMenuGUI.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="LevelEXPRequirement.h" />
@@ -154,6 +162,7 @@
     <ClInclude Include="Skill_FireBall.h" />
     <ClInclude Include="Skill_HeavyStrike.h" />
     <ClInclude Include="SurvivalGameArea.h" />
+    <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="TriggerType.h" />
     <ClInclude Include="VisualEnemy.h" />
   </ItemGroup>

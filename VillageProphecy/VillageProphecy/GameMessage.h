@@ -7,8 +7,8 @@ using namespace sf;
 class GameMessage
 {
 public:
-	GameMessage(string message, Vector2f position) : GameMessage(message, position, 0, 24) {};
-	GameMessage(string message, Vector2f position, float _timeToLive, int characterSize = 24);
+	//GameMessage(string message, Vector2f position) : GameMessage(message, position, 0, 24) {};
+	GameMessage(string message, Vector2f position, float _timeToLive, Font *font, int characterSize = 24);
 	~GameMessage();
 
 	
@@ -22,7 +22,6 @@ public:
 
 private:
 	Text text;
-	Font coolvetica;
 	Vector2f startPosition;
 	//speed of the per second.
 	float textSpeed = -70;

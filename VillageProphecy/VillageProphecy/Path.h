@@ -9,7 +9,7 @@ using namespace sf;
 class Path : public IDrawAble
 {
 public:
-	Path(Areas area, Direction dir, Vector2f entrance);
+	Path(Areas area, Direction dir, Vector2f entrance, Texture *pathTexture);
 	~Path();
 	Vector2f getPosition();
 	Sprite getSprite();
@@ -20,7 +20,7 @@ public:
 private:
 	Areas leadsTo;
 	Vector2f entryPoint;
-	Texture pathTexture;
+
 	Sprite pathSprite;
 	Direction direction;
 };

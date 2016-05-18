@@ -3,11 +3,12 @@
 #include "Enemy.h"
 #include "CombatState.h"
 #include "GameMessage.h"
+#include "TextureLoader.h"
 
 class CombatGUI
 {
 public:
-	CombatGUI(View *gameView);
+	CombatGUI(View *gameView, TextureLoader *textures);
 	~CombatGUI();
 	void DrawCombatPhase(RenderWindow *window, Time *t, Player *p, vector<Enemy*> *enemies);
 	void TransitionAnimation(RenderWindow *window, Time *t);
@@ -26,6 +27,7 @@ public:
 	void ResetMessages();
 
 private:
+	TextureLoader *textures;
 	View *view;
 	const float transitionAnimationTime = 1;
 	//Positions of enemies, they player can meet up to 3 at once.
@@ -43,10 +45,8 @@ private:
 
 	string getEnemyName(EnemyType type);
 
-	Font coolvetica;
 	Text displayText;
 
-	Texture targetArrowTexture;
 	Sprite targetArrowSprite;
 
 	vector<GameMessage*> combatMessages;

@@ -7,4 +7,6 @@ using namespace sf;
 class IDrawAble{
 public:
 	virtual Sprite getSprite() = 0;
+	void ReflectSprite(Sprite *sprite);
+	void ResetReflectSprite(Sprite *sprite);
 };

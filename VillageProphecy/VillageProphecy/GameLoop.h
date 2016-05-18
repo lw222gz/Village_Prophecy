@@ -24,7 +24,11 @@ class FinalGameArea;
 class GameLoop
 {
 public:
-	GameLoop(View *view, GUIMaster *gui, InGameMenuGUI *inGameMenuGUI, HandleInput *inputHandler);
+	GameLoop(View *view, 
+		GUIMaster *gui, 
+		InGameMenuGUI *inGameMenuGUI, 
+		HandleInput *inputHandler,
+		TextureLoader *textures);
 	~GameLoop();
 	void RunGame(RenderWindow *window);
 	bool GameOver();
@@ -39,13 +43,14 @@ public:
 	
 
 private:
+	TextureLoader *textures;
 	InGameMenuGUI *gameMenuGUI;
 	bool playerEnteredCombatPhase = false;
 	int enemyVectorIndex = 0;
 	bool isGameOver = false;
 	Time timeElapsed;
 	HandleInput *handleInput = NULL;
-	Player player;
+	Player *player = NULL;
 	Clock timer;
 	vector<IDrawAble*> gameObjects;
 	GUIMaster *gui = NULL;
@@ -60,7 +65,7 @@ private:
 	IGameArea *currentGameArea = NULL;
 
 	void EnterNewArea(RenderWindow *window, View *view);
-	GameObject *triggerdObject = NULL;
+	IGameObject *triggerdObject = NULL;
 	void ExecuteObjectTrigger(RenderWindow *window);
 
 	

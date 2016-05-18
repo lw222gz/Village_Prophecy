@@ -1,12 +1,14 @@
 #pragma once
 #include "Player.h"
 #include "CombatOptions.h"
-#include <math.h>
+#include "TextureLoader.h"
+//#include <math.h>
+
 
 class InGameMenuGUI
 {
 public:
-	InGameMenuGUI(View *gameView);
+	InGameMenuGUI(View *gameView, TextureLoader *textures);
 	~InGameMenuGUI();
 	void DrawGameMenu(RenderWindow *window, Player *player);
 	void DrawCombatMenu(RenderWindow *window, Player *player);
@@ -18,7 +20,6 @@ private:
 	View *view;
 	Transform transformation;
 
-	Texture optionPointerTexture;
 	Sprite optionPointerSprite;
 
 	RectangleShape XPBar;
@@ -34,9 +35,7 @@ private:
 	RectangleShape skillDescriptionBox;
 
 	Sprite inGameMenuSprite;
-	Texture inGameMenuTexture;
 
-	Font coolvetica;
 	Text displayText;
 
 	string getStringRepPlayerLevel(LevelEXPRequirement currlevel);

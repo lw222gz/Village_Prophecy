@@ -135,7 +135,15 @@ void MaterialList::addItemsToConstruction(Player *player){
 	}
 }
 
-
+/*
+* <DESCRIPTION>
+* Removes the required items in the material list based on remaning action points
+*
+* @PARAMS
+* player: pointer to the Player object
+* inventoryIndex: index in the inventory for the material being consumed.
+* materialListIndex: index of the material being consumed in the material list.
+*/
 void MaterialList::reduceMaterialsBasedOnAP(Player *player, int inventoryIndex, int materialListIndex){
 	player->InventoryManager()->getInventoryItems()[inventoryIndex]->reduceStackAmount(player->StatsManager()->getRemaningActionPoints());
 	materialList[materialListIndex]->reduceAmountRequired(player->StatsManager()->getRemaningActionPoints());

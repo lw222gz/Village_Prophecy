@@ -22,9 +22,6 @@
     <Filter Include="Source Files\GUI">
       <UniqueIdentifier>{06fde932-a43a-4634-bd64-eaab3ef152b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Interfaces">
-      <UniqueIdentifier>{43358abe-2f80-453d-9f2e-aa5d9a76e40c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Game Fields">
       <UniqueIdentifier>{0fbd40c1-4f4e-49f5-a302-1a289fa3bf65}</UniqueIdentifier>
     </Filter>
@@ -73,6 +70,15 @@
     <Filter Include="Source Files\Game Fields\GameAreas">
       <UniqueIdentifier>{23308cc7-012d-447e-8979-6aa385442e9a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GameObjects\ObjectMaterial">
+      <UniqueIdentifier>{d0347da9-7161-42b1-98a0-c2986f4f44fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjects\ObjectMaterial">
+      <UniqueIdentifier>{e50cab41-41b7-4be9-8420-1402f27de7d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BaseClasses">
+      <UniqueIdentifier>{43358abe-2f80-453d-9f2e-aa5d9a76e40c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -95,15 +101,6 @@
     </ClCompile>
     <ClCompile Include="Inventory.cpp">
       <Filter>Source Files\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialList.cpp">
-      <Filter>Source Files\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="GameItem.cpp">
       <Filter>Source Files\Player</Filter>
@@ -165,10 +162,34 @@
     <ClCompile Include="IGameArea.cpp">
       <Filter>Source Files\Game Fields</Filter>
     </ClCompile>
+    <ClCompile Include="TextureLoader.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Source Files\GameObjects\ObjectMaterial</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialList.cpp">
+      <Filter>Source Files\GameObjects\ObjectMaterial</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject_FirePlace.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject_Bed.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject_Tree.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="IGameObject.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="IDrawAble.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IDrawAble.h">
-      <Filter>Header Files\Interfaces</Filter>
+      <Filter>Header Files\BaseClasses</Filter>
     </ClInclude>
     <ClInclude Include="GameAreas.h">
       <Filter>Header Files\Enums</Filter>
@@ -197,20 +218,11 @@
     <ClInclude Include="Inventory.h">
       <Filter>Header Files\Player</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectType.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
     <ClInclude Include="TriggerType.h">
       <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialList.h">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="GameItem.h">
       <Filter>Header Files\Player</Filter>
@@ -270,7 +282,7 @@
       <Filter>Header Files\Enemy\EnemySkills</Filter>
     </ClInclude>
     <ClInclude Include="EnemySkill.h">
-      <Filter>Header Files\Interfaces</Filter>
+      <Filter>Header Files\BaseClasses</Filter>
     </ClInclude>
     <ClInclude Include="EnemySkill_NormalAttack.h">
       <Filter>Header Files\Enemy\EnemySkills</Filter>
@@ -279,7 +291,7 @@
       <Filter>Header Files\Enemy\EnemySkills</Filter>
     </ClInclude>
     <ClInclude Include="IGameArea.h">
-      <Filter>Header Files\Interfaces</Filter>
+      <Filter>Header Files\BaseClasses</Filter>
     </ClInclude>
     <ClInclude Include="SurvivalGameArea.h">
       <Filter>Header Files\GameFields\GameAreas</Filter>
@@ -294,7 +306,28 @@
       <Filter>Header Files\GameFields\GameAreas</Filter>
     </ClInclude>
     <ClInclude Include="IPlayerSkill.h">
-      <Filter>Header Files\Interfaces</Filter>
+      <Filter>Header Files\BaseClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoader.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject_FirePlace.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Header Files\GameObjects\ObjectMaterial</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialList.h">
+      <Filter>Header Files\GameObjects\ObjectMaterial</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject_Bed.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject_Tree.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameObject.h">
+      <Filter>Header Files\BaseClasses</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

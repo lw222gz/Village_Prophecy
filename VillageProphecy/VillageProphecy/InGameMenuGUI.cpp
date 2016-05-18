@@ -11,17 +11,12 @@
 * @PARAMS
 * gameView: pointer to the View object for the game.
 */
-InGameMenuGUI::InGameMenuGUI(View *gameView) : view(gameView)
+InGameMenuGUI::InGameMenuGUI(View *gameView, TextureLoader *textures) : view(gameView)
 {
-	if (!optionPointerTexture.loadFromFile("Textures/OptionPointer.png")){
-		throw "TEXTURE LOAD ERROR: Option poitner texture did not load correctly.";
-	}
-	optionPointerSprite.setTexture(optionPointerTexture);
-
-	if (!inGameMenuTexture.loadFromFile("Textures/PHInGameMenu.png")){
-		throw "TEXTURE LOAD ERROR: inGameMenu did not load correctly.";
-	}
-	inGameMenuSprite.setTexture(inGameMenuTexture);
+	
+	optionPointerSprite.setTexture(*textures->getOptionPointerTexture());
+	
+	inGameMenuSprite.setTexture(*textures->getInGameMenuTexture());
 
 	//Sets status bar colors.
 	behindHPBar.setSize(Vector2f(250, 40));
@@ -35,11 +30,9 @@ InGameMenuGUI::InGameMenuGUI(View *gameView) : view(gameView)
 	statBar.setFillColor(Color(255, 165, 0, 255));
 
 	//TODO:-optimize- already loaded in GUIMaster.cpp 
-	if (!coolvetica.loadFromFile("Textures/coolvetica.ttf")){
-		throw "FONT LOAD ERROR: could not load coolvetica.ttf correctly.";
-	}
+	
 	//Text settings
-	displayText.setFont(coolvetica);
+	displayText.setFont(*textures->getCoolvecticaFont());
 	displayText.setCharacterSize(16);
 	displayText.setColor(Color::Black);
 	//displayText.setStyle(Text::Bold);
@@ -169,6 +162,16 @@ void InGameMenuGUI::DrawSkillOptions(RenderWindow *window, Player *player, int c
 	//TODO: write out info about the skill in this box
 }
 
+/*
+* <DESCRIPTION>
+* Retruns string representation for diffrent consumable stats for the player when using a skill.
+*
+* @PARAMS
+* consumeableStat: SkillConsumeableStats enum value represening what string representation is wanted.
+*
+* @RETURNS
+* returns string representation of the givent consumeableStat parameter.
+*/
 string InGameMenuGUI::getStringRepConsumeType(SkillConsumeableStats consumeableStat){
 
 	switch (consumeableStat)
@@ -189,8 +192,24 @@ string InGameMenuGUI::getStringRepConsumeType(SkillConsumeableStats consumeableS
 
 
 //TODO: add so it prefer to split over an empty space instead of the middle of a word.
-//BUGG: int breakPoint has to be twice the wanted pixel break width. I dont know why. Assuming
+// Assuming
 //When first called currentIndex should be 0;
+/*
+* <DESCRIPTION>
+* Adds \n to long strings to not have them leave the screen.
+* The method will call it self aslong as the default string given has possible breakpoints
+*
+* @PARAMS
+* str: string that will be returned but with '\n' at certain breakpoints
+* breakPoint: this represents the wanted pixel length the string should add a breakpoint.
+* breakPoint - BUGG: int breakPoint has to be twice the wanted pixel break width. I dont know why.
+*
+* currentIndex: int value representing the current break point position,
+* when this method is initially called this value should be 0.
+*
+* @RETURNS
+* returns the givent str parameter but with '\n' at the breakPoint positions.
+*/
 string InGameMenuGUI::AddRowsToString(string str, int breakPoint, int currentIndex){
 	displayText.setString(str);
 	int stringPixelLength = str.length() * displayText.getCharacterSize();

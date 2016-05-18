@@ -9,7 +9,7 @@ using namespace std;
 class Inventory 
 {
 public:
-	Inventory();
+	Inventory(TextureLoader *_textures);
 	~Inventory();
 	void addItem(GameItem *item);
 	vector<GameItem*> getInventoryItems();	
@@ -17,6 +17,7 @@ public:
 	
 
 private:
+	TextureLoader *textures;
 	vector<GameItem*> inventoryItems;
 };
 

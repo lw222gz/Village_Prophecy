@@ -8,22 +8,16 @@
 * @PARAMS
 * gameView: pointer to a View object that should represent the game view.
 */
-CombatGUI::CombatGUI(View *gameView) 
-	: view(gameView)
+CombatGUI::CombatGUI(View *gameView, TextureLoader *_textures)
+	: view(gameView), textures(_textures)
 {	
 	enemyPositions = { Vector2f(1000, 300), Vector2f(1100, 100), Vector2f(1100, 500) };
 
-	if (!coolvetica.loadFromFile("Textures/coolvetica.ttf")){
-		throw "FONT LOAD ERROR: could not load coolvetica.ttf correctly.";
-	}
-
-	if (!targetArrowTexture.loadFromFile("Textures/TargetPointer.png")){
-		throw "TEXTURE LOAD ERROR: Could not load target arrow texture.";
-	}
-	targetArrowSprite.setTexture(targetArrowTexture);
+	
+	targetArrowSprite.setTexture(*textures->getTargetPointerTexture());
 
 	//Text settings
-	displayText.setFont(coolvetica);
+	displayText.setFont(*textures->getCoolvecticaFont());
 	displayText.setCharacterSize(16);
 	displayText.setColor(Color::Black);
 	//displayText.setStyle(Text::Bold);
@@ -161,8 +155,9 @@ void CombatGUI::DrawTargetArrow(RenderWindow *window, int targetIndex){
 */
 void CombatGUI::AddEnemyCombatText(string mess, int targetIndex){
 	combatMessages.push_back(new GameMessage(mess, 
-		enemyPositions[targetIndex] - Vector2f(0, 50),
-		.5));
+											enemyPositions[targetIndex] - Vector2f(0, 50),
+											.5,
+											textures->getCoolvecticaFont()));
 }
 
 /*
@@ -175,8 +170,9 @@ void CombatGUI::AddEnemyCombatText(string mess, int targetIndex){
 */
 void CombatGUI::AddPlayerCombatText(string mess, Player *player){
 	combatMessages.push_back(new GameMessage(mess, 
-		player->getPosition() - Vector2f(0, 50),
-		.75));
+											player->getPosition() - Vector2f(0, 50),
+											.75,
+											textures->getCoolvecticaFont()));
 	
 }
 
@@ -189,8 +185,9 @@ void CombatGUI::AddPlayerCombatText(string mess, Player *player){
 */
 void CombatGUI::AddStatusCombatText(EnemyType enemyType, string attackType){
 	combatMessages.push_back(new GameMessage("An Enemy " + getEnemyName(enemyType) + " used " + attackType + ".", 
-		statusMessagePosition,
-		1.5));
+											statusMessagePosition,
+											1.5,
+											textures->getCoolvecticaFont()));
 }
 
 /*
@@ -200,11 +197,11 @@ void CombatGUI::AddStatusCombatText(EnemyType enemyType, string attackType){
 * @PARAMS
 * mess: string representing the message to be displayed.
 */
-void CombatGUI::AddStatusText(string mess){
-	
+void CombatGUI::AddStatusText(string mess){	
 	combatMessages.push_back(new GameMessage(mess, 
-		statusMessagePosition + Vector2f(0, 25),
-		1.5));
+											statusMessagePosition + Vector2f(0, 25),
+											1.5,
+											textures->getCoolvecticaFont()));
 }
 
 

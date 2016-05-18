@@ -10,7 +10,7 @@ using namespace std;
 class Enemy : public IDrawAble
 {
 public:
-	Enemy(EnemyType typeOfEnemy, int level);
+	Enemy(EnemyType typeOfEnemy, int level, Texture *enemyTexture);
 	~Enemy();
 	Sprite getSprite();
 	EnemyType getEnemyType();
@@ -29,7 +29,7 @@ private:
 	void setEnemySkills();
 	EnemyType type;
 	Sprite enemySprite;
-	Texture enemyTexture;
+
 	int hitPoints = 100;
 	int maxHitPoints = hitPoints;
 	int attackDamage = 0;
