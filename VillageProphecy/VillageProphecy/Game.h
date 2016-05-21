@@ -1,8 +1,8 @@
 #pragma once
 #include "GameLoop.h"
-#include "GameState.h"
+#include "Enums/GameState.h"
 #include "GameCombatLoop.h"
-#include "InGameMenuGUI.h"
+#include "GUI/InGameMenuGUI.h"
 
 
 #pragma once

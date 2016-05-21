@@ -1,7 +1,7 @@
 #pragma once
-#include "Player.h"
-#include "CombatOptions.h"
-#include "Enemy.h"
+#include "Player\Player.h"
+#include "Enums\CombatOptions.h"
+#include "Enemy\Enemy.h"
 
 using namespace sf;
 

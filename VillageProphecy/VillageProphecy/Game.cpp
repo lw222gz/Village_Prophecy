@@ -26,7 +26,7 @@ void Game::StartGame(){
 		{
 			case GameState::Play:
 				//TODO: draw background.
-				window.clear(Color::White);
+				window.clear(Color::Black);
 				gui.DrawGameGrassBackground(&window, gameLoop.getCurrentGameArea());
 
 				gameLoop.RunGame(&window);
@@ -45,7 +45,7 @@ void Game::StartGame(){
 				break;
 
 			case GameState::GameOver:
-				window.clear(Color::White);
+				window.clear(Color::Black);
 				gui.DrawGameOver(&window, &view);		
 				break;
 
@@ -53,7 +53,7 @@ void Game::StartGame(){
 				//The game freezes the screen and when the transission animation has covered the 
 				//screen normal rendering is resumed.
 				if (gameCombatLoop.isNormalRenderingActive()){
-					window.clear(Color::White);
+					window.clear(Color::Black);
 					gui.DrawGameCombatGrassBackground(&window, &view);
 				}
 
@@ -72,7 +72,7 @@ void Game::StartGame(){
 				break;
 
 			case GameWon:
-				window.clear(Color::White);
+				window.clear(Color::Black);
 				gui.DrawGameWon(&window, &view);
 				break;
 

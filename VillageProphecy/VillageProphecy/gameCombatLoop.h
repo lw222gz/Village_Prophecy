@@ -1,8 +1,8 @@
 #pragma once
-#include "CombatGUI.h"
-#include "InGameMenuGUI.h"
+#include "GUI/CombatGUI.h"
+#include "GUI/InGameMenuGUI.h"
 #include "HandleInput.h"
-#include "EnemySkill.h"
+#include "BaseClasses/Interfaces/EnemySkill.h"
 #include <math.h>
 #include <stdio.h>
 #include <cstdio>

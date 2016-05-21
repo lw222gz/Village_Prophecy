@@ -72,6 +72,7 @@ void GameLoop::CombatOver(){
 	playerEnteredCombatPhase = false;
 	timer.restart();
 	getCurrentGameArea()->removeAreaEnemy(currentGameArea->getAreaEnemies()->at(enemyVectorIndex));
+	player->StatsManager()->ConsumeActionPoints(1);
 }
 
 /*
@@ -156,7 +157,7 @@ void GameLoop::RunGame(RenderWindow *window){
 
 	triggerdObject = NULL;
 	//Checks collisions with each interactable gameobject
-	for (int i = 0; i < currentGameArea->getAreaObjects().size(); ++i){
+	for (unsigned int i = 0; i < currentGameArea->getAreaObjects().size(); ++i){
 		//if a player is near an interactable game object a quick menu will be displayed
 		if(currentGameArea->getAreaObjects()[i]->isTriggerd(player)){
 
@@ -166,7 +167,7 @@ void GameLoop::RunGame(RenderWindow *window){
 	}	
 
 	//Checks for collisions with enemies, if so then combat phase is initiated.
-	for (int i = 0; i < currentGameArea->getAreaEnemies()->size(); ++i){
+	for (unsigned int i = 0; i < currentGameArea->getAreaEnemies()->size(); ++i){
 		if (currentGameArea->getAreaEnemies()->at(i)->collideWithPlayer(player->getSprite().getPosition(), player->getSize())){
 			playerEnteredCombatPhase = true;
 			enemyVectorIndex = i;
@@ -360,6 +361,41 @@ void GameLoop::ExecuteObjectTrigger(RenderWindow *window){
 					throw "Object type is not interactable.";
 					break;
 			}
+			break;
+
+		case TriggerType::Usable:
+			switch (triggerdObject->getObjectType())
+			{
+				case HealingStation:
+					//if the player al´ready has full health there is no use of using the healing station
+					if (player->StatsManager()->getPlayerHP() == player->StatsManager()->getMaxPlayerHP()){
+						gui->AddGameAlert("You already have full health.", player->getPosition() + Vector2f(player->getSize().x, 0));
+						break;
+					}
+
+					
+					if (player->StatsManager()->getRemaningActionPoints() > 0){
+						if (player->InventoryManager()->PlayerHasItem(triggerdObject->getConsumptionType())){
+
+							player->InventoryManager()->ConsumeInventoryItem(triggerdObject->getConsumptionType());
+							player->StatsManager()->playerHitPointsAffected(player->StatsManager()->getMaxPlayerHP() * .1);
+							player->StatsManager()->ConsumeActionPoints(1);
+						}
+						else {
+							gui->AddGameAlert("You do not have the required resources to use this.", player->getPosition() + Vector2f(player->getSize().x, 0));
+						}
+					}
+					else {
+						gui->AddGameAlert("You do not have sufficient Action Points.", player->getPosition() + Vector2f(player->getSize().x, 0));
+					}
+
+					break;
+
+				default:
+					throw "Object is not useable.";
+					break;
+			}
+
 			break;
 
 

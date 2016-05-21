@@ -1,15 +1,14 @@
 #pragma once
-#include "Player.h"
+#include "Player\Player.h"
 #include "HandleInput.h"
-#include "GUIMaster.h"
-#include "InGameMenuGUI.h"
-#include "GameAreas.h"
-
-#include "SurvivalGameArea.h"
-#include "HostileGameArea.h"
-#include "FinalGameArea.h"
-#include "BaseGameArea.h"
-#include "IGameArea.h"
+#include "GUI\GUIMaster.h"
+#include "GUI\InGameMenuGUI.h"
+#include "Enums\GameAreas.h"
+#include "GameFields\GameAreas\SurvivalGameArea.h"
+#include "GameFields\GameAreas\HostileGameArea.h"
+#include "GameFields\GameAreas\FinalGameArea.h"
+#include "GameFields\GameAreas\BaseGameArea.h"
+#include "BaseClasses/IGameArea.h"
 
 using namespace sf;
 using namespace std;
@@ -67,8 +66,6 @@ private:
 	void EnterNewArea(RenderWindow *window, View *view);
 	IGameObject *triggerdObject = NULL;
 	void ExecuteObjectTrigger(RenderWindow *window);
-
-	
 
 	int amountOfDaysLeft = 50;
 };

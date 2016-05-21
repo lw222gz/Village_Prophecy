@@ -1,28 +1,47 @@
-﻿Build started 2016-05-18 18:24:49.
+﻿Build started 2016-05-21 19:59:59.
      1>Project "C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\VillageProphecy\VillageProphecy.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt BaseGameArea.cpp Enemy.cpp EnemySkill_BloodyStrike.cpp EnemySkill_DecayingStrike.cpp EnemySkill_NormalAttack.cpp Game.cpp GameLoop.cpp Source.cpp
-         EnemySkill_NormalAttack.cpp
-         EnemySkill_DecayingStrike.cpp
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\enemyskill_decayingstrike.cpp(24): warning C4244: 'return' : conversion from 'double' to 'int', possible loss of data
-         EnemySkill_BloodyStrike.cpp
-         Enemy.cpp
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\enemy.cpp(45): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\enemy.cpp(158): warning C4244: '+=' : conversion from 'const double' to 'int', possible loss of data
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\enemy.cpp(159): warning C4244: '+=' : conversion from 'const double' to 'int', possible loss of data
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\enemy.cpp(160): warning C4244: '+=' : conversion from 'const double' to 'int', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt BaseClasses\IGameArea.cpp BaseClasses\IGameObject.cpp GUI\GUIMaster.cpp Game.cpp GameFields\GameAreas\BaseGameArea.cpp GameFields\GameAreas\FinalGameArea.cpp GameFields\GameAreas\HostileGameArea.cpp GameFields\GameAreas\SurvivalGameArea.cpp GameLoop.cpp GameObjects\GameObject_Bed.cpp GameObjects\GameObject_FirePlace.cpp GameObjects\GameObject_HealingStation.cpp GameObjects\GameObject_Tree.cpp Source.cpp
+         IGameArea.cpp
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\baseclasses\igamearea.cpp(25): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\baseclasses\igamearea.cpp(30): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
          Generating Code...
          Compiling...
+         Source.cpp
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\source.cpp(16): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+         GameObject_Tree.cpp
+         GameObject_HealingStation.cpp
+         GameObject_FirePlace.cpp
+         GameObject_Bed.cpp
+         GameLoop.cpp
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gameloop.cpp(248): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gameloop.cpp(259): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gameloop.cpp(270): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gameloop.cpp(280): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gameloop.cpp(310): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gameloop.cpp(323): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gameloop.cpp(334): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gameloop.cpp(372): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gameloop.cpp(381): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gameloop.cpp(385): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gameloop.cpp(389): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gameloop.cpp(409): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+         SurvivalGameArea.cpp
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gamefields\gameareas\survivalgamearea.cpp(81): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
          BaseGameArea.cpp
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\basegamearea.cpp(79): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\basegamearea.cpp(88): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gamefields\gameareas\basegamearea.cpp(80): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\gamefields\gameareas\basegamearea.cpp(89): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+         Game.cpp
+     1>c:\users\lucas\github\village_prophecy\villageprophecy\villageprophecy\game.cpp(18): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+         GUIMaster.cpp
          Generating Code...
          Skipping... (no relevant changes detected)
-         Source.cpp
-         GameLoop.cpp
-         Game.cpp
+         HostileGameArea.cpp
+         FinalGameArea.cpp
+         IGameObject.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.exe" /INCREMENTAL /NOLOGO /LIBPATH:"D:\SFML-2.3.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-main-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.lib" /MACHINE:X86 Debug\BaseGameArea.obj
+         Debug\GameObject_HealingStation.obj
          Debug\CombatGUI.obj
          Debug\Enemy.obj
          Debug\EnemySkill_BloodyStrike.obj
@@ -57,9 +76,10 @@
          Debug\SurvivalGameArea.obj
          Debug\TextureLoader.obj
          Debug\VisualEnemy.obj
+     1>sfml-main-d.lib(MainWin32.cpp.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'sfml-main-d.lib(MainWin32.cpp.obj)' or at 'C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\vc120.pdb'; linking object as if no debug info
          VillageProphecy.vcxproj -> C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Debug\VillageProphecy.exe
      1>Done Building Project "C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\VillageProphecy\VillageProphecy.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:10.36
+Time Elapsed 00:00:29.08

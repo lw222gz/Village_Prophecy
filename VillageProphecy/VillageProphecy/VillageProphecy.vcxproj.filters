@@ -90,244 +90,250 @@
     <ClCompile Include="HandleInput.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIMaster.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Path.cpp">
-      <Filter>Source Files\Game Fields</Filter>
-    </ClCompile>
-    <ClCompile Include="Inventory.cpp">
-      <Filter>Source Files\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="GameItem.cpp">
-      <Filter>Source Files\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="VisualEnemy.cpp">
-      <Filter>Source Files\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="GameCombatLoop.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="CombatGUI.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="InGameMenuGUI.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMessage.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerStatsManager.cpp">
-      <Filter>Source Files\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerSkillManager.cpp">
-      <Filter>Source Files\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Skill_HeavyStrike.cpp">
-      <Filter>Source Files\Player\Skills</Filter>
-    </ClCompile>
-    <ClCompile Include="Skill_FireBall.cpp">
-      <Filter>Source Files\Player\Skills</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemySkill_DecayingStrike.cpp">
-      <Filter>Source Files\Enemy\EnemySkills</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemySkill_NormalAttack.cpp">
-      <Filter>Source Files\Enemy\EnemySkills</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemySkill_BloodyStrike.cpp">
-      <Filter>Source Files\Enemy\EnemySkills</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseGameArea.cpp">
-      <Filter>Source Files\Game Fields\GameAreas</Filter>
-    </ClCompile>
-    <ClCompile Include="FinalGameArea.cpp">
-      <Filter>Source Files\Game Fields\GameAreas</Filter>
-    </ClCompile>
-    <ClCompile Include="HostileGameArea.cpp">
-      <Filter>Source Files\Game Fields\GameAreas</Filter>
-    </ClCompile>
-    <ClCompile Include="SurvivalGameArea.cpp">
-      <Filter>Source Files\Game Fields\GameAreas</Filter>
-    </ClCompile>
-    <ClCompile Include="IGameArea.cpp">
+    <ClCompile Include="BaseClasses\IGameArea.cpp">
       <Filter>Source Files\Game Fields</Filter>
     </ClCompile>
-    <ClCompile Include="TextureLoader.cpp">
+    <ClCompile Include="GameFields\GameAreas\BaseGameArea.cpp">
+      <Filter>Source Files\Game Fields\GameAreas</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\CombatGUI.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>Source Files\GameObjects\ObjectMaterial</Filter>
+    <ClCompile Include="Enemy\Enemy.cpp">
+      <Filter>Source Files\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="MaterialList.cpp">
-      <Filter>Source Files\GameObjects\ObjectMaterial</Filter>
+    <ClCompile Include="Enemy\EnemySkills\EnemySkill_BloodyStrike.cpp">
+      <Filter>Source Files\Enemy\EnemySkills</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject_FirePlace.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+    <ClCompile Include="Enemy\EnemySkills\EnemySkill_DecayingStrike.cpp">
+      <Filter>Source Files\Enemy\EnemySkills</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject_Bed.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+    <ClCompile Include="Enemy\EnemySkills\EnemySkill_NormalAttack.cpp">
+      <Filter>Source Files\Enemy\EnemySkills</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject_Tree.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+    <ClCompile Include="GameFields\GameAreas\FinalGameArea.cpp">
+      <Filter>Source Files\Game Fields\GameAreas</Filter>
     </ClCompile>
-    <ClCompile Include="IGameObject.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+    <ClCompile Include="Player\GameItem.cpp">
+      <Filter>Source Files\Player</Filter>
     </ClCompile>
-    <ClCompile Include="IDrawAble.cpp">
+    <ClCompile Include="GUI\GameMessage.cpp">
       <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\GameObject_Bed.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\GameObject_FirePlace.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\GameObject_Tree.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\GUIMaster.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameFields\GameAreas\HostileGameArea.cpp">
+      <Filter>Source Files\Game Fields\GameAreas</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseClasses\IDrawAble.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseClasses\IGameObject.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\InGameMenuGUI.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\Inventory.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GameFields\Path.cpp">
+      <Filter>Source Files\Game Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\ObjectMaterials\Material.cpp">
+      <Filter>Source Files\GameObjects\ObjectMaterial</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\ObjectMaterials\MaterialList.cpp">
+      <Filter>Source Files\GameObjects\ObjectMaterial</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\Player.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\PlayerSkillManager.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\PlayerStatsManager.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\Skills\Skill_FireBall.cpp">
+      <Filter>Source Files\Player\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\Skills\Skill_HeavyStrike.cpp">
+      <Filter>Source Files\Player\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="GameFields\GameAreas\SurvivalGameArea.cpp">
+      <Filter>Source Files\Game Fields\GameAreas</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\TextureLoader.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\VisualEnemy.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\GameObject_HealingStation.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IDrawAble.h">
-      <Filter>Header Files\BaseClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="GameAreas.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Direction.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveDirection.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="GameLoop.h">
       <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIMaster.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Path.h">
-      <Filter>Header Files\GameFields</Filter>
     </ClInclude>
     <ClInclude Include="HandleInput.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Inventory.h">
-      <Filter>Header Files\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectType.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="TriggerType.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="GameItem.h">
-      <Filter>Header Files\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyType.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="VisualEnemy.h">
-      <Filter>Header Files\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="GameCombatLoop.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="CombatGUI.h">
+    <ClInclude Include="BaseClasses\IGameArea.h">
+      <Filter>Header Files\BaseClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="GameFields\GameAreas\BaseGameArea.h">
+      <Filter>Header Files\GameFields\GameAreas</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\CombatGUI.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="InGameMenuGUI.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="CombatOptions.h">
+    <ClInclude Include="Enums\CombatState.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="CombatState.h">
+    <ClInclude Include="Enums\CombatOptions.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="GameMessage.h">
-      <Filter>Header Files\GUI</Filter>
+    <ClInclude Include="Enums\Direction.h">
+      <Filter>Header Files\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerStatsManager.h">
+    <ClInclude Include="Enemy\Enemy.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseClasses\Interfaces\EnemySkill.h">
+      <Filter>Header Files\BaseClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\EnemySkills\EnemySkill_BloodyStrike.h">
+      <Filter>Header Files\Enemy\EnemySkills</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\EnemySkills\EnemySkill_DecayingStrike.h">
+      <Filter>Header Files\Enemy\EnemySkills</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\EnemySkills\EnemySkill_NormalAttack.h">
+      <Filter>Header Files\Enemy\EnemySkills</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\EnemyType.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="GameFields\GameAreas\FinalGameArea.h">
+      <Filter>Header Files\GameFields\GameAreas</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\GameAreas.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\GameItem.h">
       <Filter>Header Files\Player</Filter>
     </ClInclude>
-    <ClInclude Include="LevelEXPRequirement.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerSkillManager.h">
-      <Filter>Header Files\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Skill_HeavyStrike.h">
-      <Filter>Header Files\Player\Skills</Filter>
-    </ClInclude>
-    <ClInclude Include="SkillConsumeableStats.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Skill_FireBall.h">
-      <Filter>Header Files\Player\Skills</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemySkill_DecayingStrike.h">
-      <Filter>Header Files\Enemy\EnemySkills</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemySkill.h">
-      <Filter>Header Files\BaseClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemySkill_NormalAttack.h">
-      <Filter>Header Files\Enemy\EnemySkills</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemySkill_BloodyStrike.h">
-      <Filter>Header Files\Enemy\EnemySkills</Filter>
-    </ClInclude>
-    <ClInclude Include="IGameArea.h">
-      <Filter>Header Files\BaseClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="SurvivalGameArea.h">
-      <Filter>Header Files\GameFields\GameAreas</Filter>
-    </ClInclude>
-    <ClInclude Include="HostileGameArea.h">
-      <Filter>Header Files\GameFields\GameAreas</Filter>
-    </ClInclude>
-    <ClInclude Include="FinalGameArea.h">
-      <Filter>Header Files\GameFields\GameAreas</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseGameArea.h">
-      <Filter>Header Files\GameFields\GameAreas</Filter>
-    </ClInclude>
-    <ClInclude Include="IPlayerSkill.h">
-      <Filter>Header Files\BaseClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureLoader.h">
+    <ClInclude Include="GUI\GameMessage.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject_FirePlace.h">
+    <ClInclude Include="GameObjects\GameObject_Bed.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>Header Files\GameObjects\ObjectMaterial</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialList.h">
-      <Filter>Header Files\GameObjects\ObjectMaterial</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject_Bed.h">
+    <ClInclude Include="GameObjects\GameObject_FirePlace.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject_Tree.h">
+    <ClInclude Include="GameObjects\GameObject_Tree.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="IGameObject.h">
+    <ClInclude Include="Enums\GameState.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\GUIMaster.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameFields\GameAreas\HostileGameArea.h">
+      <Filter>Header Files\GameFields\GameAreas</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseClasses\IDrawAble.h">
       <Filter>Header Files\BaseClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseClasses\IGameObject.h">
+      <Filter>Header Files\BaseClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\InGameMenuGUI.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\Inventory.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseClasses\Interfaces\IPlayerSkill.h">
+      <Filter>Header Files\BaseClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\LevelEXPRequirement.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="GameFields\Path.h">
+      <Filter>Header Files\GameFields</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\ObjectMaterials\Material.h">
+      <Filter>Header Files\GameObjects\ObjectMaterial</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\ObjectMaterials\MaterialList.h">
+      <Filter>Header Files\GameObjects\ObjectMaterial</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\MoveDirection.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\ObjectType.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\Player.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\PlayerSkillManager.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\PlayerStatsManager.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\Skills\Skill_FireBall.h">
+      <Filter>Header Files\Player\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\Skills\Skill_HeavyStrike.h">
+      <Filter>Header Files\Player\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\SkillConsumeableStats.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="GameFields\GameAreas\SurvivalGameArea.h">
+      <Filter>Header Files\GameFields\GameAreas</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\TextureLoader.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\TriggerType.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\VisualEnemy.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\GameObject_HealingStation.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

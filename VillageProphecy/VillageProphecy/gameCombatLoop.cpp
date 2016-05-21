@@ -1,5 +1,5 @@
 #include "GameCombatLoop.h"
-#include "EnemySkill.h"
+//#include "BaseClasses/Interfaces/EnemySkill.h"
 
 /*
 * <DESCRIPTION>
