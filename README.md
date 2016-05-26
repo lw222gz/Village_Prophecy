@@ -3,6 +3,8 @@ Game in C++ using the SFML framework.
 
 #Game Tutorial
 
+The following will give you an understanding of the game, there is still more elements to explore and learn.
+
 ##Game Controls:
 
 To close the game at ANY point press ESC.
@@ -72,3 +74,19 @@ The following displays the players inventory. Any collected game items will be d
 <img src="http://i.imgur.com/woDCU73.png"></img>
 
 At the moment of the writing of this tutorial there is only 1 game object the player can collect and put in his inventory. That object is a log and is harvested from trees. The image also shows one of these trees.
+
+
+###Combat
+This is an example picture of a combat state.
+
+<img src="http://i.imgur.com/PdHvSw5.png"></img>
+
+During combat you as the player have 4 main choices, at the writing of this tutorial only 2 are implemented (Attack and Skill).
+As the controls mentioned you will allways confirm your current combat choice (the one the arrow is pointing on) by pressing enter and you can control this arrow with 'w','a','s' and 'd'. 
+After you execute a combat move it will go over to the enemy turn. 
+
+*IMPORTANT:* as there is no presentation of when you learn a skill at the writing of this tutorial it goes as follow:
+
+Level 1 rewards you with the skill Fireball.
+
+Level 3 rewards you with the skill Heavy Strike.
