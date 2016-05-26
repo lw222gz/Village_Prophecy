@@ -455,6 +455,9 @@ void GameCombatLoop::ExecuteEnemySkillEffect(SkillEffect skillEffect){
 			player->StatsManager()->playerHitPointsAffected(-skillEffect.amountConsumed);
 			gui->AddStatusText("Player " + skillEffect.damageDescription + " for " + to_string(skillEffect.amountConsumed) + " Damage.");
 			gui->AddPlayerCombatText(to_string(skillEffect.amountConsumed), player);
+			if (player->StatsManager()->getPlayerHP() <= 0){
+				currentCombatState = Player_Lost;
+			}
 			break;
 
 		case Stamina:

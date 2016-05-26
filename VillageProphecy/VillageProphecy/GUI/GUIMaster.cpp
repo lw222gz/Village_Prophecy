@@ -29,7 +29,7 @@ GUIMaster::GUIMaster(TextureLoader *_textures)
 
 
 	confirmationBox.setFillColor(Color::Magenta);
-	confirmationBox.setSize(Vector2f(400, 100));
+	confirmationBox.setSize(Vector2f(500, 100));
 
 }
 

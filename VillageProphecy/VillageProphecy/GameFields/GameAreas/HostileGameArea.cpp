@@ -132,32 +132,32 @@ void HostileGameArea::removeAreaEnemy(VisualEnemy *enemy){
 void HostileGameArea::RespawnEnemies(int daysLeft){
 	switch (daysLeft)
 	{
-		case 46:
-			enemyMinLevels = 2;
+		case 47:
+			enemyMinLevels = 3;
 			enemyMaxLevels = 4;		
 			break;
 
-		case 40:
-			enemyMinLevels = 3;
+		case 43:
+			enemyMinLevels = 4;
 			enemyMaxLevels = 6;
 			break;
 
-		case 30:
+		case 35:
 			enemyMinLevels = 6;
 			enemyMaxLevels = 10;
 			break;
 
-		case 23:
+		case 27:
 			enemyMinLevels = 8;
 			enemyMaxLevels = 14;
 			break;
 
-		case 15:
+		case 19:
 			enemyMinLevels = 16;
 			enemyMaxLevels = 25;
 			break;
 
-		case 7:
+		case 12:
 			enemyMinLevels = 28;
 			enemyMaxLevels = 40;
 			break;

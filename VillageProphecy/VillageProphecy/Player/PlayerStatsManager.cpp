@@ -269,6 +269,7 @@ void PlayerStatsManager::PlayerLevelUp(){
 
 			MAX_HIT_POINTS += 10;
 			playerHitpoints += 10;
+			playerAttackDamage += 3;
 			break;
 
 		case LEVEL_1:
@@ -277,7 +278,7 @@ void PlayerStatsManager::PlayerLevelUp(){
 
 			MAX_HIT_POINTS += 25;
 			playerHitpoints += 25;
-			playerAttackDamage += 5;
+			//playerAttackDamage += 5;
 			break;
 
 		case LEVEL_2:
@@ -286,7 +287,7 @@ void PlayerStatsManager::PlayerLevelUp(){
 
 			MAX_HIT_POINTS += 25;
 			playerHitpoints += 25;
-			playerAttackDamage += 5;			
+			playerAttackDamage += 3;			
 			break;
 
 		case LEVEL_3:
@@ -303,7 +304,7 @@ void PlayerStatsManager::PlayerLevelUp(){
 
 			MAX_HIT_POINTS += 35;
 			playerHitpoints += 35;
-			playerAttackDamage += 10;
+			playerAttackDamage += 5;
 			break;
 
 		case LEVEL_5:
@@ -326,7 +327,9 @@ void PlayerStatsManager::PlayerLevelUp(){
 			currentLevel = LEVEL_8;
 			ExperiencePointsToLevel = LEVEL_9;
 
-			playerAttackDamage += 10;
+			MAX_HIT_POINTS += 35;
+			playerHitpoints += 35;
+			playerAttackDamage += 6;
 			break;
 
 		case LEVEL_8:
@@ -349,7 +352,9 @@ void PlayerStatsManager::PlayerLevelUp(){
 			currentLevel = LEVEL_11;
 			ExperiencePointsToLevel = LEVEL_12;
 
-			playerAttackDamage += 10;
+			MAX_HIT_POINTS += 35;
+			playerHitpoints += 35;
+			playerAttackDamage += 7;
 			break;
 
 		case LEVEL_11:

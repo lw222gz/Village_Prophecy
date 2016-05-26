@@ -53,7 +53,7 @@ SkillConsumeableStats Skill_HeavyStrike::getStatConsumeType(){
 * returns integer representing the consumptions amount for the use of this skill.
 */
 int Skill_HeavyStrike::getConsumeAmount(){
-	return playerStats->getMaxPlayerHP() * .07;
+	return playerStats->getMaxPlayerHP() * .06;
 }
 
 /*

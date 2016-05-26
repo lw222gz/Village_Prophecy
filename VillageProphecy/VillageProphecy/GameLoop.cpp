@@ -134,7 +134,7 @@ void GameLoop::RunGame(RenderWindow *window){
 		else {
 			gui->DrawGame(currentGameArea->getAreaVisualObjects(), currentGameArea->getAreaEnemies(),window, view, player, triggerdObject, &timeElapsed, amountOfDaysLeft);
 			gameMenuGUI->DrawGameMenu(window, player);
-			gui->DrawConfirmationBox(window, view, "Are you ready for the final area?");
+			gui->DrawConfirmationBox(window, view, "Are you ready for the final area? Recommended level: 10+");
 			return;
 		}
 	}
