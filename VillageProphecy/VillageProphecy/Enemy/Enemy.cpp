@@ -124,7 +124,7 @@ void Enemy::setEnemyStats(){
 		//SET TEXTURES
 		case Skeleton_MELEE:			
 			hitPoints = 20;
-			XPGrant = 30;
+			XPGrant = 45;
 			attackDamage = 4;	
 			break;
 

@@ -137,24 +137,24 @@ void HostileGameArea::RespawnEnemies(int daysLeft){
 			enemyMaxLevels = 4;		
 			break;
 
-		case 43:
+		case 44:
 			enemyMinLevels = 4;
 			enemyMaxLevels = 6;
 			break;
 
-		case 35:
+		case 39:
 			enemyMinLevels = 6;
 			enemyMaxLevels = 10;
 			break;
 
-		case 27:
-			enemyMinLevels = 8;
-			enemyMaxLevels = 14;
+		case 34:
+			enemyMinLevels = 10;
+			enemyMaxLevels = 16;
 			break;
 
-		case 19:
+		case 25:
 			enemyMinLevels = 16;
-			enemyMaxLevels = 25;
+			enemyMaxLevels = 28;
 			break;
 
 		case 12:

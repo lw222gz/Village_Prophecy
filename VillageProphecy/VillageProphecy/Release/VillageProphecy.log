@@ -1,23 +1,123 @@
-﻿Build started 2016-04-13 14:08:33.
+﻿Build started 2016-05-27 02:10:19.
      1>Project "C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\VillageProphecy\VillageProphecy.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\SFML-2.3.2\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GameArea.cpp
-         GameArea.cpp
-     1>GameArea.cpp(52): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>GameArea.cpp(59): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>GameArea.cpp(72): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>GameArea.cpp(94): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\SFML-2.3.2\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GameFields\GameAreas\BaseGameArea.cpp GameObjects\GameObject_HealingStation.cpp GUI\CombatGUI.cpp Enemy\Enemy.cpp Enemy\EnemySkills\EnemySkill_BloodyStrike.cpp Enemy\EnemySkills\EnemySkill_DecayingStrike.cpp Enemy\EnemySkills\EnemySkill_NormalAttack.cpp GameFields\GameAreas\FinalGameArea.cpp Game.cpp GameCombatLoop.cpp Player\GameItem.cpp GameLoop.cpp GameObjects\GameObject_Bed.cpp GameObjects\GameObject_FirePlace.cpp GameObjects\GameObject_Tree.cpp GUI\GUIMaster.cpp HandleInput.cpp GameFields\GameAreas\HostileGameArea.cpp BaseClasses\IDrawAble.cpp BaseClasses\IGameArea.cpp BaseClasses\IGameObject.cpp GUI\InGameMenuGUI.cpp Player\Inventory.cpp GameObjects\ObjectMaterials\Material.cpp GameObjects\ObjectMaterials\MaterialList.cpp GUI\GameMessage.cpp GameFields\Path.cpp Player\Player.cpp Player\PlayerSkillManager.cpp Player\PlayerStatsManager.cpp Player\Skills\Skill_FireBall.cpp Player\Skills\Skill_HeavyStrike.cpp Source.cpp GameFields\GameAreas\SurvivalGameArea.cpp GUI\TextureLoader.cpp Enemy\VisualEnemy.cpp
+         BaseGameArea.cpp
+     1>GameFields\GameAreas\BaseGameArea.cpp(80): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>GameFields\GameAreas\BaseGameArea.cpp(89): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+         GameObject_HealingStation.cpp
+         CombatGUI.cpp
+     1>GUI\CombatGUI.cpp(56): warning C4018: '<' : signed/unsigned mismatch
+     1>GUI\CombatGUI.cpp(66): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>GUI\CombatGUI.cpp(123): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>GUI\CombatGUI.cpp(219): warning C4018: '<' : signed/unsigned mismatch
+     1>GUI\CombatGUI.cpp(272): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+         Enemy.cpp
+     1>Enemy\Enemy.cpp(45): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Enemy\Enemy.cpp(158): warning C4244: '+=' : conversion from 'const double' to 'int', possible loss of data
+     1>Enemy\Enemy.cpp(159): warning C4244: '+=' : conversion from 'const double' to 'int', possible loss of data
+     1>Enemy\Enemy.cpp(160): warning C4244: '+=' : conversion from 'const double' to 'int', possible loss of data
+         EnemySkill_BloodyStrike.cpp
+         EnemySkill_DecayingStrike.cpp
+     1>Enemy\EnemySkills\EnemySkill_DecayingStrike.cpp(24): warning C4244: 'return' : conversion from 'double' to 'int', possible loss of data
+         EnemySkill_NormalAttack.cpp
+         FinalGameArea.cpp
+         Game.cpp
+     1>Game.cpp(18): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+         GameCombatLoop.cpp
+     1>GameCombatLoop.cpp(161): warning C4018: '>=' : signed/unsigned mismatch
+     1>GameCombatLoop.cpp(251): warning C4018: '<' : signed/unsigned mismatch
+     1>GameCombatLoop.cpp(354): warning C4018: '<' : signed/unsigned mismatch
+     1>GameCombatLoop.cpp(399): warning C4018: '<' : signed/unsigned mismatch
+     1>GameCombatLoop.cpp(416): warning C4018: '<' : signed/unsigned mismatch
+         GameItem.cpp
+         GameLoop.cpp
+     1>GameLoop.cpp(248): warning C4018: '<' : signed/unsigned mismatch
+     1>GameLoop.cpp(259): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>GameLoop.cpp(270): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>GameLoop.cpp(280): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>GameLoop.cpp(310): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>GameLoop.cpp(323): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>GameLoop.cpp(334): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>GameLoop.cpp(372): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>GameLoop.cpp(381): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>GameLoop.cpp(385): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>GameLoop.cpp(389): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>GameLoop.cpp(409): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+         GameObject_Bed.cpp
+         GameObject_FirePlace.cpp
+         GameObject_Tree.cpp
+         GUIMaster.cpp
+         HandleInput.cpp
+         HostileGameArea.cpp
+     1>GameFields\GameAreas\HostileGameArea.cpp(80): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>GameFields\GameAreas\HostileGameArea.cpp(88): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>GameFields\GameAreas\HostileGameArea.cpp(181): warning C4018: '>=' : signed/unsigned mismatch
+         IDrawAble.cpp
+         IGameArea.cpp
+     1>BaseClasses\IGameArea.cpp(25): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+     1>BaseClasses\IGameArea.cpp(30): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+         Compiling...
+         IGameObject.cpp
+         InGameMenuGUI.cpp
+         Inventory.cpp
+         Material.cpp
+         MaterialList.cpp
+         GameMessage.cpp
+         Path.cpp
+         Player.cpp
+     1>Player\Player.cpp(104): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>Player\Player.cpp(107): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+         PlayerSkillManager.cpp
+         PlayerStatsManager.cpp
+     1>Player\PlayerStatsManager.cpp(42): warning C4244: 'return' : conversion from 'double' to 'int', possible loss of data
+         Skill_FireBall.cpp
+     1>Player\Skills\Skill_FireBall.cpp(57): warning C4244: 'return' : conversion from 'double' to 'int', possible loss of data
+         Skill_HeavyStrike.cpp
+     1>Player\Skills\Skill_HeavyStrike.cpp(56): warning C4244: 'return' : conversion from 'double' to 'int', possible loss of data
+         Source.cpp
+     1>Source.cpp(16): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+         SurvivalGameArea.cpp
+     1>GameFields\GameAreas\SurvivalGameArea.cpp(81): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+         TextureLoader.cpp
+         VisualEnemy.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Release\VillageProphecy.exe" /NOLOGO /LIBPATH:"D:\SFML-2.3.2\lib" "sfml-graphics.lib" "sfml-window.lib" "sfml-system.lib" "sfml-main.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Release\VillageProphecy.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Release\VillageProphecy.lib" /MACHINE:X86 /SAFESEH Release\GameArea.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Release\VillageProphecy.exe" /NOLOGO /LIBPATH:"D:\SFML-2.3.2\lib" "sfml-graphics.lib" "sfml-window.lib" "sfml-system.lib" "sfml-main.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Release\VillageProphecy.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Release\VillageProphecy.lib" /MACHINE:X86 /SAFESEH Release\BaseGameArea.obj
+         Release\GameObject_HealingStation.obj
+         Release\CombatGUI.obj
+         Release\Enemy.obj
+         Release\EnemySkill_BloodyStrike.obj
+         Release\EnemySkill_DecayingStrike.obj
+         Release\EnemySkill_NormalAttack.obj
+         Release\FinalGameArea.obj
+         Release\Game.obj
+         Release\GameCombatLoop.obj
          Release\GameItem.obj
          Release\GameLoop.obj
-         Release\GameObject.obj
+         Release\GameObject_Bed.obj
+         Release\GameObject_FirePlace.obj
+         Release\GameObject_Tree.obj
          Release\GUIMaster.obj
          Release\HandleInput.obj
+         Release\HostileGameArea.obj
+         Release\IDrawAble.obj
+         Release\IGameArea.obj
+         Release\IGameObject.obj
+         Release\InGameMenuGUI.obj
          Release\Inventory.obj
+         Release\Material.obj
+         Release\MaterialList.obj
+         Release\GameMessage.obj
          Release\Path.obj
          Release\Player.obj
+         Release\PlayerSkillManager.obj
+         Release\PlayerStatsManager.obj
+         Release\Skill_FireBall.obj
+         Release\Skill_HeavyStrike.obj
          Release\Source.obj
+         Release\SurvivalGameArea.obj
+         Release\TextureLoader.obj
+         Release\VisualEnemy.obj
          Generating code
          Finished generating code
          VillageProphecy.vcxproj -> C:\Users\Lucas\Github\Village_Prophecy\VillageProphecy\Release\VillageProphecy.exe
@@ -25,4 +125,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.54
+Time Elapsed 00:00:42.15

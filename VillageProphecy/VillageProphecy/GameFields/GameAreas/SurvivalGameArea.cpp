@@ -151,7 +151,7 @@ void SurvivalGameArea::RespawnResources(int amountOfDaysLeft){
 */
 void SurvivalGameArea::PlantSeeds(int amountOfDaysLeft){
 	seed.dayOfSprout = amountOfDaysLeft - 3;
-	seed.amountOfTrees = rand() % (maxAmountOfTrees - areaObjects.size()) + 1;
+	seed.amountOfTrees = rand() % (maxAmountOfTrees - 5 + 1) + 5;
 }
 
 /*
